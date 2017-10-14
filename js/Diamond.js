@@ -1,17 +1,15 @@
 //initialize state
-var Diamond = function(context, canvas) {
+var Diamond = function(context, canvas, image) {
     this.context = context;
+    this.image = image;
+    
     this.x = canvas.width / 2
     this.y = canvas.height / 2;
 }
 
 //draw state every frame
 Diamond.prototype.draw = function() {
-    this.context.beginPath();
-    this.context.rect(this.x, this.y, 20, 20);
-    this.context.fillStyle = "#0000FF";
-    this.context.fill();
-    this.context.closePath();
+    this.context.drawImage(this.image, this.x, this.y);
 }
 
 //update state every frame

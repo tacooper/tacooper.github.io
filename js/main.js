@@ -1,17 +1,16 @@
 // image URLs to load initially
 const IMAGE_URLS = {
-    diamond: "img/Diamond.png"
+    Diamond: "img/Diamond.png"
 };
 
-var generateInterval;
+// initialize image load-related parameters
+var readyToStart = false;
+var loadCheckInterval;
 var canvas;
 var context;
-var sprites = [];
+var imageMap;
 
 var main = function() {
-    // reset any existing intervals (in case of resize)
-    clearInterval(generateInterval);
-    
     // configure canvas size
     canvas = document.getElementById("mainCanvas");
     context = canvas.getContext("2d");
@@ -19,17 +18,15 @@ var main = function() {
     canvas.height = document.documentElement.clientHeight;
     
     // load images into map
-    var imageMap = loadImages(IMAGE_URLS);
+    imageMap = loadImages(IMAGE_URLS);
     
-    // generate sprites periodically (every 1 sec)
-    generateInterval = setInterval(function() {
-        // check if all images are loaded
+    // check if all images are loaded periodically (every 100 msec)
+    loadCheckInterval = setInterval(function() {
         if (Object.keys(imageMap).length == Object.keys(IMAGE_URLS).length) {
-            // create sprites from images
-            var diamond = new Diamond(context, canvas, imageMap["diamond"]);
-            sprites.push(diamond);
+            clearInterval(loadCheckInterval);
+            readyToStart = true;
         }
-    }, 1000);
+    }, 100);
     
     // start loop for updating/drawing each frame
     loop();
@@ -44,28 +41,60 @@ var loadImages = function(urls) {
         img.onload = function() {
             // store each image in map after loading
             imageMap[id] = img;
-            console.log("images loaded: " + Object.keys(imageMap).length); //TODO
         };
         img.src = url;
     });
     return imageMap;
 }
 
+// initialize frame loop-related parameters
+const MIN_FRAME = 10; //msec
+const MAX_FRAME = 50; //msec
+const DIAMOND_RATE = 1000; //msec
+var frameTime = Date.now(); //msec
+var gameTime = 0; //msec elapsed
+var diamondTime = 0; //msec elapsed
+var sprites = [];
+
+// run loop for each frame
 var loop = function() {
-    // handle existing sprites each frame
-    if (sprites.length > 0) {
-        // clear canvas each frame
-        context.clearRect(0, 0, canvas.width, canvas.height);
+    // determine delta time and update previous frame time
+    var currTime = Date.now();
+    var deltaTime = currTime - frameTime;
+    var skipFrame = (deltaTime <= MIN_FRAME ||
+        deltaTime >= MAX_FRAME);
+    frameTime = currTime;
+    
+    if (readyToStart &&
+        !skipFrame) {
+        // update elapsed game time
+        gameTime += deltaTime;
         
-        // update state of sprites each frame
-        sprites.forEach(function(sprite) {
-            sprite.update();
-        });
+        // determine if time to create diamond
+        var deltaDiamond = (gameTime - diamondTime);
+        if (deltaDiamond >= DIAMOND_RATE) {
+            diamondTime = gameTime;
+            
+            // create sprite from image map
+            var diamond = new Diamond(context, canvas, imageMap);
+            sprites.push(diamond);
+        }
         
-        // draw sprites each frame
-        sprites.forEach(function(sprite) {
-            sprite.draw();
-        });
+        // handle all existing sprites
+        if (sprites.length > 0) {
+            // clear canvas
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // update state of all sprites
+            sprites.forEach(function(sprite) {
+                sprite.update();
+            });
+            
+            // draw all sprites
+            sprites.forEach(function(sprite) {
+                sprite.draw();
+            });
+        }
     }
     
     // continue loop on next frame

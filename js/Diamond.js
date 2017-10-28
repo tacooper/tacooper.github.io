@@ -1,6 +1,6 @@
 //constructor inheriting Sprite
-var Diamond = function(context, canvas, image) {
-    Sprite.call(this, context, image);
+var Diamond = function(context, canvas, imageMap) {
+    Sprite.call(this, context, imageMap["Diamond"]);
     
     this.x = (canvas.width / 2) - (this.image.width / 2);
     this.y = (-this.image.height);

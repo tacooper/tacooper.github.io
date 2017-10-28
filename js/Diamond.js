@@ -1,11 +1,12 @@
-//initialize state
+//constructor inheriting Sprite
 var Diamond = function(context, canvas, image) {
-    this.context = context;
-    this.image = image;
+    Sprite.call(this, context, image);
     
     this.x = (canvas.width / 2) - (this.image.width / 2);
     this.y = (-this.image.height);
 }
+Diamond.prototype = Object.create(Sprite.prototype);
+Diamond.prototype.constructor = Diamond;
 
 //draw state every frame
 Diamond.prototype.draw = function() {

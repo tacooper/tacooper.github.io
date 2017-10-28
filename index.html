@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Headgames</title>
-    <style>
-        * { padding: 0; margin: 0; }
-        canvas { background: #eee; display: block; margin: 0 auto; }
-    </style>
-</head>
-<body>
-
-<canvas id="myCanvas" width="480" height="320"></canvas>
-
-<script src="js/Diamond.js"></script>
-<script src="js/Main.js"></script>
-
-</body>
+    <head>
+        <title>Headgames</title>
+        <link rel="shortcut icon" href="img/Diamond.png">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            canvas {
+                background: #c8c8c8;
+                position: absolute;
+            }
+        </style>
+        <script src="js/Diamond.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+    <body onload="main()" onresize="main()">
+        <canvas id="mainCanvas">
+            This browser does not suppport HTML canvas!
+        </canvas>
+    </body>
 </html>

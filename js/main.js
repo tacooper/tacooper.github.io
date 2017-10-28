@@ -16,7 +16,7 @@ var main = function() {
     canvas = document.getElementById("mainCanvas");
     context = canvas.getContext("2d");
     canvas.width = document.documentElement.clientWidth;
-	canvas.height = document.documentElement.clientHeight;
+    canvas.height = document.documentElement.clientHeight;
     
     // load images into map
     var imageMap = loadImages(IMAGE_URLS);

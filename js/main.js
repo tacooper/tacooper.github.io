@@ -32,6 +32,12 @@ var main = function() {
     loop();
 }
 
+var resize = function() {
+    // reconfigure canvas size
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+}
+
 // load each image from URL into map
 var loadImages = function(urls) {
     var imageMap = {};

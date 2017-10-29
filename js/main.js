@@ -93,7 +93,7 @@ var loop = function() {
             
             // update state of all sprites
             sprites.forEach(function(sprite) {
-                sprite.update();
+                sprite.update(canvas, sprites);
             });
             
             // draw all sprites

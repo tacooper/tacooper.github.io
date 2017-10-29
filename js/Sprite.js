@@ -13,6 +13,6 @@ Sprite.prototype.draw = function() {
 }
 
 // update state every frame
-Sprite.prototype.update = function() {
+Sprite.prototype.update = function(canvas, sprites) {
     console.error("Sprite.update is unimplemented abstract method");
 }

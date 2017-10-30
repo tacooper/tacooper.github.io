@@ -25,7 +25,7 @@ var main = function() {
         mouseX = e.clientX;
     }, false);
     canvas.addEventListener("touchmove", function (e) {
-        mouseX = e.clientX;
+        mouseX = e.touches[0].clientX;
     }, false);
     
     // load images into map

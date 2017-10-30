@@ -1,7 +1,8 @@
-// image URLs to load initially
-const IMAGE_URLS = {
-    Diamond: "img/Diamond.png"
-};
+// image names to load initially via URL
+const IMAGE_NAMES = [
+    "Diamond",
+    "Dirt"
+];
 
 // initialize image load-related parameters
 var readyToStart = false;
@@ -18,11 +19,11 @@ var main = function() {
     canvas.height = document.documentElement.clientHeight;
     
     // load images into map
-    imageMap = loadImages(IMAGE_URLS);
+    imageMap = loadImages(IMAGE_NAMES);
     
     // check if all images are loaded periodically (every 100 msec)
     loadCheckInterval = setInterval(function() {
-        if (Object.keys(imageMap).length == Object.keys(IMAGE_URLS).length) {
+        if (Object.keys(imageMap).length == Object.keys(IMAGE_NAMES).length) {
             clearInterval(loadCheckInterval);
             readyToStart = true;
         }
@@ -39,15 +40,15 @@ var resize = function() {
 }
 
 // load each image from URL into map
-var loadImages = function(urls) {
+var loadImages = function(names) {
     var imageMap = {};
-    Object.keys(urls).forEach(function(id) {
+    names.forEach(function(name) {
         var img = new Image();
         img.onload = function() {
             // store each image in map after loading
-            imageMap[id] = img;
+            imageMap[name] = img;
         };
-        img.src = IMAGE_URLS[id];
+        img.src = "img/" + name + ".png";
     });
     return imageMap;
 }

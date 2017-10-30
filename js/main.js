@@ -43,10 +43,8 @@ var main = function() {
     loop();
 }
 
-var resize = function() {
-    // reconfigure canvas size
-    canvas.width = document.documentElement.clientWidth;
-    canvas.height = document.documentElement.clientHeight;
+var restart = function() {
+    window.location.reload(true);
 }
 
 // load each image from URL into map

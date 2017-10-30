@@ -42,13 +42,12 @@ var resize = function() {
 var loadImages = function(urls) {
     var imageMap = {};
     Object.keys(urls).forEach(function(id) {
-        var url = IMAGE_URLS[id];
         var img = new Image();
         img.onload = function() {
             // store each image in map after loading
             imageMap[id] = img;
         };
-        img.src = url;
+        img.src = IMAGE_URLS[id];
     });
     return imageMap;
 }
@@ -65,9 +64,9 @@ var sprites = [];
 // run loop for each frame
 var loop = function() {
     // determine delta time and update previous frame time
-    var currTime = Date.now();
-    var deltaTime = currTime - frameTime;
-    var skipFrame = (deltaTime <= MIN_FRAME ||
+    const currTime = Date.now();
+    const deltaTime = currTime - frameTime;
+    const skipFrame = (deltaTime <= MIN_FRAME ||
         deltaTime >= MAX_FRAME);
     frameTime = currTime;
     
@@ -77,7 +76,7 @@ var loop = function() {
         gameTime += deltaTime;
         
         // determine if time to create diamond
-        var deltaDiamond = (gameTime - diamondTime);
+        const deltaDiamond = (gameTime - diamondTime);
         if (deltaDiamond >= DIAMOND_RATE) {
             diamondTime = gameTime;
             

@@ -14,14 +14,14 @@ Diamond.prototype.constructor = Diamond;
 
 // draw state every frame
 Diamond.prototype.draw = function(context) {
-    var halfImageWidth = this.image.width / 2;
-    var halfImageHeight = this.image.height / 2;
+    const HALF_IMAGE_WIDTH = this.image.width / 2;
+    const HALF_IMAGE_HEIGHT = this.image.height / 2;
     
     context.save();
-    context.translate(this.x + halfImageWidth, this.y + halfImageHeight);
+    context.translate(this.x + HALF_IMAGE_WIDTH, this.y + HALF_IMAGE_HEIGHT);
     context.rotate(this.angle);
-    context.drawImage(this.image, -halfImageWidth, -halfImageHeight);
-    context.translate(-halfImageWidth, -halfImageHeight);
+    context.drawImage(this.image, -HALF_IMAGE_WIDTH, -HALF_IMAGE_HEIGHT);
+    context.translate(-HALF_IMAGE_WIDTH, -HALF_IMAGE_HEIGHT);
     context.restore();
 }
 
@@ -32,7 +32,7 @@ Diamond.prototype.update = function(canvas, sprites) {
     
     // remove this sprite if position passes bottom of canvas
     if (this.y > canvas.height) {
-        var index = sprites.indexOf(this);
+        const index = sprites.indexOf(this);
         sprites.splice(index, 1);
     }
 }

@@ -20,8 +20,11 @@ var main = function() {
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
     
-    // track mouse position for moving collector
+    // track mouse/touch position for moving collector
     canvas.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+    }, false);
+    canvas.addEventListener("touchmove", function (e) {
         mouseX = e.clientX;
     }, false);
     

@@ -21,11 +21,13 @@ Collector.prototype.update = function(canvas, mouseX) {
     const MAX_X = canvas.width - HALF_IMAGE_WIDTH;
     
     // determine position based on bounded mouse
-    var x = mouseX - HALF_IMAGE_WIDTH;
-    if (mouseX < MIN_X) {
-        x = 0;
-    } else if (mouseX > MAX_X) {
-        x = canvas.width - this.image.width;
+    if (mouseX) {
+        var x = mouseX - HALF_IMAGE_WIDTH;
+        if (mouseX < MIN_X) {
+            x = 0;
+        } else if (mouseX > MAX_X) {
+            x = canvas.width - this.image.width;
+        }
+        this.x = x;
     }
-    this.x = x;
 }

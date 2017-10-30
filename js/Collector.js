@@ -15,17 +15,17 @@ Collector.prototype.draw = function(context) {
 }
 
 // update state every frame
-Collector.prototype.update = function(canvas, mouseX) {
+Collector.prototype.update = function(canvas, userPositionX) {
     const HALF_IMAGE_WIDTH = this.image.width / 2;
     const MIN_X = HALF_IMAGE_WIDTH;
     const MAX_X = canvas.width - HALF_IMAGE_WIDTH;
     
-    // determine position based on bounded mouse
-    if (mouseX) {
-        var x = mouseX - HALF_IMAGE_WIDTH;
-        if (mouseX < MIN_X) {
+    // determine position based on bounded mouse/touch
+    if (userPositionX) {
+        var x = userPositionX - HALF_IMAGE_WIDTH;
+        if (userPositionX < MIN_X) {
             x = 0;
-        } else if (mouseX > MAX_X) {
+        } else if (userPositionX > MAX_X) {
             x = canvas.width - this.image.width;
         }
         this.x = x;

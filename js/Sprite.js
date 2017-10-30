@@ -1,6 +1,5 @@
 // constructor for abstract class
-var Sprite = function(context, image) {
-    this.context = context;
+var Sprite = function(image) {
     this.image = image;
     if (this.constructor === Sprite) {
         console.error("Sprite is instantiated as abstract class");
@@ -8,7 +7,7 @@ var Sprite = function(context, image) {
 }
 
 // draw state every frame
-Sprite.prototype.draw = function() {
+Sprite.prototype.draw = function(context) {
     console.error("Sprite.draw is unimplemented abstract method");
 }
 

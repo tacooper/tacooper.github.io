@@ -82,7 +82,7 @@ var loop = function() {
             diamondTime = gameTime;
             
             // create sprite from image map
-            var diamond = new Diamond(context, canvas, imageMap);
+            var diamond = new Diamond(canvas, imageMap);
             sprites.push(diamond);
         }
         
@@ -98,7 +98,7 @@ var loop = function() {
             
             // draw all sprites
             sprites.forEach(function(sprite) {
-                sprite.draw();
+                sprite.draw(context);
             });
         }
     }

@@ -7,11 +7,11 @@ var Sprite = function(image) {
 }
 
 // draw state every frame
-Sprite.prototype.draw = function(context) {
+Sprite.prototype.draw = function() {
     console.error("Sprite.draw is unimplemented abstract method");
 }
 
 // update state every frame
-Sprite.prototype.update = function(canvas, sprites) {
+Sprite.prototype.update = function() {
     console.error("Sprite.update is unimplemented abstract method");
 }

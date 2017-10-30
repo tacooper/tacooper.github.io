@@ -11,6 +11,7 @@ var loadCheckInterval;
 var canvas;
 var context;
 var imageMap;
+var mouseX;
 
 var main = function() {
     // configure canvas size
@@ -18,6 +19,11 @@ var main = function() {
     context = canvas.getContext("2d");
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
+    
+    // track mouse position for moving collector
+    canvas.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+    }, false);
     
     // load images into map
     imageMap = loadImages(IMAGE_NAMES);
@@ -122,7 +128,7 @@ var loop = function() {
         }
         
         // handle existing collector sprite separately
-        collector.update(canvas, sprites);
+        collector.update(canvas, mouseX);
         collector.draw(context);
     }
     

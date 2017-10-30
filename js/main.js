@@ -57,9 +57,11 @@ var loadImages = function(names) {
 const MIN_FRAME = 10; //msec
 const MAX_FRAME = 50; //msec
 const DIAMOND_RATE = 1000; //msec
+const DIRT_RATE = 200; //msec
 var frameTime = Date.now(); //msec
 var gameTime = 0; //msec elapsed
 var diamondTime = 0; //msec elapsed
+var dirtTime = 0; //msec elapsed
 var sprites = [];
 
 // run loop for each frame
@@ -75,6 +77,16 @@ var loop = function() {
         !skipFrame) {
         // update elapsed game time
         gameTime += deltaTime;
+        
+        // determine if time to create dirt
+        const deltaDirt = (gameTime - dirtTime);
+        if (deltaDirt >= DIRT_RATE) {
+            dirtTime = gameTime;
+            
+            // create sprite from image map
+            var dirt = new Dirt(canvas, imageMap);
+            sprites.push(dirt);
+        }
         
         // determine if time to create diamond
         const deltaDiamond = (gameTime - diamondTime);

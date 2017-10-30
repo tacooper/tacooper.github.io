@@ -1,19 +1,17 @@
 // constructor inheriting Sprite class
-var Diamond = function(canvas, imageMap) {
-    Sprite.call(this, imageMap["Diamond"]);
+var Dirt = function(canvas, imageMap) {
+    Sprite.call(this, imageMap["Dirt"]);
     
     // randomize initial state at top of canvas
     this.x = Math.round(Math.random() * (canvas.width - this.image.width));
     this.y = -this.image.height;
     this.angle = Math.random() * (2 * Math.PI); //rad
-    this.ROTATION_RATE = (2 * Math.round(Math.random()) - 1) *
-        (0.05 * Math.random() + 0.03); //rad per frame
 }
-Diamond.prototype = Object.create(Sprite.prototype);
-Diamond.prototype.constructor = Diamond;
+Dirt.prototype = Object.create(Sprite.prototype);
+Dirt.prototype.constructor = Dirt;
 
 // draw state every frame
-Diamond.prototype.draw = function(context) {
+Dirt.prototype.draw = function(context) {
     const HALF_IMAGE_WIDTH = this.image.width / 2;
     const HALF_IMAGE_HEIGHT = this.image.height / 2;
     
@@ -26,9 +24,8 @@ Diamond.prototype.draw = function(context) {
 }
 
 // update state every frame
-Diamond.prototype.update = function(canvas, sprites) {
+Dirt.prototype.update = function(canvas, sprites) {
     ++this.y;
-    this.angle += this.ROTATION_RATE;
     
     // remove this sprite if position passes bottom of canvas
     if (this.y > canvas.height) {

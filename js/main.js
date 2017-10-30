@@ -1,5 +1,6 @@
 // image names to load initially via URL
 const IMAGE_NAMES = [
+    "Collector",
     "Diamond",
     "Dirt"
 ];
@@ -57,12 +58,13 @@ var loadImages = function(names) {
 const MIN_FRAME = 10; //msec
 const MAX_FRAME = 50; //msec
 const DIAMOND_RATE = 1000; //msec
-const DIRT_RATE = 200; //msec
+const DIRT_RATE = 500; //msec
 var frameTime = Date.now(); //msec
 var gameTime = 0; //msec elapsed
 var diamondTime = 0; //msec elapsed
 var dirtTime = 0; //msec elapsed
 var sprites = [];
+var collector;
 
 // run loop for each frame
 var loop = function() {
@@ -77,6 +79,11 @@ var loop = function() {
         !skipFrame) {
         // update elapsed game time
         gameTime += deltaTime;
+        
+        // create single collector
+        if (!collector) {
+            collector = new Collector(canvas, imageMap);
+        }
         
         // determine if time to create dirt
         const deltaDirt = (gameTime - dirtTime);
@@ -98,11 +105,11 @@ var loop = function() {
             sprites.push(diamond);
         }
         
+        // clear canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
         // handle all existing sprites
         if (sprites.length > 0) {
-            // clear canvas
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            
             // update state of all sprites
             sprites.forEach(function(sprite) {
                 sprite.update(canvas, sprites);
@@ -113,6 +120,10 @@ var loop = function() {
                 sprite.draw(context);
             });
         }
+        
+        // handle existing collector sprite separately
+        collector.update(canvas, sprites);
+        collector.draw(context);
     }
     
     // continue loop on next frame

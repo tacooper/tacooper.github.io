@@ -65,10 +65,10 @@ var loadImages = function(names) {
 const MIN_FRAME = 10; //msec
 const MAX_FRAME = 50; //msec
 const DIAMOND_RATE = 1000; //msec
-const DIRT_RATE = 500; //msec
+const DIRT_RATE = 1000; //msec
 var frameTime = Date.now(); //msec
 var gameTime = 0; //msec elapsed
-var diamondTime = 0; //msec elapsed
+var diamondTime = 500; //msec elapsed
 var dirtTime = 0; //msec elapsed
 var sprites = [];
 var collector;
@@ -115,21 +115,24 @@ var loop = function() {
         // clear canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
         
-        // handle all existing sprites
+        // update all existing sprites
         if (sprites.length > 0) {
-            // update state of all sprites
             sprites.forEach(function(sprite) {
                 sprite.update(canvas, sprites);
             });
-            
-            // draw all sprites
+        }
+        
+        // update existing collector sprite separately
+        collector.update(canvas, userPositionX);
+        
+        // draw all existing sprites
+        if (sprites.length > 0) {
             sprites.forEach(function(sprite) {
                 sprite.draw(context);
             });
         }
         
-        // handle existing collector sprite separately
-        collector.update(canvas, userPositionX);
+        // draw existing collector sprite separately
         collector.draw(context);
     }
     

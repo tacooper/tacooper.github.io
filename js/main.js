@@ -1,5 +1,5 @@
 // image names to load initially via URL
-const IMAGE_NAMES = [
+const IMG_NAMES = [
     "Collector",
     "Diamond",
     "Dirt"
@@ -29,11 +29,11 @@ var main = function() {
     }, false);
     
     // load images into map
-    imageMap = loadImages(IMAGE_NAMES);
+    imgMap = loadImages(IMG_NAMES);
     
     // check if all images are loaded periodically (every 100 msec)
     loadCheckInterval = setInterval(function() {
-        if (Object.keys(imageMap).length == Object.keys(IMAGE_NAMES).length) {
+        if (Object.keys(imgMap).length == Object.keys(IMG_NAMES).length) {
             clearInterval(loadCheckInterval);
             readyToStart = true;
         }
@@ -49,16 +49,16 @@ var restart = function() {
 
 // load each image from URL into map
 var loadImages = function(names) {
-    var imageMap = {};
+    var imgMap = {};
     names.forEach(function(name) {
         var img = new Image();
         img.onload = function() {
             // store each image in map after loading
-            imageMap[name] = img;
+            imgMap[name] = img;
         };
         img.src = "img/" + name + ".png";
     });
-    return imageMap;
+    return imgMap;
 }
 
 // initialize frame loop-related parameters
@@ -89,7 +89,7 @@ var loop = function() {
         
         // create single collector
         if (!collector) {
-            collector = new Collector(canvas, imageMap);
+            collector = new Collector(canvas, imgMap);
         }
         
         // determine if time to create dirt
@@ -98,7 +98,7 @@ var loop = function() {
             dirtTime = gameTime;
             
             // create sprite from image map
-            var dirt = new Dirt(canvas, imageMap);
+            var dirt = new Dirt(canvas, imgMap);
             sprites.push(dirt);
         }
         
@@ -108,7 +108,7 @@ var loop = function() {
             diamondTime = gameTime;
             
             // create sprite from image map
-            var diamond = new Diamond(canvas, imageMap);
+            var diamond = new Diamond(canvas, imgMap);
             sprites.push(diamond);
         }
         
@@ -123,7 +123,7 @@ var loop = function() {
         }
         
         // update existing collector sprite separately
-        collector.update(canvas, userPositionX);
+        collector.update(canvas, sprites, userPositionX);
         
         // draw all existing sprites
         if (sprites.length > 0) {

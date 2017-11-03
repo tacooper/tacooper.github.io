@@ -1,6 +1,6 @@
 // constructor for abstract class
-var Sprite = function(image) {
-    this.image = image;
+var Sprite = function(img) {
+    this.img = img;
     if (this.constructor === Sprite) {
         console.error("Sprite is instantiated as abstract class");
     }

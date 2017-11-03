@@ -14,14 +14,14 @@ Diamond.prototype.constructor = Diamond;
 
 // draw state every frame
 Diamond.prototype.draw = function(context) {
-    const HALF_IMAGE_WIDTH = this.image.width / 2;
-    const HALF_IMAGE_HEIGHT = this.image.height / 2;
+    const halfImageWidth = this.image.width / 2;
+    const halfImageHeight = this.image.height / 2;
     
     context.save();
-    context.translate(this.x + HALF_IMAGE_WIDTH, this.y + HALF_IMAGE_HEIGHT);
+    context.translate(this.x + halfImageWidth, this.y + halfImageHeight);
     context.rotate(this.angle);
-    context.drawImage(this.image, -HALF_IMAGE_WIDTH, -HALF_IMAGE_HEIGHT);
-    context.translate(-HALF_IMAGE_WIDTH, -HALF_IMAGE_HEIGHT);
+    context.drawImage(this.image, -halfImageWidth, -halfImageHeight);
+    context.translate(-halfImageWidth, -halfImageHeight);
     context.restore();
 }
 

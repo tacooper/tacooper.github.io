@@ -10,6 +10,7 @@ var FinalScene = function(canvas, collector) {
     this.frameTime = Date.now(); //msec
     this.gameTime = 0; //msec elapsed
     this.collector = collector;
+    this.collectorTargetX = null;
 }
 FinalScene.prototype = Object.create(Scene.prototype);
 FinalScene.prototype.constructor = FinalScene;
@@ -41,26 +42,32 @@ FinalScene.prototype.loop = function() {
         this.context.fillStyle = BACKGROUND_COLOR;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // migrate existing collector sprite to center of canvas
         const centerX = this.canvas.width / 2;
-        var targetX = this.collector.x + (this.collector.img.width / 2);
-        if (targetX < centerX) {
-            targetX += COLLECTOR_CENTER_RATE;
-            if (targetX > centerX) {
-                targetX = centerX;
-            }
-        } else if (targetX > centerX) {
-            targetX -= COLLECTOR_CENTER_RATE;
-            if (targetX < centerX) {
-                targetX = centerX;
+        if (this.collectorTargetX == centerX) {
+            this.collector = null;
+        } else {
+            // migrate existing collector sprite to center of canvas
+            this.collectorTargetX = this.collector.x + (this.collector.img.width / 2);
+            if (this.collectorTargetX < centerX) {
+                this.collectorTargetX += COLLECTOR_CENTER_RATE;
+                if (this.collectorTargetX > centerX) {
+                    this.collectorTargetX = centerX;
+                }
+            } else if (this.collectorTargetX > centerX) {
+                this.collectorTargetX -= COLLECTOR_CENTER_RATE;
+                if (this.collectorTargetX < centerX) {
+                    this.collectorTargetX = centerX;
+                }
             }
         }
         
-        // update existing collector sprite
-        this.collector.update(this.canvas, null, targetX);
-        
-        // draw existing collector sprite
-        this.collector.draw(this.context);
+        if (this.collector) {
+            // update existing collector sprite
+            this.collector.update(this.canvas, null, this.collectorTargetX);
+            
+            // draw existing collector sprite
+            this.collector.draw(this.context);
+        }
     }
     
     // continue loop on next frame

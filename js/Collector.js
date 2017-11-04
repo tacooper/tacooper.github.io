@@ -13,6 +13,8 @@ var Collector = function(canvas, imgMap) {
     this.x = (canvas.width - this.img.width) / 2;
     this.y = canvas.height - this.img.height;
     this.prevX = this.x;
+    this.numCollectedDiamonds = 0;
+    this.numCollectedDirts = 0;
 }
 Collector.prototype = Object.create(Sprite.prototype);
 Collector.prototype.constructor = Collector;
@@ -73,6 +75,13 @@ Collector.prototype.handleCollisions = function(sprites) {
         // collect any sprite that is completely inside
         if (sprite.relation == Relation.INSIDE &&
             spriteTopEdge > thisTopEdge) {
+            // update counters for collected sprites
+            if (sprite instanceof Diamond) {
+                ++this.numCollectedDiamonds;
+            } else if (sprite instanceof Dirt) {
+                ++this.numCollectedDirts;
+            }
+            
             // remove this sprite if position passes top of collector
             // (instead of bottom of canvas)
             const index = sprites.indexOf(sprite);
@@ -112,5 +121,5 @@ Collector.prototype.handleCollisions = function(sprites) {
                    thisRightEdge < thisPrevRightEdge) { //moving right
             sprite.x = thisRightEdge - sprite.img.width;
         }
-    });
+    }, this);
 }

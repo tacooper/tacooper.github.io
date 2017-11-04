@@ -8,7 +8,7 @@ var CollectionScene = function(canvas) {
     this.diamondTime = 500; //msec elapsed
     this.dirtTime = 0; //msec elapsed
     this.backgroundTime = 0; //msec elapsed
-    this.backgroundColorIndex = 0;
+    this.backgroundIndex = 0;
     this.stopCreatingSprites = false;
     this.sprites = [];
     this.collector = null;
@@ -18,9 +18,10 @@ CollectionScene.prototype.constructor = CollectionScene;
 
 // background and sprite update rates
 const BACKGROUND_DELAY = 10000; //msec
-const BACKGROUND_RATE = 200; //msec
-const DIAMOND_RATE = 1000; //msec
-const DIRT_RATE = 500; //msec
+const BACKGROUND_RATE = 200; //msec per change
+const DIAMOND_RATE = 1000; //msec per create
+const DIRT_RATE = 500; //msec per create
+const FINAL_BACKGROUND_INDEX = 255; //color index
 
 // run loop every frame
 CollectionScene.prototype.loop = function() {
@@ -49,9 +50,9 @@ CollectionScene.prototype.loop = function() {
             this.backgroundTime = this.gameTime;
             
             // stop creating sprites when reaching final background color
-            ++this.backgroundColorIndex;
-            if (this.backgroundColorIndex > 255) {
-                this.backgroundColorIndex = 255;
+            ++this.backgroundIndex;
+            if (this.backgroundIndex > FINAL_BACKGROUND_INDEX) {
+                this.backgroundIndex = FINAL_BACKGROUND_INDEX;
                 this.stopCreatingSprites = true;
             }
         }
@@ -81,11 +82,11 @@ CollectionScene.prototype.loop = function() {
         // clear canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // set background color (fade from black to yellow)
+        // set dynamic background color (fade from black to yellow)
         const backgroundColor = "#" +
-            decToHex(this.backgroundColorIndex, 2) +
-            decToHex(Math.round(0.75 * this.backgroundColorIndex), 2) +
-            decToHex(Math.round(0.5 * this.backgroundColorIndex), 2);
+            decToHex(this.backgroundIndex, 2) +
+            decToHex(Math.round(0.75 * this.backgroundIndex), 2) +
+            decToHex(Math.round(0.5 * this.backgroundIndex), 2);
         this.context.fillStyle = backgroundColor;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         

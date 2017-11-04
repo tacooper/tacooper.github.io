@@ -8,7 +8,7 @@ var Diamond = function(canvas, imgMap) {
     this.angle = Math.random() * (2 * Math.PI); //rad
     this.ROTATION_RATE = (2 * Math.round(Math.random()) - 1) *
         (0.05 * Math.random() + 0.03); //rad per frame
-    this.Y_RATE = 1;
+    this.Y_RATE = 1; //pixels per frame
     this.relation = Relation.ABOVE;
 }
 Diamond.prototype = Object.create(Sprite.prototype);

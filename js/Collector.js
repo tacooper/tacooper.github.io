@@ -25,17 +25,17 @@ Collector.prototype.draw = function(context) {
 }
 
 // update state every frame
-Collector.prototype.update = function(canvas, sprites, userPositionX) {
+Collector.prototype.update = function(canvas, sprites, inputX) {
     const halfImgWidth = this.img.width / 2;
     const minX = halfImgWidth;
     const maxX = canvas.width - halfImgWidth;
     
-    // determine position based on bounded mouse/touch
-    if (userPositionX) {
-        var x = userPositionX - halfImgWidth;
-        if (userPositionX < minX) {
+    // determine position based on input
+    if (inputX) {
+        var x = inputX - halfImgWidth;
+        if (inputX < minX) {
             x = 0;
-        } else if (userPositionX > maxX) {
+        } else if (inputX > maxX) {
             x = canvas.width - this.img.width;
         }
         this.prevX = this.x;
@@ -43,7 +43,9 @@ Collector.prototype.update = function(canvas, sprites, userPositionX) {
     }
     
     // handle any collisions with other sprites
-    this.handleCollisions(sprites);
+    if (sprites) {
+        this.handleCollisions(sprites);
+    }
 }
 
 // handle relation to collector, collecting, and collisions for all sprites

@@ -6,7 +6,7 @@ var Dirt = function(canvas, imgMap) {
     this.x = Math.round(Math.random() * (canvas.width - this.img.width));
     this.y = -this.img.height;
     this.angle = Math.random() * (2 * Math.PI); //rad
-    this.Y_RATE = 1;
+    this.Y_RATE = 1; //pixels per frame
     this.relation = Relation.ABOVE;
 }
 Dirt.prototype = Object.create(Sprite.prototype);

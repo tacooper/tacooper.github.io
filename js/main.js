@@ -18,13 +18,9 @@ var main = function() {
     canvas.height = document.documentElement.clientHeight;
     var context = canvas.getContext("2d");
     
-    // track mouse/touch position for moving collector
-    canvas.addEventListener("mousemove", function (e) {
-        userPositionX = e.clientX;
-    }, false);
-    canvas.addEventListener("touchmove", function (e) {
-        userPositionX = e.touches[0].clientX;
-    }, false);
+    // start tracking mouse/touch position for moving collector
+    canvas.addEventListener("mousemove", handleMouseMove, false);
+    canvas.addEventListener("touchmove", handleTouchMove, false);
     
     // load images into map
     imgMap = loadImages(IMG_NAMES);
@@ -41,6 +37,17 @@ var main = function() {
     // (waits until all images are loaded)
     var scene = new CollectionScene(canvas);
     scene.loop();
+}
+
+// track mouse position
+var handleMouseMove = function(e) {
+    userPositionX = e.clientX;
+    console.log("mouse");
+}
+
+// track touch position
+var handleTouchMove = function(e) {
+    userPositionX = e.touches[0].clientX;
 }
 
 // force reload when resizing or reorienting window

@@ -2,6 +2,10 @@
 var FinalScene = function(canvas, collector) {
     Scene.call(this, canvas);
     
+    // stop tracking mouse/touch position for moving collector
+    this.canvas.removeEventListener("mousemove", handleMouseMove, false);
+    this.canvas.removeEventListener("touchmove", handleTouchMove, false);
+    
     // set initial state
     this.frameTime = Date.now(); //msec
     this.gameTime = 0; //msec elapsed

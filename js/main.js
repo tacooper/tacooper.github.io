@@ -65,7 +65,7 @@ var loadImages = function(names) {
 const MIN_FRAME = 10; //msec
 const MAX_FRAME = 50; //msec
 const DIAMOND_RATE = 1000; //msec
-const DIRT_RATE = 1000; //msec
+const DIRT_RATE = 500; //msec
 const BACKGROUND_RATE = 200; //msec
 const BACKGROUND_DELAY = 10000; //msec
 
@@ -78,6 +78,7 @@ var backgroundTime = 0; //msec elapsed
 var sprites = [];
 var collector;
 var backgroundColorIndex = 0;
+var stopCreatingSprites = false;
 
 // run loop for each frame
 var loop = function() {
@@ -104,12 +105,18 @@ var loop = function() {
             deltaBackground >= BACKGROUND_RATE) {
             backgroundTime = gameTime;
             
+            // stop creating sprites when reaching final background color
             ++backgroundColorIndex;
+            if (backgroundColorIndex > 255) {
+                backgroundColorIndex = 255;
+                stopCreatingSprites = true;
+            }
         }
         
         // determine if time to create dirt
         const deltaDirt = (gameTime - dirtTime);
-        if (deltaDirt >= DIRT_RATE) {
+        if (!stopCreatingSprites &&
+            deltaDirt >= DIRT_RATE) {
             dirtTime = gameTime;
             
             // create sprite from image map
@@ -119,7 +126,8 @@ var loop = function() {
         
         // determine if time to create diamond
         const deltaDiamond = (gameTime - diamondTime);
-        if (deltaDiamond >= DIAMOND_RATE) {
+        if (!stopCreatingSprites &&
+            deltaDiamond >= DIAMOND_RATE) {
             diamondTime = gameTime;
             
             // create sprite from image map
@@ -131,9 +139,6 @@ var loop = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         
         // set background color (fade from black to yellow)
-        if (backgroundColorIndex > 255) {
-            backgroundColorIndex = 255;
-        }
         const backgroundColor = "#" +
             decToHex(backgroundColorIndex, 2) +
             decToHex(Math.round(0.75 * backgroundColorIndex), 2) +
@@ -166,6 +171,7 @@ var loop = function() {
     requestAnimationFrame(loop);
 }
 
+// convert decimal number into hex padded string
 var decToHex = function(dec, padding) {
     var hex = Number(dec).toString(16);
     while (hex.length < padding) {

@@ -110,6 +110,13 @@ CollectionScene.prototype.loop = function() {
         this.collector.draw(this.context);
     }
     
-    // continue loop on next frame
-    requestAnimationFrame(this.loop.bind(this));
+    if (this.gameTime >= 1000 &&
+        this.sprites.length == 0) {
+        // enter final scene loop after all existing sprites are removed
+        var scene = new FinalScene(this.canvas, this.collector);
+        scene.loop();
+    } else {
+        // continue loop on next frame
+        requestAnimationFrame(this.loop.bind(this));
+    }
 }

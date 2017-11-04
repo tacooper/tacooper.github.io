@@ -16,9 +16,9 @@ var userPositionX;
 var main = function() {
     // configure canvas size
     canvas = document.getElementById("mainCanvas");
-    context = canvas.getContext("2d");
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
+    context = canvas.getContext("2d");
     
     // track mouse/touch position for moving collector
     canvas.addEventListener("mousemove", function (e) {
@@ -61,17 +61,23 @@ var loadImages = function(names) {
     return imgMap;
 }
 
-// initialize frame loop-related parameters
+// frame durations and update rates
 const MIN_FRAME = 10; //msec
 const MAX_FRAME = 50; //msec
 const DIAMOND_RATE = 1000; //msec
 const DIRT_RATE = 1000; //msec
+const BACKGROUND_RATE = 200; //msec
+const BACKGROUND_DELAY = 10000; //msec
+
+// initialize frame loop-related parameters
 var frameTime = Date.now(); //msec
 var gameTime = 0; //msec elapsed
 var diamondTime = 500; //msec elapsed
 var dirtTime = 0; //msec elapsed
+var backgroundTime = 0; //msec elapsed
 var sprites = [];
 var collector;
+var backgroundColorIndex = 0;
 
 // run loop for each frame
 var loop = function() {
@@ -90,6 +96,15 @@ var loop = function() {
         // create single collector
         if (!collector) {
             collector = new Collector(canvas, imgMap);
+        }
+        
+        // determine if time to change background color
+        const deltaBackground = (gameTime - backgroundTime);
+        if (gameTime >= BACKGROUND_DELAY &&
+            deltaBackground >= BACKGROUND_RATE) {
+            backgroundTime = gameTime;
+            
+            ++backgroundColorIndex;
         }
         
         // determine if time to create dirt
@@ -115,6 +130,17 @@ var loop = function() {
         // clear canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
         
+        // set background color (fade from black to yellow)
+        if (backgroundColorIndex > 255) {
+            backgroundColorIndex = 255;
+        }
+        const backgroundColor = "#" +
+            decToHex(backgroundColorIndex, 2) +
+            decToHex(Math.round(0.75 * backgroundColorIndex), 2) +
+            decToHex(Math.round(0.5 * backgroundColorIndex), 2);
+        context.fillStyle = backgroundColor;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        
         // update all existing sprites
         if (sprites.length > 0) {
             sprites.forEach(function(sprite) {
@@ -138,4 +164,12 @@ var loop = function() {
     
     // continue loop on next frame
     requestAnimationFrame(loop);
+}
+
+var decToHex = function(dec, padding) {
+    var hex = Number(dec).toString(16);
+    while (hex.length < padding) {
+        hex = "0" + hex;
+    }
+    return hex;
 }

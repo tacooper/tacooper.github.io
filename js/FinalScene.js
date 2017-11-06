@@ -10,7 +10,7 @@ var FinalScene = function(canvas, collector) {
     this.frameTime = Date.now(); //msec
     this.gameTime = 0; //msec elapsed
     this.collector = collector;
-    this.collectorTargetX = null;
+    this.flowerpot = null;
 }
 FinalScene.prototype = Object.create(Scene.prototype);
 FinalScene.prototype.constructor = FinalScene;
@@ -42,13 +42,30 @@ FinalScene.prototype.loop = function() {
         this.context.fillStyle = BACKGROUND_COLOR;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        
+        // handle existing sprite
         if (this.collector) {
             // update existing collector sprite
-            this.collector.updateToCenter(this.canvas);
+            var isCollectorCentered =
+                this.collector.updateToCenter(this.canvas);
             
             // draw existing collector sprite
             this.collector.draw(this.context);
+            
+            // remove collector sprite when reaching center of canvas
+            if (isCollectorCentered) {
+                var collectorHeight = this.collector.img.height;
+                this.collector = null;
+                
+                // create single flowerpot sprite from image map
+                this.flowerpot = new Flowerpot(this.canvas,
+                    imgMap, collectorHeight);
+            }
+        } else {
+            // update existing flowerpot sprite
+            this.flowerpot.update(this.canvas);
+            
+            // draw existing flowerpot sprite
+            this.flowerpot.draw(this.context);
         }
     }
     

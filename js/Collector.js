@@ -69,6 +69,8 @@ Collector.prototype.updateToCenter = function(canvas) {
     
     // update sprite position
     this.update(canvas, null, centerX);
+    
+    return (centerX == centerCanvas);
 }
 
 // handle relation to collector, collecting, and collisions for all sprites

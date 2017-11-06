@@ -38,7 +38,7 @@ CollectionScene.prototype.loop = function() {
         // update elapsed game time
         this.gameTime += deltaTime;
         
-        // create single collector
+        // create single collector sprite from image map
         if (!this.collector) {
             this.collector = new Collector(this.canvas, imgMap);
         }

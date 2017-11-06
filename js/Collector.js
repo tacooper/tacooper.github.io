@@ -48,6 +48,29 @@ Collector.prototype.update = function(canvas, sprites, inputX) {
     }
 }
 
+// update state every frame, moving to center of canvas
+Collector.prototype.updateToCenter = function(canvas) {
+    const centerCanvas = canvas.width / 2;
+    const halfImgWidth = this.img.width / 2;
+    var centerX = this.x + halfImgWidth;
+    
+    // migrate sprite to center of canvas
+    if (centerX < centerCanvas) {
+        centerX += COLLECTOR_CENTER_RATE;
+        if (centerX > centerCanvas) {
+            centerX = centerCanvas;
+        }
+    } else if (centerX > centerCanvas) {
+        centerX -= COLLECTOR_CENTER_RATE;
+        if (centerX < centerCanvas) {
+            centerX = centerCanvas;
+        }
+    }
+    
+    // update sprite position
+    this.update(canvas, null, centerX);
+}
+
 // handle relation to collector, collecting, and collisions for all sprites
 Collector.prototype.handleCollisions = function(sprites) {
     const thisLeftEdge = this.x;

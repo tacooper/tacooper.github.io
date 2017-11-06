@@ -42,7 +42,6 @@ var main = function() {
 // track mouse position
 var handleMouseMove = function(e) {
     userPositionX = e.clientX;
-    console.log("mouse");
 }
 
 // track touch position

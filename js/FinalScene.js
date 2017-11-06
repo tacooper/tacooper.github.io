@@ -3,8 +3,8 @@ var FinalScene = function(canvas, collector) {
     Scene.call(this, canvas);
     
     // stop tracking mouse/touch position for moving collector
-    this.canvas.removeEventListener("mousemove", handleMouseMove, false);
-    this.canvas.removeEventListener("touchmove", handleTouchMove, false);
+    canvas.removeEventListener("mousemove", handleMouseMove, false);
+    canvas.removeEventListener("touchmove", handleTouchMove, false);
     
     // set initial state
     this.frameTime = Date.now(); //msec
@@ -16,7 +16,7 @@ FinalScene.prototype = Object.create(Scene.prototype);
 FinalScene.prototype.constructor = FinalScene;
 
 // sprite update rates
-const COLLECTOR_CENTER_RATE = 3; //pixels per frame
+const COLLECTOR_CENTER_RATE = 2; //pixels per frame
 const BACKGROUND_COLOR = "#" +
     decToHex(FINAL_BACKGROUND_INDEX, 2) +
     decToHex(Math.round(0.75 * FINAL_BACKGROUND_INDEX), 2) +
@@ -42,28 +42,10 @@ FinalScene.prototype.loop = function() {
         this.context.fillStyle = BACKGROUND_COLOR;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        const centerX = this.canvas.width / 2;
-        if (this.collectorTargetX == centerX) {
-            this.collector = null;
-        } else {
-            // migrate existing collector sprite to center of canvas
-            this.collectorTargetX = this.collector.x + (this.collector.img.width / 2);
-            if (this.collectorTargetX < centerX) {
-                this.collectorTargetX += COLLECTOR_CENTER_RATE;
-                if (this.collectorTargetX > centerX) {
-                    this.collectorTargetX = centerX;
-                }
-            } else if (this.collectorTargetX > centerX) {
-                this.collectorTargetX -= COLLECTOR_CENTER_RATE;
-                if (this.collectorTargetX < centerX) {
-                    this.collectorTargetX = centerX;
-                }
-            }
-        }
         
         if (this.collector) {
             // update existing collector sprite
-            this.collector.update(this.canvas, null, this.collectorTargetX);
+            this.collector.updateToCenter(this.canvas);
             
             // draw existing collector sprite
             this.collector.draw(this.context);

@@ -1,5 +1,5 @@
 // constructor inheriting Sprite class
-var Flowerpot = function(canvas, imgMap, collectorHeight) {
+var Flowerpot = function(canvas, imgMap, collectorHeight, dirtPercent) {
     Sprite.call(this, imgMap["Flowerpot"]);
     
     // set initial state at bottom of canvas

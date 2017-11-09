@@ -42,23 +42,34 @@ FinalScene.prototype.loop = function() {
         this.context.fillStyle = BACKGROUND_COLOR;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // handle existing sprite
+        // handle existing collector or flowerpot sprite
         if (this.collector) {
             // update existing collector sprite
-            var isCollectorCentered =
+            const isCollectorCentered =
                 this.collector.updateToCenter(this.canvas);
             
             // draw existing collector sprite
             this.collector.draw(this.context);
             
-            // remove collector sprite when reaching center of canvas
+            // replace collector with flowerpot when reaching center of canvas
             if (isCollectorCentered) {
-                var collectorHeight = this.collector.img.height;
+                // determine percentage of dirt in total collected
+                // (null if nothing is collected at all)
+                const totalCollected = this.collector.numCollectedDirts +
+                    this.collector.numCollectedDiamonds;
+                var dirtPercent = null;
+                if (totalCollected > 0) {
+                    dirtPercent = (this.collector.numCollectedDirts /
+                        totalCollected);
+                }
+                
+                // remove collector sprite
+                const collectorHeight = this.collector.img.height;
                 this.collector = null;
                 
-                // create single flowerpot sprite from image map
+                // create flowerpot sprite from image map
                 this.flowerpot = new Flowerpot(this.canvas,
-                    imgMap, collectorHeight);
+                    imgMap, collectorHeight, dirtPercent);
             }
         } else {
             // update existing flowerpot sprite

@@ -59,8 +59,7 @@ FinalScene.prototype.loop = function() {
                     this.collector.numCollectedDiamonds;
                 var dirtPercent = null;
                 if (totalCollected > 0) {
-                    dirtPercent = Math.round(100 *
-                        (this.collector.numCollectedDirts / totalCollected));
+                    dirtPercent = (this.collector.numCollectedDirts / totalCollected);
                 }
                 
                 // replace sprite unless nothing is collected

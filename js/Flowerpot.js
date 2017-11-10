@@ -39,18 +39,13 @@ Flowerpot.prototype.update = function(canvas) {
 
 // create group of sprites for filling flowerpot
 Flowerpot.prototype.createFillingSprites = function(canvas, dirtPercent) {
-    const NUM_TOTAL = 1000;
-    const NUM_DIRTS = Math.round(NUM_TOTAL * dirtPercent);
-    
-    for (var i = 0; i < NUM_DIRTS; ++i) {
-        // create filling sprite with dirt image
-        var dirt = new Filling(canvas, "Dirt", this);
-        this.sprites.push(dirt);
-    }
-    
-    for (var i = NUM_DIRTS; i < NUM_TOTAL; ++i) {
-        // create filling sprite with diamond image
-        var diamond = new Filling(canvas, "Diamond", this);
-        this.sprites.push(diamond);
+    for (var i = 0; i < 1000; ++i) {
+        // determine image based on collected percentage
+        const imgType = (Math.random() < dirtPercent) ?
+            "Dirt" : "Diamond";
+        
+        // create filling sprite with either image
+        var filling = new Filling(canvas, imgType, this);
+        this.sprites.push(filling);
     }
 }

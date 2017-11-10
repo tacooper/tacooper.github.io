@@ -14,7 +14,7 @@ var Diamond = function(canvas) {
 Diamond.prototype = Object.create(Sprite.prototype);
 Diamond.prototype.constructor = Diamond;
 
-// draw state every frame
+// draw image every frame
 Diamond.prototype.draw = function(context) {
     const halfImgWidth = this.img.width / 2;
     const halfImgHeight = this.img.height / 2;

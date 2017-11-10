@@ -54,7 +54,7 @@ FinalScene.prototype.loop = function() {
             // replace collector with flowerpot when reaching center of canvas
             if (isCollectorCentered) {
                 // determine percentage of dirt in total collected
-                // (null if nothing is collected at all)
+                // (null if nothing is collected)
                 const totalCollected = this.collector.numCollectedDirts +
                     this.collector.numCollectedDiamonds;
                 var dirtPercent = null;
@@ -63,15 +63,18 @@ FinalScene.prototype.loop = function() {
                         (this.collector.numCollectedDirts / totalCollected));
                 }
                 
-                // remove collector sprite
-                const collectorHeight = this.collector.img.height;
-                this.collector = null;
-                
-                // create flowerpot sprite
-                this.flowerpot = new Flowerpot(this.canvas,
-                    collectorHeight, dirtPercent);
+                // replace sprite unless nothing is collected
+                if (dirtPercent != null) {
+                    // remove collector sprite
+                    const collectorHeight = this.collector.img.height;
+                    this.collector = null;
+                    
+                    // create flowerpot sprite
+                    this.flowerpot = new Flowerpot(this.canvas,
+                        collectorHeight, dirtPercent);
+                }
             }
-        } else {
+        } else if (this.flowerpot) {
             // update existing flowerpot sprite
             this.flowerpot.update(this.canvas);
             

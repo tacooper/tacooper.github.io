@@ -12,7 +12,7 @@ var Dirt = function(canvas) {
 Dirt.prototype = Object.create(Sprite.prototype);
 Dirt.prototype.constructor = Dirt;
 
-// draw state every frame
+// draw image every frame
 Dirt.prototype.draw = function(context) {
     const halfImgWidth = this.img.width / 2;
     const halfImgHeight = this.img.height / 2;

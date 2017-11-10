@@ -7,7 +7,7 @@ var Sprite = function(img) {
     this.img = img;
 }
 
-// draw state every frame
+// draw image every frame
 Sprite.prototype.draw = function() {
     console.error("Sprite.draw is unimplemented abstract method");
 }

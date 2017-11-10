@@ -19,7 +19,7 @@ var Collector = function(canvas) {
 Collector.prototype = Object.create(Sprite.prototype);
 Collector.prototype.constructor = Collector;
 
-// draw state every frame
+// draw image every frame
 Collector.prototype.draw = function(context) {
     context.drawImage(this.img, this.x, this.y);
 }

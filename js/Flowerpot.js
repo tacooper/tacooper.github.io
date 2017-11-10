@@ -10,13 +10,14 @@ var Flowerpot = function(canvas, collectorHeight, dirtPercent) {
 Flowerpot.prototype = Object.create(Sprite.prototype);
 Flowerpot.prototype.constructor = Flowerpot;
 
-// draw state every frame
+// draw image every frame
 Flowerpot.prototype.draw = function(context) {
     context.drawImage(this.img, this.x, this.y);
 }
 
 // update state every frame
 Flowerpot.prototype.update = function(canvas) {
+    // only update until entire sprite is displayed on canvas
     if (this.y > (canvas.height - this.img.height)) {
         this.y += this.Y_RATE;
     }

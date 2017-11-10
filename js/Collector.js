@@ -6,7 +6,7 @@ const Relation = {
 }
 
 // constructor inheriting Sprite class
-var Collector = function(canvas, imgMap) {
+var Collector = function(canvas) {
     Sprite.call(this, imgMap["Collector"]);
     
     // set initial state at bottom of canvas

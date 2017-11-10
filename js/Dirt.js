@@ -1,5 +1,5 @@
 // constructor inheriting Sprite class
-var Dirt = function(canvas, imgMap) {
+var Dirt = function(canvas) {
     Sprite.call(this, imgMap["Dirt"]);
     
     // randomize initial state at top of canvas

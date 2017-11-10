@@ -38,9 +38,9 @@ CollectionScene.prototype.loop = function() {
         // update elapsed game time
         this.gameTime += deltaTime;
         
-        // create single collector sprite from image map
+        // create collector sprite once
         if (!this.collector) {
-            this.collector = new Collector(this.canvas, imgMap);
+            this.collector = new Collector(this.canvas);
         }
         
         // determine if time to change background color
@@ -63,8 +63,8 @@ CollectionScene.prototype.loop = function() {
             deltaDirt >= DIRT_RATE) {
             this.dirtTime = this.gameTime;
             
-            // create sprite from image map
-            var dirt = new Dirt(this.canvas, imgMap);
+            // create dirt sprite
+            var dirt = new Dirt(this.canvas);
             this.sprites.push(dirt);
         }
         
@@ -74,7 +74,7 @@ CollectionScene.prototype.loop = function() {
             deltaDiamond >= DIAMOND_RATE) {
             this.diamondTime = this.gameTime;
             
-            // create sprite from image map
+            // create diamond sprite
             var diamond = new Diamond(this.canvas, imgMap);
             this.sprites.push(diamond);
         }

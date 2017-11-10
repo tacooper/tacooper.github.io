@@ -1,5 +1,5 @@
 // constructor inheriting Sprite class
-var Diamond = function(canvas, imgMap) {
+var Diamond = function(canvas) {
     Sprite.call(this, imgMap["Diamond"]);
     
     // randomize initial state at top of canvas

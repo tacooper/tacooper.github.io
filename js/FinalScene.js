@@ -59,17 +59,17 @@ FinalScene.prototype.loop = function() {
                     this.collector.numCollectedDiamonds;
                 var dirtPercent = null;
                 if (totalCollected > 0) {
-                    dirtPercent = (this.collector.numCollectedDirts /
-                        totalCollected);
+                    dirtPercent = Math.round(100 *
+                        (this.collector.numCollectedDirts / totalCollected));
                 }
                 
                 // remove collector sprite
                 const collectorHeight = this.collector.img.height;
                 this.collector = null;
                 
-                // create flowerpot sprite from image map
+                // create flowerpot sprite
                 this.flowerpot = new Flowerpot(this.canvas,
-                    imgMap, collectorHeight, dirtPercent);
+                    collectorHeight, dirtPercent);
             }
         } else {
             // update existing flowerpot sprite

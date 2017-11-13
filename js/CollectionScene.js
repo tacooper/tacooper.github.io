@@ -12,6 +12,7 @@ var CollectionScene = function(canvas) {
     this.stopCreatingSprites = false;
     this.sprites = [];
     this.collector = null;
+    this.rain = null;
 }
 CollectionScene.prototype = Object.create(Scene.prototype);
 CollectionScene.prototype.constructor = CollectionScene;
@@ -79,6 +80,12 @@ CollectionScene.prototype.loop = function() {
             this.sprites.push(diamond);
         }
         
+        // create rain once when all sprites have been created
+        if (this.stopCreatingSprites &&
+            !this.rain) {
+            this.rain = new Rain(this.canvas);
+        }
+        
         // clear canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
@@ -100,6 +107,11 @@ CollectionScene.prototype.loop = function() {
         // update existing collector sprite separately
         this.collector.update(this.canvas, this.sprites, userPositionX);
         
+        // update existing rain
+        if (this.rain) {
+            this.rain.update(this.canvas);
+        }
+        
         // draw all existing sprites
         if (this.sprites.length > 0) {
             this.sprites.forEach(function(sprite) {
@@ -109,12 +121,17 @@ CollectionScene.prototype.loop = function() {
         
         // draw existing collector sprite separately
         this.collector.draw(this.context);
+        
+        // draw existing rain
+        if (this.rain) {
+            this.rain.draw(this.context);
+        }
     }
     
     if (this.gameTime >= 1000 &&
         this.sprites.length == 0) {
         // enter final scene loop after all existing sprites are removed
-        var scene = new FinalScene(this.canvas, this.collector);
+        var scene = new FinalScene(this.canvas, this.collector, this.rain);
         scene.loop();
     } else {
         // continue loop on next frame

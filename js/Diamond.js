@@ -3,7 +3,7 @@ var Diamond = function(canvas) {
     Sprite.call(this, imgMap["Diamond"]);
     
     // randomize initial state at top of canvas
-    this.x = Math.round(Math.random() * (canvas.width - this.img.width));
+    this.x = Math.random() * (canvas.width - this.img.width);
     this.y = -this.img.height;
     this.angle = Math.random() * (2 * Math.PI); //rad
     this.ROTATION_RATE = (2 * Math.round(Math.random()) - 1) *

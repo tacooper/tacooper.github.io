@@ -5,9 +5,9 @@ var Filling = function(canvas, imgType, flowerpot) {
     // randomize initial state inside flowerpot at bottom of canvas
     const halfImgWidth = this.img.width / 2;
     const halfImgHeight = this.img.height / 2;
-    this.x = flowerpot.x + halfImgWidth + Math.round(Math.random() * 
+    this.x = flowerpot.x + halfImgWidth + (Math.random() *
         (flowerpot.img.width - (2 * this.img.width)));
-    this.y = canvas.height - halfImgHeight + Math.round(Math.random() *
+    this.y = canvas.height - halfImgHeight + (Math.random() *
         (flowerpot.fillingHeight - this.img.height));
     this.angle = Math.random() * (2 * Math.PI); //rad
     this.Y_RATE = -2; //pixels per frame

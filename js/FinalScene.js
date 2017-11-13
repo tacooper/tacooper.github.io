@@ -1,5 +1,5 @@
 // constructor inheriting Scene class
-var FinalScene = function(canvas, collector) {
+var FinalScene = function(canvas, collector, rain) {
     Scene.call(this, canvas);
     
     // stop tracking mouse/touch position for moving collector
@@ -10,6 +10,7 @@ var FinalScene = function(canvas, collector) {
     this.frameTime = Date.now(); //msec
     this.gameTime = 0; //msec elapsed
     this.collector = collector;
+    this.rain = rain;
     this.flowerpot = null;
 }
 FinalScene.prototype = Object.create(Scene.prototype);
@@ -80,6 +81,12 @@ FinalScene.prototype.loop = function() {
             // draw existing flowerpot sprite
             this.flowerpot.draw(this.context);
         }
+        
+        // update rain
+        this.rain.update(this.canvas);
+        
+        // draw rain
+        this.rain.draw(this.context);
     }
     
     // continue loop on next frame

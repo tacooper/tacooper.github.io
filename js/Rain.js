@@ -3,12 +3,6 @@ var Rain = function(canvas) {
     // set initial state
     this.raindrops = [];
     this.NUM_FULL_RAINDROPS = 1000;
-    
-    // create full group of raindrops
-    for (var i = 0; i < this.NUM_FULL_RAINDROPS; ++i) {
-        var raindrop = this.initRaindrop(canvas);
-        this.raindrops.push(raindrop);
-    }
 }
 
 // draw lines every frame
@@ -29,7 +23,19 @@ Rain.prototype.draw = function(context) {
 }
 
 // update state every frame
-Rain.prototype.update = function(canvas, percentRaindrops) {
+Rain.prototype.update = function(canvas, percentRaindrops, increasing) {
+    const NUM_TARGET_RAINDROPS = this.NUM_FULL_RAINDROPS * percentRaindrops;
+    
+    // add new raindrop twice per frame until reaching full group
+    if (increasing &&
+        this.raindrops.length < NUM_TARGET_RAINDROPS) {
+        var raindrop1 = this.initRaindrop(canvas);
+        var raindrop2 = this.initRaindrop(canvas);
+        
+        this.raindrops.push(raindrop1);
+        this.raindrops.push(raindrop2);
+    }
+    
     // update state for each raindrop in group
     this.raindrops.forEach(function(raindrop) {
         raindrop.x += raindrop.xOffset;
@@ -46,10 +52,10 @@ Rain.prototype.update = function(canvas, percentRaindrops) {
             raindrop.yOffset = newRaindrop.yOffset;
             
             // randomly remove raindrop until reaching decreased group
-            const NUM_DEC_RAINDROPS = this.NUM_FULL_RAINDROPS * percentRaindrops;
-            if (this.raindrops.length > NUM_DEC_RAINDROPS &&
-                (this.raindrops.length < 50 ||
-                Math.random() < 0.5)) {
+            if (!increasing &&
+                this.raindrops.length > NUM_TARGET_RAINDROPS &&
+                (this.raindrops.length < 100 ||
+                Math.random() < 0.6)) {
                 const index = this.raindrops.indexOf(raindrop);
                 this.raindrops.splice(index, 1);
             }

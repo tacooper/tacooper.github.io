@@ -107,9 +107,9 @@ CollectionScene.prototype.loop = function() {
         // update existing collector sprite separately
         this.collector.update(this.canvas, this.sprites, userPositionX);
         
-        // update existing rain
+        // update existing rain at steadily increasing percentage
         if (this.rain) {
-            this.rain.update(this.canvas);
+            this.rain.update(this.canvas, 1, true);
         }
         
         // draw all existing sprites

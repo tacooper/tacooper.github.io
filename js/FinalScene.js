@@ -11,6 +11,7 @@ var FinalScene = function(canvas, collector, rain) {
     this.gameTime = 0; //msec elapsed
     this.collector = collector;
     this.rain = rain;
+    this.rainbow = new Rainbow(canvas);
     this.flowerpot = null;
 }
 FinalScene.prototype = Object.create(Scene.prototype);
@@ -82,10 +83,12 @@ FinalScene.prototype.loop = function() {
             this.flowerpot.draw(this.context);
         }
         
-        // update rain
+        // update rainbow and rain
+        this.rainbow.update(this.canvas);
         this.rain.update(this.canvas);
         
-        // draw rain
+        // draw rainbow and rain
+        this.rainbow.draw(this.context);
         this.rain.draw(this.context);
     }
     

@@ -26,8 +26,10 @@ Flowerpot.prototype.draw = function(context) {
 
 // update state every frame
 Flowerpot.prototype.update = function(canvas) {
+    const fullyDisplayed = (this.y <= (canvas.height - this.img.height));
+    
     // only update until entire sprite is displayed on canvas
-    if (this.y > (canvas.height - this.img.height)) {
+    if (!fullyDisplayed) {
         // update state for each filling sprite
         this.sprites.forEach(function(sprite) {
             sprite.update();
@@ -35,6 +37,8 @@ Flowerpot.prototype.update = function(canvas) {
         
         this.y += this.Y_RATE;
     }
+    
+    return fullyDisplayed;
 }
 
 // create group of sprites for filling flowerpot

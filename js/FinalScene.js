@@ -11,8 +11,8 @@ var FinalScene = function(canvas, collector, rain) {
     this.gameTime = 0; //msec elapsed
     this.collector = collector;
     this.rain = rain;
-    this.rainbow = new Rainbow(canvas);
     this.flowerpot = null;
+    this.rainbow = null;
 }
 FinalScene.prototype = Object.create(Scene.prototype);
 FinalScene.prototype.constructor = FinalScene;
@@ -47,14 +47,14 @@ FinalScene.prototype.loop = function() {
         // handle existing collector or flowerpot sprite
         if (this.collector) {
             // update existing collector sprite
-            const isCollectorCentered =
+            const collectorCentered =
                 this.collector.updateToCenter(this.canvas);
             
             // draw existing collector sprite
             this.collector.draw(this.context);
             
             // replace collector with flowerpot when reaching center of canvas
-            if (isCollectorCentered) {
+            if (collectorCentered) {
                 // determine percentage of dirt in total collected
                 // (null if nothing is collected)
                 const totalCollected = this.collector.numCollectedDirts +
@@ -77,18 +77,31 @@ FinalScene.prototype.loop = function() {
             }
         } else if (this.flowerpot) {
             // update existing flowerpot sprite
-            this.flowerpot.update(this.canvas);
+            const fullyDisplayed =
+                this.flowerpot.update(this.canvas);
             
             // draw existing flowerpot sprite
             this.flowerpot.draw(this.context);
+            
+            // create rainbow sprite when flowerpot is fully on canvas
+            if (fullyDisplayed &&
+                !this.rainbow) {
+                this.rainbow = new Rainbow(this.canvas);
+            }
         }
         
-        // update rainbow and rain
-        this.rainbow.update(this.canvas);
+        if (this.rainbow) {
+            // update existing rainbow sprite
+            this.rainbow.update(this.canvas);
+            
+            // draw existing rainbow sprite
+            this.rainbow.draw(this.context);
+        }
+        
+        // update rain
         this.rain.update(this.canvas);
         
-        // draw rainbow and rain
-        this.rainbow.draw(this.context);
+        // draw rain
         this.rain.draw(this.context);
     }
     

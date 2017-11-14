@@ -98,8 +98,9 @@ FinalScene.prototype.loop = function() {
             this.rainbow.draw(this.context);
         }
         
-        // update rain
-        this.rain.update(this.canvas);
+        // update rain at full or steadily decreasing percentage
+        const percentRaindrops = (this.flowerpot == null) ? 1 : 0;
+        this.rain.update(this.canvas, percentRaindrops);
         
         // draw rain
         this.rain.draw(this.context);

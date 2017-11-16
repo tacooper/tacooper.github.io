@@ -130,8 +130,8 @@ CollectionScene.prototype.loop = function() {
     
     if (this.gameTime >= 1000 &&
         this.sprites.length == 0) {
-        // enter final scene loop after all existing sprites are removed
-        var scene = new FinalScene(this.canvas, this.collector, this.rain);
+        // enter next scene loop after all existing sprites are removed
+        var scene = new RainbowScene(this.canvas, this.collector, this.rain);
         scene.loop();
     } else {
         // continue loop on next frame

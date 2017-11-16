@@ -1,5 +1,5 @@
 // constructor inheriting Scene class
-var FinalScene = function(canvas, collector, rain) {
+var RainbowScene = function(canvas, collector, rain) {
     Scene.call(this, canvas);
     
     // stop tracking mouse/touch position for moving collector
@@ -14,8 +14,8 @@ var FinalScene = function(canvas, collector, rain) {
     this.flowerpot = null;
     this.rainbow = null;
 }
-FinalScene.prototype = Object.create(Scene.prototype);
-FinalScene.prototype.constructor = FinalScene;
+RainbowScene.prototype = Object.create(Scene.prototype);
+RainbowScene.prototype.constructor = RainbowScene;
 
 // sprite update rates
 const COLLECTOR_CENTER_RATE = 2; //pixels per frame
@@ -25,7 +25,7 @@ const BACKGROUND_COLOR = "#" +
     decToHex(Math.round(0.5 * FINAL_BACKGROUND_INDEX), 2); //yellow
 
 // run loop every frame
-FinalScene.prototype.loop = function() {
+RainbowScene.prototype.loop = function() {
     // determine delta time and update previous frame time
     const currTime = Date.now();
     const deltaTime = currTime - this.frameTime;

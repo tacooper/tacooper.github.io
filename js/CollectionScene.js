@@ -4,7 +4,7 @@ var CollectionScene = function(canvas) {
     
     // set initial state
     this.frameTime = Date.now(); //msec
-    this.gameTime = 0; //msec elapsed
+    this.runTime = 0; //msec elapsed
     this.diamondTime = 500; //msec elapsed
     this.dirtTime = 0; //msec elapsed
     this.backgroundTime = 0; //msec elapsed
@@ -37,7 +37,7 @@ CollectionScene.prototype.loop = function() {
     if (loadedAllImages &&
         !skipFrame) {
         // update elapsed game time
-        this.gameTime += deltaTime;
+        this.runTime += deltaTime;
         
         // create collector sprite once
         if (!this.collector) {
@@ -45,10 +45,10 @@ CollectionScene.prototype.loop = function() {
         }
         
         // determine if time to change background color
-        const deltaBackground = (this.gameTime - this.backgroundTime);
-        if (this.gameTime >= BACKGROUND_DELAY &&
+        const deltaBackground = (this.runTime - this.backgroundTime);
+        if (this.runTime >= BACKGROUND_DELAY &&
             deltaBackground >= BACKGROUND_RATE) {
-            this.backgroundTime = this.gameTime;
+            this.backgroundTime = this.runTime;
             
             // stop creating sprites when reaching final background color
             ++this.backgroundIndex;
@@ -59,10 +59,10 @@ CollectionScene.prototype.loop = function() {
         }
         
         // determine if time to create dirt
-        const deltaDirt = (this.gameTime - this.dirtTime);
+        const deltaDirt = (this.runTime - this.dirtTime);
         if (!this.stopCreatingSprites &&
             deltaDirt >= DIRT_RATE) {
-            this.dirtTime = this.gameTime;
+            this.dirtTime = this.runTime;
             
             // create dirt sprite
             var dirt = new Dirt(this.canvas);
@@ -70,10 +70,10 @@ CollectionScene.prototype.loop = function() {
         }
         
         // determine if time to create diamond
-        const deltaDiamond = (this.gameTime - this.diamondTime);
+        const deltaDiamond = (this.runTime - this.diamondTime);
         if (!this.stopCreatingSprites &&
             deltaDiamond >= DIAMOND_RATE) {
-            this.diamondTime = this.gameTime;
+            this.diamondTime = this.runTime;
             
             // create diamond sprite
             var diamond = new Diamond(this.canvas, imgMap);
@@ -128,7 +128,7 @@ CollectionScene.prototype.loop = function() {
         }
     }
     
-    if (this.gameTime >= 1000 &&
+    if (this.runTime >= 1000 &&
         this.sprites.length == 0) {
         // enter next scene loop after all existing sprites are removed
         var scene = new RainbowScene(this.canvas, this.collector, this.rain);

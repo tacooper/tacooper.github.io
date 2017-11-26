@@ -61,6 +61,9 @@ Rain.prototype.update = function(canvas, percentRaindrops, increasing) {
             }
         }
     }, this);
+    
+    // check if rain has ended
+    return (this.raindrops.length == 0);
 }
 
 // initialize single raindrop at random position above top of canvas

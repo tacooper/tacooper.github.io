@@ -8,7 +8,6 @@ var RainbowScene = function(canvas, collector, rain) {
     
     // set initial state
     this.frameTime = Date.now(); //msec
-    this.gameTime = 0; //msec elapsed
     this.collector = collector;
     this.rain = rain;
     this.flowerpot = null;
@@ -17,7 +16,7 @@ var RainbowScene = function(canvas, collector, rain) {
 RainbowScene.prototype = Object.create(Scene.prototype);
 RainbowScene.prototype.constructor = RainbowScene;
 
-// sprite update rates
+// update rate and color
 const COLLECTOR_CENTER_RATE = 2; //pixels per frame
 const BACKGROUND_COLOR = "#" +
     decToHex(FINAL_BACKGROUND_INDEX, 2) +
@@ -33,10 +32,8 @@ RainbowScene.prototype.loop = function() {
         deltaTime >= MAX_FRAME);
     this.frameTime = currTime;
     
+    var readyForNextScene = false;
     if (!skipFrame) {
-        // update elapsed game time
-        this.gameTime += deltaTime;
-        
         // clear canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
@@ -77,8 +74,7 @@ RainbowScene.prototype.loop = function() {
             }
         } else if (this.flowerpot) {
             // update existing flowerpot sprite
-            const fullyDisplayed =
-                this.flowerpot.update(this.canvas);
+            const fullyDisplayed = this.flowerpot.update(this.canvas);
             
             // draw existing flowerpot sprite
             this.flowerpot.draw(this.context);
@@ -90,9 +86,10 @@ RainbowScene.prototype.loop = function() {
             }
         }
         
+        var rainbowFinal = false;
         if (this.rainbow) {
             // update existing rainbow sprite
-            this.rainbow.update(this.canvas);
+            rainbowFinal = this.rainbow.update(this.canvas);
             
             // draw existing rainbow sprite
             this.rainbow.draw(this.context);
@@ -100,12 +97,24 @@ RainbowScene.prototype.loop = function() {
         
         // update rain at full or steadily decreasing percentage
         const percentRaindrops = (this.flowerpot == null) ? 1 : 0;
-        this.rain.update(this.canvas, percentRaindrops, false);
+        const rainEnded = this.rain.update(this.canvas, percentRaindrops, false);
         
         // draw rain
         this.rain.draw(this.context);
+        
+        // check if rainbow and rain have finished updating
+        if (rainbowFinal &&
+            rainEnded) {
+            readyForNextScene = true;
+        }
     }
     
-    // continue loop on next frame
-    requestAnimationFrame(this.loop.bind(this));
+    if (readyForNextScene) {
+        // enter next scene loop when ready
+        var scene = new FlowerScene(this.canvas, this.flowerpot, this.rainbow);
+        scene.loop();
+    } else {
+        // continue loop on next frame
+        requestAnimationFrame(this.loop.bind(this));
+    }
 }

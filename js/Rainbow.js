@@ -23,8 +23,12 @@ Rainbow.prototype.draw = function(context) {
 
 // update state every frame
 Rainbow.prototype.update = function(canvas) {
-    // increase until reaching final opacity
-    if (this.opacity < 0.25) {
+    const finalOpacity = (this.opacity >= 0.3);
+    
+    // only increase until reaching final opacity
+    if (!finalOpacity) {
         this.opacity += this.OPACITY_RATE;
     }
+    
+    return finalOpacity;
 }

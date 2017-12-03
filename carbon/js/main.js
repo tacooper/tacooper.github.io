@@ -3,6 +3,7 @@ const IMG_NAMES = [
     "Collector",
     "Diamond",
     "Dirt",
+    "Flower",
     "Flowerpot",
     "Rainbow"
 ];

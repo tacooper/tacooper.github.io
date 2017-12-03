@@ -6,6 +6,7 @@ var FlowerScene = function(canvas, flowerpot, rainbow) {
     this.frameTime = Date.now(); //msec
     this.flowerpot = flowerpot;
     this.rainbow = rainbow;
+    this.flower = new Flower(canvas, this.flowerpot);
 }
 FlowerScene.prototype = Object.create(Scene.prototype);
 FlowerScene.prototype.constructor = FlowerScene;
@@ -30,10 +31,14 @@ FlowerScene.prototype.loop = function() {
         this.context.fillStyle = BACKGROUND_COLOR;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // draw existing flowerpot sprite
-        this.flowerpot.draw(this.context);
+        // update flower sprite
+        this.flower.update(this.canvas);
         
-        // draw existing rainbow sprite
+        // draw flower sprite
+        this.flower.draw(this.context);
+        
+        // draw flowerpot and rainbow sprites (not updated)
+        this.flowerpot.draw(this.context);
         this.rainbow.draw(this.context);
     }
     

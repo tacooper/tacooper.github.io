@@ -1,3 +1,4 @@
+// enum for relation of sprite to collector
 const Relation = {
     ABOVE: "above",
     INSIDE: "inside",

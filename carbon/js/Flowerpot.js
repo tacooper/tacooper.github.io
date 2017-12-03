@@ -7,6 +7,7 @@ var Flowerpot = function(canvas, collectorHeight, dirtPercent) {
     this.y = canvas.height - collectorHeight;
     this.Y_RATE = -2; //pixels per frame
     this.fillingHeight = this.img.height - (collectorHeight / 2);
+    this.enoughDirt = (dirtPercent > 0.5);
     this.sprites = [];
     
     this.createFillingSprites(canvas, dirtPercent);

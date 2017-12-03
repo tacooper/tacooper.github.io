@@ -3,6 +3,7 @@ var Flower = function(canvas, flowerpot) {
     Sprite.call(this, imgMap["Flower"]);
     
     // set initial state at bottom of canvas
+    this.enoughDirt = flowerpot.enoughDirt;
     this.flowerpotHeight = flowerpot.img.height;
     this.x = (canvas.width - this.img.width) / 2;
     this.y = canvas.height - this.flowerpotHeight - (this.img.height / 2);
@@ -13,9 +14,7 @@ Flower.prototype.constructor = Flower;
 
 // draw image every frame
 Flower.prototype.draw = function(context) {
-    context.save();
     context.drawImage(this.img, this.x, this.y);
-    context.restore();
 }
 
 // update state every frame
@@ -25,5 +24,7 @@ Flower.prototype.update = function(canvas) {
     // only translate until entire sprite is displayed on canvas
     if (this.y > finalY) {
         this.y += this.Y_RATE;
+    } else if (this.enoughDirt) {
+        //TODO: animate flower from sprite sheet
     }
 }

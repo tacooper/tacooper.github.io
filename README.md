@@ -1,3 +1,3 @@
 # Games
 
-https://tacooper.github.io/carbon
+[Carbon](https://tacooper.github.io/carbon.html)

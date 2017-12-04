@@ -1,13 +1,13 @@
 // constructor inheriting Sprite class
 var Flower = function(canvas, flowerpot) {
-    Sprite.call(this, imgMap["Flower"]);
+    Sprite.call(this, imgMap["StemSheet"]);
     
     // set initial state at bottom of canvas
     this.enoughDirt = flowerpot.enoughDirt;
     this.flowerpotHeight = flowerpot.img.height;
-    this.SUBIMAGE_WIDTH = 240;
+    this.SUBIMAGE_WIDTH = 100;
     this.x = (canvas.width - this.SUBIMAGE_WIDTH) / 2;
-    this.y = canvas.height - this.flowerpotHeight - (this.img.height / 2);
+    this.y = canvas.height - this.flowerpotHeight;
     this.Y_RATE = -1; //pixels per frame
     this.NUM_SUBIMAGES = 8;
     this.subimageIndex = 0;

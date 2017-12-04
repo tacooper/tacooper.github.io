@@ -3,9 +3,9 @@ const IMG_NAMES = [
     "Collector",
     "Diamond",
     "Dirt",
-    "Flower",
     "Flowerpot",
-    "Rainbow"
+    "Rainbow",
+    "StemSheet"
 ];
 
 // initialize global main parameters

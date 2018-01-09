@@ -1,5 +1,5 @@
 // constructor inheriting Sprite class
-var Flower = function(canvas, flowerpot) {
+var Stem = function(canvas, flowerpot) {
     Sprite.call(this, imgMap["StemSheet"]);
     
     // set initial state at bottom of canvas
@@ -14,11 +14,11 @@ var Flower = function(canvas, flowerpot) {
     this.FRAMES_PER_SUBIMAGE = 10;
     this.frameCount = 0;
 }
-Flower.prototype = Object.create(Sprite.prototype);
-Flower.prototype.constructor = Flower;
+Stem.prototype = Object.create(Sprite.prototype);
+Stem.prototype.constructor = Stem;
 
 // draw image every frame
-Flower.prototype.draw = function(context) {
+Stem.prototype.draw = function(context) {
     // only draw subimage at specified index
     const sourceX = (this.subimageIndex * this.SUBIMAGE_WIDTH);
     
@@ -28,7 +28,7 @@ Flower.prototype.draw = function(context) {
 }
 
 // update state every frame
-Flower.prototype.update = function(canvas) {
+Stem.prototype.update = function(canvas) {
     const finalY = (canvas.height - this.flowerpotHeight - this.img.height);
     
     // only translate until entire sprite is displayed on canvas
@@ -47,4 +47,11 @@ Flower.prototype.update = function(canvas) {
             this.frameCount = 0;
         }
     }
+}
+
+// replace stem with bud after animating all subimages
+Stem.prototype.createBud = function() {
+    return (this.enoughDirt &&
+        this.subimageIndex == (this.NUM_SUBIMAGES -1) &&
+        this.frameCount >= this.FRAMES_PER_SUBIMAGE);
 }

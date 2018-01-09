@@ -1,5 +1,6 @@
 // image names to load initially via URL
 const IMG_NAMES = [
+    "BudSheet",
     "Collector",
     "Diamond",
     "Dirt",

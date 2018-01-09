@@ -2,7 +2,7 @@
 var Rain = function(canvas) {
     // set initial state
     this.raindrops = [];
-    this.NUM_FULL_RAINDROPS = 1000;
+    this.NUM_FULL_RAINDROPS = 200;
 }
 
 // draw lines every frame

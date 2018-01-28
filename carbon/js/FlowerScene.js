@@ -8,6 +8,7 @@ var FlowerScene = function(canvas, flowerpot, rainbow) {
     this.rainbow = rainbow;
     this.stem = new Stem(canvas, this.flowerpot);
     this.bud = null;
+    this.flower = null;
 }
 FlowerScene.prototype = Object.create(Scene.prototype);
 FlowerScene.prototype.constructor = FlowerScene;
@@ -32,26 +33,43 @@ FlowerScene.prototype.loop = function() {
         this.context.fillStyle = BACKGROUND_COLOR;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
+        // handle stem phase of flower
         if (this.stem != null) {
             if (this.stem.createBud()) {
                 // replace stem with bud sprite
                 this.bud = new Bud(this.canvas, this.flowerpot);
                 this.stem = null;
             } else {
-                // update sprite in stem phase of flower
+                // update sprite in stem phase
                 this.stem.update(this.canvas);
                 
-                // draw sprite in stem phase of flower
+                // draw sprite in stem phase
                 this.stem.draw(this.context);
             }
         }
         
+        // handle bud phase of flower
         if (this.bud != null) {
-            // update sprite in bud phase of flower
-            this.bud.update(this.canvas);
+            if (this.bud.createFlower()) {
+                // replace bud with flower sprite
+                this.flower = new Flower(this.canvas, this.flowerpot);
+                this.bud = null;
+            } else {
+                // update sprite in bud phase
+                this.bud.update(this.canvas);
+                
+                // draw sprite in bud phase
+                this.bud.draw(this.context);
+            }
+        }
+        
+        // handle flower phase of flower
+        if (this.flower != null) {
+            // update sprite in flower phase
+            this.flower.update(this.canvas);
             
-            // draw sprite in bud phase of flower
-            this.bud.draw(this.context);
+            // draw sprite in flower phase
+            this.flower.draw(this.context);
         }
         
         // draw flowerpot and rainbow sprites (not updated)

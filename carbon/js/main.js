@@ -5,6 +5,7 @@ const IMG_NAMES = [
     "Diamond",
     "Dirt",
     "Flowerpot",
+    "FlowerSheet",
     "Rainbow",
     "StemSheet"
 ];

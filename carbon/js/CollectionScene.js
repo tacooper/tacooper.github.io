@@ -18,8 +18,8 @@ CollectionScene.prototype = Object.create(Scene.prototype);
 CollectionScene.prototype.constructor = CollectionScene;
 
 // background and sprite update rates
-const BACKGROUND_DELAY = 10000; //msec
-const BACKGROUND_RATE = 200; //msec per change
+const BACKGROUND_DELAY = 5000; //msec
+const BACKGROUND_RATE = 100; //msec per change
 const DIAMOND_RATE = 1000; //msec per create
 const DIRT_RATE = 500; //msec per create
 const FINAL_BACKGROUND_INDEX = 255; //color index

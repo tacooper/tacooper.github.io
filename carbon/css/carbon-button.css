@@ -1,0 +1,27 @@
+.carbonButton {
+    z-index: 2;
+    margin: 0;
+    position: absolute;
+    /* "top" is dynamically specified, based on canvas height */
+    left: 50%;
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+    cursor: pointer;
+    
+    border: 5px solid #336677;
+    border-radius: 5px;
+    color: #336677;
+    background-color: #77ccdd;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: bold 15px Helvetica, sans-serif;
+}
+
+.carbonButton:hover {
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background-color: #336677;
+    color: #77ccdd;
+}

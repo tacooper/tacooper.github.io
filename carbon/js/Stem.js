@@ -8,6 +8,7 @@ var Stem = function(canvas, flowerpot) {
     this.SUBIMAGE_WIDTH = 100;
     this.x = (canvas.width - this.SUBIMAGE_WIDTH) / 2;
     this.y = canvas.height - this.flowerpotHeight;
+    this.FINAL_Y = (canvas.height - this.flowerpotHeight - this.img.height);
     this.Y_RATE = -1; //pixels per frame
     this.NUM_SUBIMAGES = 8;
     this.subimageIndex = 0;
@@ -29,10 +30,8 @@ Stem.prototype.draw = function(context) {
 
 // update state every frame
 Stem.prototype.update = function(canvas) {
-    const finalY = (canvas.height - this.flowerpotHeight - this.img.height);
-    
     // only translate until entire sprite is displayed on canvas
-    if (this.y > finalY) {
+    if (this.y > this.FINAL_Y) {
         this.y += this.Y_RATE;
         
     // only animate subimages if flowerpot has enough dirt
@@ -49,9 +48,15 @@ Stem.prototype.update = function(canvas) {
     }
 }
 
-// replace stem with bud after animating all subimages
+// replace stem with bud after animating all subimages, if enough dirt
 Stem.prototype.createBud = function() {
     return (this.enoughDirt &&
         this.subimageIndex == (this.NUM_SUBIMAGES -1) &&
         this.frameCount >= this.FRAMES_PER_SUBIMAGE);
+}
+
+// create retry button after translating sprite, if not enough dirt
+Stem.prototype.createRetryButton = function() {
+    return (!this.enoughDirt &&
+        this.y <= this.FINAL_Y);
 }

@@ -9,6 +9,7 @@ var FlowerScene = function(canvas, flowerpot, rainbow) {
     this.stem = new Stem(canvas, this.flowerpot);
     this.bud = null;
     this.flower = null;
+    this.retryButton = null;
 }
 FlowerScene.prototype = Object.create(Scene.prototype);
 FlowerScene.prototype.constructor = FlowerScene;
@@ -40,6 +41,12 @@ FlowerScene.prototype.loop = function() {
                 this.bud = new Bud(this.canvas, this.flowerpot);
                 this.stem = null;
             } else {
+                // create retry button positioned above stem
+                if (!this.retryButton &&
+                    this.stem.createRetryButton()) {
+                    this.retryButton = new RetryButton(this.stem.FINAL_Y);
+                }
+                
                 // update sprite in stem phase
                 this.stem.update(this.canvas);
                 

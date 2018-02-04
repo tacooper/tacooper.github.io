@@ -14,11 +14,12 @@ var FinishButton = function(finalY) {
     finishButton.type = "button";
     finishButton.value = "Carbon";
     finishButton.style.top = (finalY - 50) + "px";
-    finishButton.onclick = redirectToStory;
+    finishButton.onclick = linkToStoryPage;
     document.body.appendChild(finishButton);
 }
 
-// redirect window to Carbon story page
-var redirectToStory = function() {
-    window.location.href = "Carbon.md";
+// link button to formatted Carbon story page
+var linkToStoryPage = function() {
+    window.location.href =
+        "https://github.com/tacooper/tacooper.github.io/blob/master/carbon/Carbon.md";
 }

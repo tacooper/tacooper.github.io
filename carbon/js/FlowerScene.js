@@ -10,6 +10,7 @@ var FlowerScene = function(canvas, flowerpot, rainbow) {
     this.bud = null;
     this.flower = null;
     this.retryButton = null;
+    this.finishButton = null;
 }
 FlowerScene.prototype = Object.create(Scene.prototype);
 FlowerScene.prototype.constructor = FlowerScene;
@@ -72,8 +73,14 @@ FlowerScene.prototype.loop = function() {
         
         // handle flower phase of flower
         if (this.flower != null) {
-            // update sprite in flower phase
-            this.flower.update(this.canvas);
+            // create finish button positioned above flower
+            if (!this.finishButton &&
+                this.flower.createFinishButton()) {
+                this.finishButton = new FinishButton(this.flower.y);
+            } else {
+                // update sprite in flower phase until button is created
+                this.flower.update(this.canvas);
+            }
             
             // draw sprite in flower phase
             this.flower.draw(this.context);

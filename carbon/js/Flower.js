@@ -41,3 +41,9 @@ Flower.prototype.update = function(canvas) {
         this.frameCount = 0;
     }
 }
+
+// create finish button after animating all subimages
+Flower.prototype.createFinishButton = function() {
+    return (this.subimageIndex >= (this.NUM_SUBIMAGES - 1) &&
+        this.frameCount >= this.FRAMES_PER_SUBIMAGE);
+}

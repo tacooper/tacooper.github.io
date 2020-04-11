@@ -2,3 +2,31 @@ body {
     /* set same color as "bg-dark" class */
     background: #343a40;
 }
+
+.btn-no-team {
+    border-color: black;
+    background-color: tan;
+    /* text color */
+    color: black;
+}
+
+.btn-blue-team {
+    border-color: black;
+    background-color: blue;
+    /* text color */
+    color: white;
+}
+
+.btn-red-team {
+    border-color: black;
+    background-color: red;
+    /* text color */
+    color: white;
+}
+
+.btn-black-assassin {
+    border-color: white;
+    background-color: black;
+    /* text color */
+    color: white;
+}

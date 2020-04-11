@@ -1,5 +1,15 @@
 const NUM_COLUMNS = 5;
 const NUM_ROWS = 5;
+const NUM_NO_TEAM = 7;
+const NUM_BLUE_TEAM = 9;
+const NUM_RED_TEAM = 8;
+
+const Team = {
+    NO_TEAM: 0,
+    BLUE_TEAM: 1,
+    RED_TEAM: 2,
+    BLACK_ASSASSIN: 3,
+}
 
 $(function () {
     // configure callback for clicking generate button
@@ -39,22 +49,67 @@ var onClickGenerateButton = function() {
             var $button = $("<button>");
             $button.attr("type", "button");
             $button.addClass("btn btn-light");
-            $button.text(aliasList[aliasIndex]);
+            $button.text(aliasList[aliasIndex].text);
             $button.attr("id", "alias-button-" + rowIndex + "-" + columnIndex);
+            $button.data("team", aliasList[aliasIndex].team);
+            $cell.append($button);
+
+            // configure callback for clicking each button
             $button.click(function() {
                 console.log("id: " + $(this).attr("id"));
+
+                // handle changing color for alias team
+                var team = $(this).data("team");
+                onClickAliasButton($(this), team);
             });
-            $cell.append($button);
         }
+    }
+}
+
+var onClickAliasButton = function($button, team) {
+    // clear existing color and disable button
+    $button.prop("disabled", true);
+    $button.removeClass("btn-light");
+
+    // set button color for alias team
+    if (team === Team.NO_TEAM) {
+        $button.addClass("btn-no-team");
+    } else if (team === Team.BLUE_TEAM) {
+        $button.addClass("btn-blue-team");
+    } else if (team === Team.RED_TEAM) {
+        $button.addClass("btn-red-team");
+    } else if (team === Team.BLACK_ASSASSIN) {
+        $button.addClass("btn-black-assassin");
+    } else {
+        // should not reach this case
+        $button.addClass("btn-light");
     }
 }
 
 var generateAliasList = function(gameId) {
     var aliasList = [];
 
+    // generate list of teams for aliases
+    var teamList = [];
+    for (var index = 0; index < NUM_NO_TEAM; ++index) {
+        teamList.push(Team.NO_TEAM);
+    }
+    for (var index = 0; index < NUM_BLUE_TEAM; ++index) {
+        teamList.push(Team.BLUE_TEAM);
+    }
+    for (var index = 0; index < NUM_RED_TEAM; ++index) {
+        teamList.push(Team.RED_TEAM);
+    }
+    teamList.push(Team.BLACK_ASSASSIN);
+
+    // determine alias text and team for each button
     for (var buttonIndex = 0; buttonIndex < (NUM_ROWS * NUM_COLUMNS); ++buttonIndex) {
-        // determine alias text for each button
-        aliasList.push("TEST " + buttonIndex);
+        var alias = {
+            text: "TEST " + buttonIndex,
+            team: teamList[buttonIndex],
+        };
+
+        aliasList.push(alias);
     }
 
     return aliasList;

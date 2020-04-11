@@ -21,15 +21,14 @@ var main = function() {
     var canvas = document.getElementById("mainCanvas");
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
-    var context = canvas.getContext("2d");
-    
+
     // start tracking mouse/touch position for moving collector
     canvas.addEventListener("mousemove", handleMouseMove, false);
     canvas.addEventListener("touchmove", handleTouchMove, false);
-    
+
     // load images into map
     imgMap = loadImages(IMG_NAMES);
-    
+
     // check if all images are loaded periodically (every 100 msec)
     var loadCheckInterval = setInterval(function() {
         if (Object.keys(imgMap).length == Object.keys(IMG_NAMES).length) {
@@ -37,7 +36,7 @@ var main = function() {
             loadedAllImages = true;
         }
     }, 100);
-    
+
     // enter collection scene loop after main setup
     // (waits until all images are loaded)
     var scene = new CollectionScene(canvas);

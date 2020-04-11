@@ -12,8 +12,6 @@ var onClickGenerateButton = function() {
     var $gameIdInput = $("#game-id-input");
     var gameId = $gameIdInput.val();
 
-    console.log("generate: " + gameId);
-
     // generate alias list from game ID
     var aliasList = generateAliasList(gameId);
 
@@ -44,8 +42,6 @@ var onClickGenerateButton = function() {
 
             // configure callback for clicking each button
             $button.click(function() {
-                console.log("id: " + $(this).attr("id"));
-
                 // handle changing color for alias team
                 var team = $(this).data("team");
                 onClickAliasButton($(this), team);
@@ -72,33 +68,4 @@ var onClickAliasButton = function($button, team) {
         // should not reach this case
         $button.addClass("btn-light");
     }
-}
-
-var generateAliasList = function(gameId) {
-    var aliasList = [];
-
-    // generate list of teams for aliases
-    var teamList = [];
-    for (var index = 0; index < NUM_NO_TEAM; ++index) {
-        teamList.push(Team.NO_TEAM);
-    }
-    for (var index = 0; index < NUM_BLUE_TEAM; ++index) {
-        teamList.push(Team.BLUE_TEAM);
-    }
-    for (var index = 0; index < NUM_RED_TEAM; ++index) {
-        teamList.push(Team.RED_TEAM);
-    }
-    teamList.push(Team.BLACK_ASSASSIN);
-
-    // determine alias text and team for each button
-    for (var buttonIndex = 0; buttonIndex < (NUM_ROWS * NUM_COLUMNS); ++buttonIndex) {
-        var alias = {
-            text: "TEST " + buttonIndex,
-            team: teamList[buttonIndex],
-        };
-
-        aliasList.push(alias);
-    }
-
-    return aliasList;
 }

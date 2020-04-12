@@ -56,7 +56,7 @@ var onClickGenerateButton = function() {
             // create and add each button to cell
             var $button = $("<button>");
             $button.attr("type", "button");
-            $button.addClass("btn btn-light");
+            $button.addClass("btn btn-light alias-button");
             $button.text(aliasList[aliasIndex].text);
             $button.attr("id", "alias-button-" + rowIndex + "-" + columnIndex);
             $button.data("team", aliasList[aliasIndex].team);

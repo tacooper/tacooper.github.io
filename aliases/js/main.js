@@ -1,9 +1,25 @@
 // run when page is ready
 $(function () {
-    // configure callback for clicking generate button
+    // configure callbacks for clicking buttons
     var $generateButton = $("#generate-button");
     $generateButton.click(function() {
         onClickGenerateButton();
+    });
+    var $playerButton = $("#player-button");
+    $playerButton.click(function() {
+        // un-highlight other button
+        $spymasterButton.removeClass("btn-primary");
+        $spymasterButton.addClass("btn-light");
+
+        onClickPlayerButton($(this));
+    });
+    var $spymasterButton = $("#spymaster-button");
+    $spymasterButton.click(function() {
+        // un-highlight other button
+        $playerButton.removeClass("btn-primary");
+        $playerButton.addClass("btn-light");
+
+        onClickSpymasterButton($(this));
     });
 
     // initialize team count inputs to zero
@@ -74,4 +90,16 @@ var onClickAliasButton = function($button, team) {
         // should not reach this case
         $button.addClass("btn-light");
     }
+}
+
+var onClickPlayerButton = function($button) {
+    // highlight this button
+    $button.removeClass("btn-light");
+    $button.addClass("btn-primary");
+}
+
+var onClickSpymasterButton = function($button) {
+    // highlight this button
+    $button.removeClass("btn-light");
+    $button.addClass("btn-primary");
 }

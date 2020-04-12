@@ -30,6 +30,10 @@ $(function () {
 });
 
 var onClickGenerateButton = function() {
+    // enforce highlighting player button if previously spymaster button
+    var $playerButton = $("#player-button");
+    $playerButton.click();
+
     // get game ID from input
     var $gameIdInput = $("#game-id-input");
     var gameId = $gameIdInput.val();
@@ -102,4 +106,12 @@ var onClickSpymasterButton = function($button) {
     // highlight this button
     $button.removeClass("btn-light");
     $button.addClass("btn-primary");
+
+    // click to reveal team for each alias button
+    for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
+        for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
+            var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
+            $button.click();
+        }
+    }
 }

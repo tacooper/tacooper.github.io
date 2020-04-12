@@ -3,6 +3,14 @@ body {
     background: #343a40;
 }
 
+#blue-team-input, #red-team-input {
+    text-align: center;
+}
+
+.team-input-row > * {
+    padding: 0px;
+}
+
 .btn-no-team {
     border-color: black;
     background-color: tan;

@@ -5,6 +5,12 @@ $(function () {
     $generateButton.click(function() {
         onClickGenerateButton();
     });
+
+    // initialize team count inputs to zero
+    var $blueTeamInput = $("#blue-team-input");
+    $blueTeamInput.val(0);
+    var $redTeamInput = $("#red-team-input");
+    $redTeamInput.val(0);
 });
 
 var onClickGenerateButton = function() {

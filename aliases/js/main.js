@@ -7,7 +7,7 @@ $(function () {
     });
     var $playerButton = $("#player-button");
     $playerButton.click(function() {
-        // un-highlight other button
+        // deselect other mode
         $spymasterButton.removeClass("btn-primary");
         $spymasterButton.addClass("btn-light");
 
@@ -15,7 +15,7 @@ $(function () {
     });
     var $spymasterButton = $("#spymaster-button");
     $spymasterButton.click(function() {
-        // un-highlight other button
+        // deselect other mode
         $playerButton.removeClass("btn-primary");
         $playerButton.addClass("btn-light");
 
@@ -30,7 +30,7 @@ $(function () {
 });
 
 var onClickGenerateButton = function() {
-    // enforce highlighting player button if previously spymaster button
+    // enforce selecting player mode if previously in spymaster mode
     var $playerButton = $("#player-button");
     $playerButton.click();
 
@@ -97,13 +97,13 @@ var onClickAliasButton = function($button, team) {
 }
 
 var onClickPlayerButton = function($button) {
-    // highlight this button
+    // select this button
     $button.removeClass("btn-light");
     $button.addClass("btn-primary");
 }
 
 var onClickSpymasterButton = function($button) {
-    // highlight this button
+    // select this button
     $button.removeClass("btn-light");
     $button.addClass("btn-primary");
 

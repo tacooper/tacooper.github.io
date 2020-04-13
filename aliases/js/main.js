@@ -22,7 +22,7 @@ $(function () {
         onClickSpymasterButton($(this));
     });
 
-    // initialize team count inputs to zero
+    // reset team count inputs to zero
     var $blueTeamInput = $("#blue-team-input");
     $blueTeamInput.val(0);
     var $redTeamInput = $("#red-team-input");
@@ -74,11 +74,16 @@ var onClickGenerateButton = function() {
             });
         }
     }
+
+    // set inputs for initial team counts
+    var $blueTeamInput = $("#blue-team-input");
+    $blueTeamInput.val(NUM_BLUE_TEAM);
+    var $redTeamInput = $("#red-team-input");
+    $redTeamInput.val(NUM_RED_TEAM);
 }
 
 var onClickAliasButton = function($button, team) {
-    // clear existing color and disable button
-    $button.prop("disabled", true);
+    // clear existing color
     $button.removeClass("btn-light");
 
     // set button color for alias team
@@ -86,14 +91,29 @@ var onClickAliasButton = function($button, team) {
         $button.addClass("btn-no-team");
     } else if (team === Team.BLUE_TEAM) {
         $button.addClass("btn-blue-team");
+
+        // decrease team count only when revealing blue alias
+        if (!$button.prop("disabled")) {
+            var $blueTeamInput = $("#blue-team-input");
+            $blueTeamInput.val($blueTeamInput.val() - 1);
+        }
     } else if (team === Team.RED_TEAM) {
         $button.addClass("btn-red-team");
+
+        // decrease team count only when revealing red alias
+        if (!$button.prop("disabled")) {
+            var $redTeamInput = $("#red-team-input");
+            $redTeamInput.val($redTeamInput.val() - 1);
+        }
     } else if (team === Team.BLACK_ASSASSIN) {
         $button.addClass("btn-black-assassin");
     } else {
         // should not reach this case
         $button.addClass("btn-light");
     }
+
+    // disable button
+    $button.prop("disabled", true);
 }
 
 var onClickPlayerButton = function($button) {

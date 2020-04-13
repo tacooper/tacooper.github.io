@@ -1,10 +1,19 @@
 // run when page is ready
 $(function () {
-    // configure callbacks for clicking buttons
+    // configure callback for clicking generate button
     var $generateButton = $("#generate-button");
     $generateButton.click(function() {
-        onClickGenerateButton();
+        // get game ID from input to store in player button
+        var $gameIdInput = $("#game-id-input");
+        var gameId = $gameIdInput.val();
+
+        // enforce selecting player mode if previously in spymaster mode
+        var $playerButton = $("#player-button");
+        $playerButton.data("game-id", gameId);
+        $playerButton.click();
     });
+
+    // configure callback for clicking player button
     var $playerButton = $("#player-button");
     $playerButton.click(function() {
         // deselect other mode
@@ -13,6 +22,8 @@ $(function () {
 
         onClickPlayerButton($(this));
     });
+
+    // configure callback for clicking spymaster button
     var $spymasterButton = $("#spymaster-button");
     $spymasterButton.click(function() {
         // deselect other mode
@@ -29,15 +40,7 @@ $(function () {
     $redTeamInput.val(0);
 });
 
-var onClickGenerateButton = function() {
-    // enforce selecting player mode if previously in spymaster mode
-    var $playerButton = $("#player-button");
-    $playerButton.click();
-
-    // get game ID from input
-    var $gameIdInput = $("#game-id-input");
-    var gameId = $gameIdInput.val();
-
+var onClickGenerateButton = function(gameId) {
     // generate alias list from game ID
     var aliasList = generateAliasList(gameId);
 
@@ -120,6 +123,10 @@ var onClickPlayerButton = function($button) {
     // select this button
     $button.removeClass("btn-light");
     $button.addClass("btn-primary");
+
+    // regenerate all alias buttons based on previously stored game ID
+    var gameId = $button.data("game-id");
+    onClickGenerateButton(gameId);
 }
 
 var onClickSpymasterButton = function($button) {

@@ -90,9 +90,9 @@ var onClickAliasButton = function($button, team) {
     $button.removeClass("btn-light");
 
     // set button color for alias team
-    if (team === Team.NO_TEAM) {
-        $button.addClass("btn-no-team");
-    } else if (team === Team.BLUE_TEAM) {
+    if (team === Team.NONE) {
+        $button.addClass("btn-none-team");
+    } else if (team === Team.BLUE) {
         $button.addClass("btn-blue-team");
 
         // only reveal alias if not already clicked
@@ -100,7 +100,7 @@ var onClickAliasButton = function($button, team) {
             var $blueTeamInput = $("#blue-team-input");
             revealAlias($blueTeamInput, team)
         }
-    } else if (team === Team.RED_TEAM) {
+    } else if (team === Team.RED) {
         $button.addClass("btn-red-team");
 
         // only reveal alias if not already clicked
@@ -108,8 +108,8 @@ var onClickAliasButton = function($button, team) {
             var $redTeamInput = $("#red-team-input");
             revealAlias($redTeamInput, team)
         }
-    } else if (team === Team.BLACK_ASSASSIN) {
-        $button.addClass("btn-black-assassin");
+    } else if (team === Team.ASSASSIN) {
+        $button.addClass("btn-assassin");
 
         // only end game if not already clicked
         if (!$button.prop("disabled")) {
@@ -163,11 +163,11 @@ var endGame = function(team) {
     var $endGameSpan = $("#end-game-span");
 
     // display message depending on revealed alias
-    if (team === Team.BLUE_TEAM) {
+    if (team === Team.BLUE) {
         $endGameSpan.text("Blue team wins!");
-    } else if (team === Team.RED_TEAM) {
+    } else if (team === Team.RED) {
         $endGameSpan.text("Red team wins!");
-    } else if (team === Team.BLACK_ASSASSIN) {
+    } else if (team === Team.ASSASSIN) {
         // TODO: display based on which team clicks
         $endGameSpan.text("Blue/Red team loses!");
     }

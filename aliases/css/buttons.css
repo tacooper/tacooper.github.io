@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.btn-no-team {
+.btn-none-team {
     border-color: black;
     background-color: tan;
     /* text color */
@@ -23,7 +23,7 @@
     color: white;
 }
 
-.btn-black-assassin {
+.btn-assassin {
     border-color: white;
     background-color: black;
     /* text color */

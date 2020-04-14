@@ -8,15 +8,15 @@ $(function () {
 
         // enforce selecting player mode if previously in spymaster mode
         var $playerButton = $("#player-button");
-        $playerButton.click();
+        selectButton($playerButton, true);
+        selectButton($spymasterButton, false);
     });
 
     // configure callback for clicking player button
     var $playerButton = $("#player-button");
     $playerButton.click(function() {
         // deselect other mode
-        $spymasterButton.removeClass("btn-primary");
-        $spymasterButton.addClass("btn-light");
+        selectButton($spymasterButton, false);
 
         onClickPlayerButton($(this));
     });
@@ -25,8 +25,7 @@ $(function () {
     var $spymasterButton = $("#spymaster-button");
     $spymasterButton.click(function() {
         // deselect other mode
-        $playerButton.removeClass("btn-primary");
-        $playerButton.addClass("btn-light");
+        selectButton($playerButton, false);
 
         onClickSpymasterButton($(this));
     });
@@ -107,8 +106,7 @@ var onClickAliasButton = function($button, team) {
 
 var onClickPlayerButton = function($button) {
     // select this button
-    $button.removeClass("btn-light");
-    $button.addClass("btn-primary");
+    selectButton($button, true);
 
     // initialize to hide team for each alias button
     for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
@@ -122,8 +120,7 @@ var onClickPlayerButton = function($button) {
 
 var onClickSpymasterButton = function($button) {
     // select this button
-    $button.removeClass("btn-light");
-    $button.addClass("btn-primary");
+    selectButton($button, true);
 
     // reveal team for each alias button
     for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {

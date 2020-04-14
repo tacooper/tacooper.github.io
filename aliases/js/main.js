@@ -68,6 +68,7 @@ var onClickGenerateButton = function() {
             $button.text(aliasList[aliasIndex].text);
             $button.attr("id", "alias-button-" + rowIndex + "-" + columnIndex);
             $button.data("team", aliasList[aliasIndex].team);
+            $button.data("revealed", false);
             $cell.append($button);
 
             // configure callback for clicking each button
@@ -90,6 +91,9 @@ var onClickAliasButton = function($button, team) {
     // set team color and disable button
     setButtonForTeam($button, team);
 
+    // mark button as revealed
+    $button.data("revealed", true);
+
     if (team === Team.BLUE) {
         // reveal alias for blue team
         var $blueTeamInput = $("#blue-team-input");
@@ -111,9 +115,13 @@ var onClickPlayerButton = function($button) {
     // initialize to hide team for each alias button
     for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
         for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
-            // reset team color and enable button
             var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-            initButton($button);
+
+            // only hide team for alias that hasn't already been revealed
+            if (!$button.data("revealed")) {
+                // reset team color and enable button
+                initButton($button);
+            }
         }
     }
 }

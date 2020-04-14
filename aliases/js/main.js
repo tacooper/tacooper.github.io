@@ -86,42 +86,21 @@ var onClickGenerateButton = function(gameId) {
 }
 
 var onClickAliasButton = function($button, team) {
-    // clear existing color
-    $button.removeClass("btn-light");
+    // set team color and disable button
+    setButtonForTeam($button, team);
 
-    // set button color for alias team
-    if (team === Team.NONE) {
-        $button.addClass("btn-none-team");
-    } else if (team === Team.BLUE) {
-        $button.addClass("btn-blue-team");
-
-        // only reveal alias if not already clicked
-        if (!$button.prop("disabled")) {
-            var $blueTeamInput = $("#blue-team-input");
-            revealAlias($blueTeamInput, team)
-        }
+    if (team === Team.BLUE) {
+        // reveal alias for blue team
+        var $blueTeamInput = $("#blue-team-input");
+        revealAlias($blueTeamInput, team)
     } else if (team === Team.RED) {
-        $button.addClass("btn-red-team");
-
-        // only reveal alias if not already clicked
-        if (!$button.prop("disabled")) {
-            var $redTeamInput = $("#red-team-input");
-            revealAlias($redTeamInput, team)
-        }
+        // reveal alias for red team
+        var $redTeamInput = $("#red-team-input");
+        revealAlias($redTeamInput, team)
     } else if (team === Team.ASSASSIN) {
-        $button.addClass("btn-assassin");
-
-        // only end game if not already clicked
-        if (!$button.prop("disabled")) {
-            endGame(team);
-        }
-    } else {
-        // should not reach this case
-        $button.addClass("btn-light");
+        // end game for assassin
+        endGame(team);
     }
-
-    // disable button
-    $button.prop("disabled", true);
 }
 
 var onClickPlayerButton = function($button) {

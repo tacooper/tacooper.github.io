@@ -3,13 +3,11 @@ $(function () {
     // configure callback for clicking generate button
     var $generateButton = $("#generate-button");
     $generateButton.click(function() {
-        // get game ID from input to store in player button
-        var $gameIdInput = $("#game-id-input");
-        var gameId = $gameIdInput.val();
+        // generate table with all alias buttons
+        onClickGenerateButton();
 
         // enforce selecting player mode if previously in spymaster mode
         var $playerButton = $("#player-button");
-        $playerButton.data("game-id", gameId);
         $playerButton.click();
     });
 
@@ -40,7 +38,11 @@ $(function () {
     $redTeamInput.val(0);
 });
 
-var onClickGenerateButton = function(gameId) {
+var onClickGenerateButton = function() {
+    // get game ID from input
+    var $gameIdInput = $("#game-id-input");
+    var gameId = $gameIdInput.val();
+
     // generate alias list from game ID
     var aliasList = generateAliasList(gameId);
 
@@ -108,9 +110,14 @@ var onClickPlayerButton = function($button) {
     $button.removeClass("btn-light");
     $button.addClass("btn-primary");
 
-    // regenerate all alias buttons based on previously stored game ID
-    var gameId = $button.data("game-id");
-    onClickGenerateButton(gameId);
+    // initialize to hide team for each alias button
+    for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
+        for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
+            // reset team color and enable button
+            var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
+            initButton($button);
+        }
+    }
 }
 
 var onClickSpymasterButton = function($button) {
@@ -118,11 +125,12 @@ var onClickSpymasterButton = function($button) {
     $button.removeClass("btn-light");
     $button.addClass("btn-primary");
 
-    // click to reveal team for each alias button
+    // reveal team for each alias button
     for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
         for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
+            // set team color and disable button
             var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-            $button.click();
+            setButtonForTeam($button, $button.data("team"));
         }
     }
 }

@@ -35,6 +35,7 @@
     </head>
     <body>
         <div class="container">
+            <!-- controls for generating aliases from game ID -->
             <div class="form-group">
                 <div class="d-flex p-3">
                     <div class="p-2 my-auto">
@@ -49,10 +50,12 @@
                 </div>
             </div>
 
+            <!-- table of aliases generated from game ID -->
             <table class="table table-borderless">
                 <tbody id="alias-table"></tbody>
             </table>
 
+            <!-- display remaining aliases for each team and controls for player/spymaster mode -->
             <div class="form-group d-flex p-3">
                 <div class="row">
                     <div class="col-3">
@@ -91,6 +94,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- message for end of game -->
+            <div>
+                <span class="text-light" id="end-game-span"></span>
             </div>
         </div>
     </body>

@@ -95,21 +95,26 @@ var onClickAliasButton = function($button, team) {
     } else if (team === Team.BLUE_TEAM) {
         $button.addClass("btn-blue-team");
 
-        // decrease team count only when revealing blue alias
+        // only reveal alias if not already clicked
         if (!$button.prop("disabled")) {
             var $blueTeamInput = $("#blue-team-input");
-            $blueTeamInput.val($blueTeamInput.val() - 1);
+            revealAlias($blueTeamInput, team)
         }
     } else if (team === Team.RED_TEAM) {
         $button.addClass("btn-red-team");
 
-        // decrease team count only when revealing red alias
+        // only reveal alias if not already clicked
         if (!$button.prop("disabled")) {
             var $redTeamInput = $("#red-team-input");
-            $redTeamInput.val($redTeamInput.val() - 1);
+            revealAlias($redTeamInput, team)
         }
     } else if (team === Team.BLACK_ASSASSIN) {
         $button.addClass("btn-black-assassin");
+
+        // only end game if not already clicked
+        if (!$button.prop("disabled")) {
+            endGame(team);
+        }
     } else {
         // should not reach this case
         $button.addClass("btn-light");
@@ -140,5 +145,30 @@ var onClickSpymasterButton = function($button) {
             var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
             $button.click();
         }
+    }
+}
+
+var revealAlias = function($input, team) {
+    // decrease team count when revealing alias
+    var finalCount = $input.val() - 1;
+    $input.val(finalCount);
+
+    // end game if final alias on team is revealed
+    if (finalCount === 0) {
+        endGame(team);
+    }
+}
+
+var endGame = function(team) {
+    var $endGameSpan = $("#end-game-span");
+
+    // display message depending on revealed alias
+    if (team === Team.BLUE_TEAM) {
+        $endGameSpan.text("Blue team wins!");
+    } else if (team === Team.RED_TEAM) {
+        $endGameSpan.text("Red team wins!");
+    } else if (team === Team.BLACK_ASSASSIN) {
+        // TODO: display based on which team clicks
+        $endGameSpan.text("Blue/Red team loses!");
     }
 }

@@ -61,7 +61,7 @@ var onClickGenerateButton = function() {
             var $cell = $("<td>");
             $row.append($cell);
 
-            // create and add each button to cell
+            // create and add each unrevealed button to cell
             var $button = $("<button>");
             $button.attr("type", "button");
             $button.addClass("btn btn-light alias-button");
@@ -88,11 +88,9 @@ var onClickGenerateButton = function() {
 }
 
 var onClickAliasButton = function($button, team) {
-    // set team color and disable button
-    setButtonForTeam($button, team);
-
-    // mark button as revealed
+    // set revealed team color and disable button
     $button.data("revealed", true);
+    setButtonForTeam($button);
 
     if (team === Team.BLUE) {
         // reveal alias for blue team
@@ -118,7 +116,8 @@ var onClickPlayerButton = function($button) {
             var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
 
             // only hide team for alias that hasn't already been revealed
-            if (!$button.data("revealed")) {
+            var revealed = $button.data("revealed");
+            if (!revealed) {
                 // reset team color and enable button
                 initButton($button);
             }
@@ -135,7 +134,7 @@ var onClickSpymasterButton = function($button) {
         for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
             // set team color and disable button
             var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-            setButtonForTeam($button, $button.data("team"));
+            setButtonForTeam($button);
         }
     }
 }

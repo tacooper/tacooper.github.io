@@ -11,43 +11,70 @@ var selectButton = function($button, select) {
 }
 
 var resetButton = function($button) {
-    // remove all existing colors
+    // remove all existing button and text colors
     $button.removeClass("btn-light");
+    $button.removeClass("btn-initial");
     $button.removeClass("btn-none-team");
     $button.removeClass("btn-blue-team");
     $button.removeClass("btn-red-team");
     $button.removeClass("btn-assassin");
+    $button.removeClass("btn-none-team-text");
+    $button.removeClass("btn-blue-team-text");
+    $button.removeClass("btn-red-team-text");
+    $button.removeClass("btn-assassin-text");
 }
 
 var initButton = function($button) {
-    // clear existing color
+    // clear existing colors
     resetButton($button);
 
-    // add color for initial state
-    $button.addClass("btn-light");
+    // add colors for initial state
+    $button.addClass("btn-light btn-initial");
 
     // enable clicking button
     $button.prop("disabled", false);
 }
 
-var setButtonForTeam = function($button, team) {
-    // clear existing color
+var setButtonForTeam = function($button) {
+    var team = $button.data("team");
+    var revealed = $button.data("revealed");
+
+    // clear existing colors
     resetButton($button);
 
-    // set button color for alias team
-    if (team === Team.NONE) {
-        $button.addClass("btn-none-team");
-    } else if (team === Team.BLUE) {
-        $button.addClass("btn-blue-team");
-    } else if (team === Team.RED) {
-        $button.addClass("btn-red-team");
-    } else if (team === Team.ASSASSIN) {
-        $button.addClass("btn-assassin");
-    } else {
-        // should not reach this case
-        $button.addClass("btn-light");
-    }
+    if (revealed) {
+        // set button color for revealed alias team
+        if (team === Team.NONE) {
+            $button.addClass("btn-none-team");
+        } else if (team === Team.BLUE) {
+            $button.addClass("btn-blue-team");
+        } else if (team === Team.RED) {
+            $button.addClass("btn-red-team");
+        } else if (team === Team.ASSASSIN) {
+            $button.addClass("btn-assassin");
+        } else {
+            // should not reach this case
+            $button.addClass("btn-light btn-initial");
+        }
 
-    // disable clicking button
-    $button.prop("disabled", true);
+        // disable clicking button
+        $button.prop("disabled", true);
+    } else {
+        // reset team color and enable button
+        initButton($button);
+
+        // set text color for unrevealed alias team
+        if (team === Team.NONE) {
+            $button.addClass("btn-none-team-text");
+        } else if (team === Team.BLUE) {
+            $button.addClass("btn-blue-team-text");
+        } else if (team === Team.RED) {
+            $button.addClass("btn-red-team-text");
+        } else if (team === Team.ASSASSIN) {
+            $button.addClass("btn-assassin-text");
+        } else {
+            // should not reach this case
+            $button.addClass("btn-light btn-initial");
+        }
+    }
 }

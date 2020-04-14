@@ -2,6 +2,13 @@
     width: 100%;
 }
 
+.btn-initial {
+    border-color: black;
+    font-weight: normal;
+    /* text color */
+    color: black;
+}
+
 .btn-none-team {
     border-color: black;
     background-color: tan;
@@ -28,4 +35,28 @@
     background-color: black;
     /* text color */
     color: white;
+}
+
+.btn-none-team-text {
+    font-weight: bold;
+    /* text color */
+    color: tan;
+}
+
+.btn-blue-team-text {
+    font-weight: bold;
+    /* text color */
+    color: blue;
+}
+
+.btn-red-team-text {
+    font-weight: bold;
+    /* text color */
+    color: red;
+}
+
+.btn-assassin-text {
+    font-weight: bold;
+    /* text color */
+    color: black;
 }

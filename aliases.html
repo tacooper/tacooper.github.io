@@ -33,15 +33,15 @@
     <body>
         <div class="container">
             <!-- controls for generating aliases from game ID -->
-            <div class="form-group">
-                <div class="d-flex p-3">
-                    <div class="p-2 my-auto">
-                        <span class="text-light">Game ID:</span>
+            <div class="form-group p-3">
+                <div class="row game-id-input-row">
+                    <div class="col-2 my-auto">
+                        <span class="text-light">Enter Game ID:</span>
                     </div>
-                    <div class="p-2">
+                    <div class="col-6">
                         <input type="text" class="form-control bg-dark text-light" id="game-id-input">
                     </div>
-                    <div class="p-2">
+                    <div class="col-3">
                         <button type="button" class="btn btn-warning" id="generate-button">Generate</button>
                     </div>
                 </div>
@@ -79,10 +79,10 @@
                     </div>
                     <div class="col-3">
                         <div class="row team-input-row">
-                            <div class="col-4 my-auto">
-                                <span class="text-light">Mode:</span>
+                            <div class="col-7 my-auto">
+                                <span class="text-light">Select Mode:</span>
                             </div>
-                            <div class="col-2">
+                            <div class="col-3">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" id="player-button">Player</button>
                                     <button type="button" class="btn btn-light" id="spymaster-button">Spymaster</button>

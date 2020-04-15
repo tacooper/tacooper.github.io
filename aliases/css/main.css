@@ -5,10 +5,16 @@ body {
 
 #blue-team-input, #red-team-input {
     text-align: center;
+    min-width: 40px;
 }
 
 .team-input-row > * {
     padding: 0px;
+}
+
+.game-id-input-row > * {
+    padding: 0px;
+    padding-right: 20px;
 }
 
 #end-game-button {

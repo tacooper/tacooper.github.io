@@ -171,11 +171,11 @@ var endGame = function(team) {
 
     // display message depending on revealed alias
     if (team === Team.BLUE) {
-        $endGameButton.text("Game over: blue team wins!");
+        $endGameButton.text("Game over: Blue team wins!");
     } else if (team === Team.RED) {
-        $endGameButton.text("Game over: red team wins!");
+        $endGameButton.text("Game over: Red team wins!");
     } else if (team === Team.ASSASSIN) {
-        $endGameButton.text("Game over: assassin found!");
+        $endGameButton.text("Game over: Assassin found!");
     }
 
     // disable clicking both mode buttons

@@ -40,23 +40,23 @@
 .btn-none-team-text {
     font-weight: bold;
     /* text color */
-    color: tan;
+    color: tan !important;
 }
 
 .btn-blue-team-text {
     font-weight: bold;
     /* text color */
-    color: blue;
+    color: blue !important;
 }
 
 .btn-red-team-text {
     font-weight: bold;
     /* text color */
-    color: red;
+    color: red !important;
 }
 
 .btn-assassin-text {
     font-weight: bold;
     /* text color */
-    color: black;
+    color: black !important;
 }

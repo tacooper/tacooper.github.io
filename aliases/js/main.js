@@ -84,6 +84,10 @@ var onClickGenerateButton = function() {
     $blueTeamInput.val(NUM_BLUE_TEAM);
     var $redTeamInput = $("#red-team-input");
     $redTeamInput.val(NUM_RED_TEAM);
+
+    // clear any message from previously ended game
+    var $endGameSpan = $("#end-game-span");
+    $endGameSpan.text("");
 }
 
 var onClickAliasButton = function($button, team) {

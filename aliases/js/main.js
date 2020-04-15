@@ -174,14 +174,14 @@ var endGame = function(team) {
         var $playerButton = $("#player-button");
         selectButton($playerButton, false);
         selectButton($spymasterButton, true);
+    }
 
-        // show team text color for each alias button
-        for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
-            for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
-                // force disabling button and set team text color for unrevealed aliases only
-                var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-                setButtonForTeam($button, true);
-            }
+    // show team text color for each alias button
+    for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
+        for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
+            // force disabling button and set team text color for unrevealed aliases only
+            var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
+            setButtonForTeam($button, true);
         }
     }
 }

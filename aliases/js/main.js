@@ -7,7 +7,6 @@ $(function () {
         onClickGenerateButton();
 
         // enforce selecting player mode if previously in spymaster mode
-        var $playerButton = $("#player-button");
         selectButton($playerButton, true);
         selectButton($spymasterButton, false);
     });
@@ -90,7 +89,7 @@ var onClickGenerateButton = function() {
 var onClickAliasButton = function($button, team) {
     // set revealed team color and disable button
     $button.data("revealed", true);
-    setButtonForTeam($button);
+    setButtonForTeam($button, false);
 
     if (team === Team.BLUE) {
         // reveal alias for blue team
@@ -129,12 +128,12 @@ var onClickSpymasterButton = function($button) {
     // select this button
     selectButton($button, true);
 
-    // reveal team for each alias button
+    // show team text color for each alias button
     for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
         for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
-            // set team color and disable button
+            // set team text color for unrevealed aliases only
             var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-            setButtonForTeam($button);
+            setButtonForTeam($button, false);
         }
     }
 }
@@ -161,5 +160,24 @@ var endGame = function(team) {
     } else if (team === Team.ASSASSIN) {
         // TODO: display based on which team clicks
         $endGameSpan.text("Blue/Red team loses!");
+    }
+
+    // determine if spymaster mode is not selected
+    var $spymasterButton = $("#spymaster-button");
+    var spymaster = $spymasterButton.hasClass("btn-primary");
+    if (!spymaster) {
+        // enforce selecting spymaster mode if previously in player mode
+        var $playerButton = $("#player-button");
+        selectButton($playerButton, false);
+        selectButton($spymasterButton, true);
+
+        // show team text color for each alias button
+        for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
+            for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
+                // force disabling button and set team text color for unrevealed aliases only
+                var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
+                setButtonForTeam($button, true);
+            }
+        }
     }
 }

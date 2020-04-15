@@ -35,7 +35,7 @@ var initButton = function($button) {
     $button.prop("disabled", false);
 }
 
-var setButtonForTeam = function($button) {
+var setButtonForTeam = function($button, forceDisable) {
     var team = $button.data("team");
     var revealed = $button.data("revealed");
 
@@ -75,6 +75,11 @@ var setButtonForTeam = function($button) {
         } else {
             // should not reach this case
             $button.addClass("btn-light btn-initial");
+        }
+
+        if (forceDisable) {
+            // disable clicking button
+            $button.prop("disabled", true);
         }
     }
 }

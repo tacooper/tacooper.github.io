@@ -10,3 +10,10 @@ body {
 .team-input-row > * {
     padding: 0px;
 }
+
+#end-game-button {
+    font-size: 400%;
+    /* prevent changing cursor and text color transition during hover */
+    cursor: default;
+    pointer-events: none;
+}

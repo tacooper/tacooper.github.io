@@ -13,6 +13,11 @@ $(function () {
         // enforce selecting player mode if previously in spymaster mode
         selectButton($playerButton, true);
         selectButton($spymasterButton, false);
+
+        // reset message from previously ended game
+        var $endGameButton = $("#end-game-button");
+        $endGameButton.text("");
+        resetButton($endGameButton);
     });
 
     // configure callback for clicking player button
@@ -92,10 +97,6 @@ var onClickGenerateButton = function() {
     $blueTeamInput.val(NUM_BLUE_TEAM);
     var $redTeamInput = $("#red-team-input");
     $redTeamInput.val(NUM_RED_TEAM);
-
-    // clear any message from previously ended game
-    var $endGameSpan = $("#end-game-span");
-    $endGameSpan.text("");
 }
 
 var onClickAliasButton = function($button, team) {
@@ -162,16 +163,19 @@ var revealAlias = function($input, team) {
 }
 
 var endGame = function(team) {
-    var $endGameSpan = $("#end-game-span");
+    // set team color depending on revealed alias
+    var $endGameButton = $("#end-game-button");
+    $endGameButton.data("team", team);
+    $endGameButton.data("revealed", true);
+    setButtonForTeam($endGameButton, false);
 
     // display message depending on revealed alias
     if (team === Team.BLUE) {
-        $endGameSpan.text("Blue team wins!");
+        $endGameButton.text("Game over: blue team wins!");
     } else if (team === Team.RED) {
-        $endGameSpan.text("Red team wins!");
+        $endGameButton.text("Game over: red team wins!");
     } else if (team === Team.ASSASSIN) {
-        // TODO: display based on which team clicks
-        $endGameSpan.text("Blue/Red team loses!");
+        $endGameButton.text("Game over: assassin found!");
     }
 
     // disable clicking both mode buttons

@@ -15,10 +15,13 @@ var generateAliasList = function(gameId) {
     }
     teamList.push(Team.ASSASSIN);
 
+    // select list of words for aliases
+    var wordList = WORD_LIST;
+
     // determine alias text and team for each button
     for (var buttonIndex = 0; buttonIndex < (NUM_ROWS * NUM_COLUMNS); ++buttonIndex) {
         var alias = {
-            text: "TEST " + buttonIndex,
+            text: wordList[buttonIndex],
             team: teamList[buttonIndex],
         };
 

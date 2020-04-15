@@ -1,3 +1,7 @@
+var disableButton = function($button, disable) {
+    $button.prop("disabled", disable);
+}
+
 var selectButton = function($button, select) {
     if (select) {
         // select this button
@@ -32,7 +36,7 @@ var initButton = function($button) {
     $button.addClass("btn-light btn-initial");
 
     // enable clicking button
-    $button.prop("disabled", false);
+    disableButton($button, false);
 }
 
 var setButtonForTeam = function($button, forceDisable) {
@@ -58,7 +62,7 @@ var setButtonForTeam = function($button, forceDisable) {
         }
 
         // disable clicking button
-        $button.prop("disabled", true);
+        disableButton($button, true);
     } else {
         // reset team color and enable button
         initButton($button);
@@ -79,7 +83,7 @@ var setButtonForTeam = function($button, forceDisable) {
 
         if (forceDisable) {
             // disable clicking button
-            $button.prop("disabled", true);
+            disableButton($button, true);
         }
     }
 }

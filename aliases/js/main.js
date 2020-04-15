@@ -6,6 +6,10 @@ $(function () {
         // generate table with all alias buttons
         onClickGenerateButton();
 
+        // enable clicking both mode buttons
+        disableButton($playerButton, false);
+        disableButton($spymasterButton, false);
+
         // enforce selecting player mode if previously in spymaster mode
         selectButton($playerButton, true);
         selectButton($spymasterButton, false);
@@ -28,6 +32,10 @@ $(function () {
 
         onClickSpymasterButton($(this));
     });
+
+    // disable clicking both mode buttons
+    disableButton($playerButton, true);
+    disableButton($spymasterButton, true);
 
     // reset team count inputs to zero
     var $blueTeamInput = $("#blue-team-input");
@@ -166,12 +174,16 @@ var endGame = function(team) {
         $endGameSpan.text("Blue/Red team loses!");
     }
 
-    // determine if spymaster mode is not selected
+    // disable clicking both mode buttons
+    var $playerButton = $("#player-button");
     var $spymasterButton = $("#spymaster-button");
+    disableButton($playerButton, true);
+    disableButton($spymasterButton, true);
+
+    // determine if spymaster mode is not selected
     var spymaster = $spymasterButton.hasClass("btn-primary");
     if (!spymaster) {
         // enforce selecting spymaster mode if previously in player mode
-        var $playerButton = $("#player-button");
         selectButton($playerButton, false);
         selectButton($spymasterButton, true);
     }

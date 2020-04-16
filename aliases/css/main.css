@@ -28,3 +28,13 @@ body {
     cursor: default;
     pointer-events: none;
 }
+
+#version-span {
+    display: flex;
+    justify-content: center;
+}
+
+footer > hr {
+    /* set same color as "text-light" class */
+    background: #f8f9fa;
+}

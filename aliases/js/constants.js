@@ -1,4 +1,7 @@
-// "Codenames" game rules
+// Aliases version number
+const VERSION_NUMBER = "0.1.0";
+
+// rules based on "Codenames" game
 const NUM_COLUMNS = 5;
 const NUM_ROWS = 5;
 const NUM_ALIASES = NUM_COLUMNS * NUM_ROWS;

@@ -1,5 +1,9 @@
 // run when page is ready
 $(function () {
+    // display version number
+    var $versionSpan = $("#version-span");
+    $versionSpan.text("Version: " + VERSION_NUMBER);
+
     // configure callback for clicking generate button
     var $generateButton = $("#generate-button");
     $generateButton.click(function() {

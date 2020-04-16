@@ -1,25 +1,35 @@
 var generateAliasList = function(gameId) {
     var aliasList = [];
 
-    // select sub-list of words for aliases
-    var wordList = WORD_LIST.slice(0, 25);
+    // generate MD5 hash from game ID and create seeded PRNG
+    var hash = SparkMD5.hash(gameId);
+    var seededGenerator = new Math.seedrandom(hash);
 
-    // determine alias text and unassigned team for each button
+    // build list of indices for unique words
+    var wordIndexList = [];
     for (var index = 0; index < NUM_ALIASES; ++index) {
+        // determine each random index for next unused word
+        var nextIndex;
+        do {
+            nextIndex = generateNext(seededGenerator, WORD_LIST.length);
+        } while(wordIndexList.indexOf(nextIndex) > 0);
+
+        // include random index in unique list
+        wordIndexList.push(nextIndex);
+    }
+
+    // determine unique alias text and unassigned team for each button
+    for (var index = 0; index < wordIndexList.length; ++index) {
         var alias = {
             team: Team.NONE,
-            text: wordList[index],
+            text: WORD_LIST[wordIndexList[index]],
         };
 
         aliasList.push(alias);
     }
 
-    // generate MD5 hash from game ID and create seeded PRNG
-    var hash = SparkMD5.hash(gameId);
-    var seededGenerator = new Math.seedrandom(hash);
-
     // assign single assassin team to random unassigned alias
-    var nextIndex = generateNext(seededGenerator, aliasList.length);
+    nextIndex = generateNext(seededGenerator, aliasList.length);
     aliasList[nextIndex].team = Team.ASSASSIN;
 
     // update list by assigning groups of both teams to random unassigned aliases

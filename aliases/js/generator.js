@@ -15,8 +15,8 @@ var generateAliasList = function(gameId) {
     }
     teamList.push(Team.ASSASSIN);
 
-    // select list of words for aliases
-    var wordList = WORD_LIST;
+    // select sub-list of words for aliases
+    var wordList = WORD_LIST.slice(0, 25);
 
     // determine alias text and team for each button
     for (var buttonIndex = 0; buttonIndex < (NUM_ROWS * NUM_COLUMNS); ++buttonIndex) {

@@ -3,6 +3,10 @@ $(function () {
     // configure callback for clicking generate button
     var $generateButton = $("#generate-button");
     $generateButton.click(function() {
+        // clear message before starting game
+        var $startGameSpan = $("#start-game-span");
+        $startGameSpan.empty();
+
         // generate table with all alias buttons
         onClickGenerateButton();
 

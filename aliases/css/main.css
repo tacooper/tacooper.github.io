@@ -17,6 +17,11 @@ body {
     padding-right: 20px;
 }
 
+#start-game-span {
+    font-size: 150%;
+    padding-left: 50px;
+}
+
 #end-game-button {
     font-size: 400%;
     /* prevent changing cursor and text color transition during hover */

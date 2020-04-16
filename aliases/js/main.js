@@ -82,7 +82,7 @@ var onClickGenerateButton = function() {
             $button.attr("type", "button");
             $button.addClass("btn btn-light alias-button");
             $button.text(aliasList[aliasIndex].text);
-            $button.attr("id", "alias-button-" + rowIndex + "-" + columnIndex);
+            $button.attr("id", "alias-button-" + aliasIndex);
             $button.data("team", aliasList[aliasIndex].team);
             $button.data("revealed", false);
             $cell.append($button);
@@ -127,16 +127,14 @@ var onClickPlayerButton = function($button) {
     selectButton($button, true);
 
     // initialize to hide team for each alias button
-    for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
-        for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
-            var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
+    for (var aliasIndex = 0; aliasIndex < NUM_ALIASES; ++aliasIndex) {
+        var $button = $("#alias-button-" + aliasIndex);
 
-            // only hide team for alias that hasn't already been revealed
-            var revealed = $button.data("revealed");
-            if (!revealed) {
-                // reset team color and enable button
-                initButton($button);
-            }
+        // only hide team for alias that hasn't already been revealed
+        var revealed = $button.data("revealed");
+        if (!revealed) {
+            // reset team color and enable button
+            initButton($button);
         }
     }
 }
@@ -146,12 +144,10 @@ var onClickSpymasterButton = function($button) {
     selectButton($button, true);
 
     // show team text color for each alias button
-    for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
-        for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
-            // set team text color for unrevealed aliases only
-            var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-            setButtonForTeam($button, false);
-        }
+    for (var aliasIndex = 0; aliasIndex < NUM_ALIASES; ++aliasIndex) {
+        // set team text color for unrevealed aliases only
+        var $button = $("#alias-button-" + aliasIndex);
+        setButtonForTeam($button, false);
     }
 }
 
@@ -197,11 +193,9 @@ var endGame = function(team) {
     }
 
     // show team text color for each alias button
-    for (var rowIndex = 0; rowIndex < NUM_ROWS; ++rowIndex) {
-        for (var columnIndex = 0; columnIndex < NUM_COLUMNS; ++columnIndex) {
-            // force disabling button and set team text color for unrevealed aliases only
-            var $button = $("#alias-button-" + rowIndex + "-" + columnIndex);
-            setButtonForTeam($button, true);
-        }
+    for (var aliasIndex = 0; aliasIndex < NUM_ALIASES; ++aliasIndex) {
+        // force disabling button and set team text color for unrevealed aliases only
+        var $button = $("#alias-button-" + aliasIndex);
+        setButtonForTeam($button, true);
     }
 }

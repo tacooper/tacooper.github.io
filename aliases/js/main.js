@@ -55,6 +55,14 @@ $(function () {
     $blueTeamInput.val(0);
     var $redTeamInput = $("#red-team-input");
     $redTeamInput.val(0);
+
+    // initialize style data for both turn buttons
+    var $blueTurnButton = $("#blue-turn-button");
+    $blueTurnButton.data("team", Team.BLUE);
+    $blueTurnButton.data("revealed", true);
+    var $redTurnButton = $("#red-turn-button");
+    $redTurnButton.data("team", Team.RED);
+    $redTurnButton.data("revealed", true);
 });
 
 var onClickGenerateButton = function() {
@@ -99,6 +107,9 @@ var onClickGenerateButton = function() {
             });
         }
     }
+
+    // initialize turn buttons for always starting new game with blue team
+    setTurnButtons(Team.BLUE);
 
     // set inputs for initial team counts
     var $blueTeamInput = $("#blue-team-input");
@@ -153,6 +164,23 @@ var onClickSpymasterButton = function($button) {
         var $button = $("#alias-button-" + aliasIndex);
         setButtonForTeam($button, false);
     }
+}
+
+var setTurnButtons = function(team) {
+    // determine which turn button to highlight based on team
+    var $offTurnButton;
+    var $onTurnButton;
+    if (team == Team.BLUE) {
+        $offTurnButton = $("#red-turn-button");
+        $onTurnButton = $("#blue-turn-button");
+    } else {
+        $offTurnButton = $("#blue-turn-button");
+        $onTurnButton = $("#red-turn-button");
+    }
+
+    // set revealed team color for turn button and reset other button
+    resetButton($offTurnButton);
+    setButtonForTeam($onTurnButton, false);
 }
 
 var revealAlias = function($input, team) {

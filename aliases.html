@@ -51,16 +51,16 @@
 
             <!-- message for start of first game -->
             <div id="start-game-span">
-                <span class="text-light">Enter unique game ID and generate new game of Aliases...</span>
+                <span class="text-light">Read the instructions below to start your first game of Aliases...</span>
             </div>
 
             <!-- table of aliases generated from game ID -->
             <table class="table table-borderless">
-                <tbody id="alias-table"></tbody>
+                <tbody id="alias-table">
             </table>
 
             <!-- display remaining aliases for each team and controls for player/spymaster mode -->
-            <div class="form-group d-flex p-3">
+            <div class="d-flex p-3">
                 <div class="row">
                     <div class="col-3">
                         <div class="row team-input-row">
@@ -100,16 +100,64 @@
                 </div>
             </div>
 
+            <!-- TODO: display team with current turn and add button for ending turn -->
+
             <!-- message for end of every game -->
-            <div>
+            <div class="p-4">
                 <button type="button" class="btn" id="end-game-button" disabled=""></button>
+            </div>
+
+            <!-- message with helpful instructions and info -->
+            <div class="card">
+                <div class="card-header bg-secondary" data-toggle="collapse" data-target="#collapse-instructions">
+                    <a class="text-light">Instructions</a>
+                </div>
+                <div id="collapse-instructions" class="collapse show">
+                    <div class="card-body bg-dark text-light">
+                        <ul>
+                            <li>Choose a unique "Game ID" to use, which must be verbally shared and entered by everyone
+                                in your group.</li>
+                            <li>Click the "Generate" button to create a grid of unique Alias cards based on the "Game
+                                ID". Verbally verify that everyone is starting with the same local game state.</li>
+                            <li>One chosen member of each team must select "Spymaster" mode to view the hidden colors
+                                associated with all cards. Everyone else must reamin in "Player" mode.</li>
+                            <li>Starting with the Blue team, the Spymaster verbally provides a clue word to the other
+                                team members.</li>
+                            <li>After verbally deciding which card to select, everyone on both teams must click that
+                                card to reveal the color.</li>
+                            <li>In accordance with the standard rules, teams alternate selecting cards using clues
+                                provided by the Spymaster. Everyone must click each card in sequence to locally maintain
+                                the latest game state.</li>
+                            <li>The game ends when either team reveals all of their cards first or the Assassin card is
+                                unintentionally revealed.</li>
+                            <li>To play another game, choose a new "Game ID" to share and generate another grid of
+                                Alias cards.</li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-secondary" data-toggle="collapse" data-target="#collapse-about">
+                    <a class="text-light">About</a>
+                </div>
+                <div id="collapse-about" class="collapse">
+                    <div class="card-body bg-dark text-light">
+                        This project is a front-end only variant of the popular "Codenames" board game. Therefore, no
+                        server is used to maintain a common game state between all players. Your verbal discussion
+                        effectively acts as the server to update everyone's local game state. Each player initially
+                        generates the same unique grid of Aliases based on the verbally shared "Game ID", but each card
+                        must be manually and independently clicked by everyone from that point forward. The current
+                        team's end of turn and any card selections should be easily synchronized during group
+                        discussion.
+                    </div>
+                </div>
             </div>
         </div>
     </body>
     <footer>
         <hr class="text-light">
         <div>
-            <span class="text-light" id="version-span"></span>
+            <span class="text-light" id="version-span">
         </div>
     </footer>
 </html>

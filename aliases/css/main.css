@@ -3,6 +3,10 @@ body {
     background: #343a40;
 }
 
+.card-header {
+    cursor: pointer;
+}
+
 #blue-team-input, #red-team-input {
     text-align: center;
     min-width: 40px;

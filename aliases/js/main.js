@@ -28,6 +28,13 @@ $(function () {
         resetButton($endGameButton);
     });
 
+    // configure callback for clicking end turn button
+    var $endTurnButton = $("#end-turn-button");
+    $endTurnButton.click(function() {
+        // end turn for either current team
+        toggleTurnButtons();
+    });
+
     // configure callback for clicking player button
     var $playerButton = $("#player-button");
     $playerButton.click(function() {
@@ -142,7 +149,7 @@ var onClickAliasButton = function($button) {
         endGame(team);
     } else {
         // end turn for either current team
-        toggleTurnButtons(team);
+        toggleTurnButtons();
     }
 }
 

@@ -99,11 +99,9 @@ var onClickGenerateButton = function() {
             $button.data("revealed", false);
             $cell.append($button);
 
-            // configure callback for clicking each button
+            // configure callback for clicking each alias button
             $button.click(function() {
-                // handle changing color for alias team
-                var team = $(this).data("team");
-                onClickAliasButton($(this), team);
+                onClickAliasButton($(this));
             });
         }
     }
@@ -118,7 +116,9 @@ var onClickGenerateButton = function() {
     $redTeamInput.val(NUM_RED_TEAM);
 }
 
-var onClickAliasButton = function($button, team) {
+var onClickAliasButton = function($button) {
+    var team = $button.data("team");
+
     // set revealed team color and disable button
     $button.data("revealed", true);
     setButtonForTeam($button, false);
@@ -126,14 +126,23 @@ var onClickAliasButton = function($button, team) {
     if (team === Team.BLUE) {
         // reveal alias for blue team
         var $blueTeamInput = $("#blue-team-input");
-        revealAlias($blueTeamInput, team)
+        revealAlias($blueTeamInput, team);
+
+        // set turn buttons for blue team
+        setTurnButtons(team);
     } else if (team === Team.RED) {
         // reveal alias for red team
         var $redTeamInput = $("#red-team-input");
-        revealAlias($redTeamInput, team)
+        revealAlias($redTeamInput, team);
+
+        // set turn buttons for red team
+        setTurnButtons(team);
     } else if (team === Team.ASSASSIN) {
         // end game for assassin
         endGame(team);
+    } else {
+        // end turn for either current team
+        toggleTurnButtons(team);
     }
 }
 
@@ -178,9 +187,26 @@ var setTurnButtons = function(team) {
         $onTurnButton = $("#red-turn-button");
     }
 
-    // set revealed team color for turn button and reset other button
+    // update current turn data for both turn buttons
+    $offTurnButton.data("current", false);
+    $onTurnButton.data("current", true);
+
+    // set revealed team color for next turn button and reset other button
     resetButton($offTurnButton);
     setButtonForTeam($onTurnButton, false);
+}
+
+var toggleTurnButtons = function() {
+    // determine which button indicates current team's turn
+    var $redTurnButton = $("#red-turn-button");
+    var currentRedTurn = $redTurnButton.data("current");
+    var nextTurnTeam = Team.RED;
+    if (currentRedTurn) {
+        nextTurnTeam = Team.BLUE;
+    }
+
+    // toggle turn buttons for next turn
+    setTurnButtons(nextTurnTeam);
 }
 
 var revealAlias = function($input, team) {

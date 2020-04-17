@@ -65,7 +65,8 @@
                     <div class="col-3">
                         <div class="row team-input-row">
                             <div class="col-6 my-auto">
-                                <span class="text-light">Blue Team:</span>
+                                <button type="button" class="btn btn-primary btn-no-click text-light"
+                                    id="blue-team-button" disabled="">Blue Team:</button>
                             </div>
                             <div class="col-2">
                                 <input type="text" class="form-control bg-dark text-light" id="blue-team-input"
@@ -76,7 +77,8 @@
                     <div class="col-3">
                         <div class="row team-input-row">
                             <div class="col-6 my-auto">
-                                <span class="text-light">Red Team:</span>
+                                <button type="button" class="btn btn-no-click text-light"
+                                    id="red-team-button" disabled="">Red Team:</button>
                             </div>
                             <div class="col-2">
                                 <input type="text" class="form-control bg-dark text-light" id="red-team-input"
@@ -100,11 +102,11 @@
                 </div>
             </div>
 
-            <!-- TODO: display team with current turn and add button for ending turn -->
+            <!-- TODO: add button for ending turn -->
 
             <!-- message for end of every game -->
             <div class="p-4">
-                <button type="button" class="btn" id="end-game-button" disabled=""></button>
+                <button type="button" class="btn btn-no-click" id="end-game-button" disabled=""></button>
             </div>
 
             <!-- message with helpful instructions and info -->
@@ -121,8 +123,10 @@
                                 ID". Verbally verify that everyone is starting with the same local game state.</li>
                             <li>One chosen member of each team must select "Spymaster" mode to view the hidden colors
                                 associated with all cards. Everyone else must reamin in "Player" mode.</li>
-                            <li>Starting with the Blue team, the Spymaster verbally provides a clue word to the other
-                                team members.</li>
+                            <li>The "Blue Team" and "Red Team" counters show the remaining unrevealed cards on each
+                                team.</li>
+                            <li>Always starting with the Blue team, the Spymaster verbally provides a clue word to the
+                                other team members.</li>
                             <li>After verbally deciding which card to select, everyone on both teams must click that
                                 card to reveal the color.</li>
                             <li>In accordance with the standard rules, teams alternate selecting cards using clues

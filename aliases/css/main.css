@@ -8,6 +8,7 @@ body {
 }
 
 #blue-team-input, #red-team-input {
+    margin-left: 10px;
     text-align: center;
     min-width: 40px;
 }
@@ -26,11 +27,15 @@ body {
     padding-left: 50px;
 }
 
-#end-game-button {
-    font-size: 400%;
+.btn-no-click {
+    opacity: 1 !important;
     /* prevent changing cursor and text color transition during hover */
     cursor: default;
     pointer-events: none;
+}
+
+#end-game-button {
+    font-size: 400%;
 }
 
 #version-span {

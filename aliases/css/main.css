@@ -28,7 +28,6 @@ body {
 }
 
 .btn-no-click {
-    opacity: 1 !important;
     /* prevent changing cursor and text color transition during hover */
     cursor: default;
     pointer-events: none;

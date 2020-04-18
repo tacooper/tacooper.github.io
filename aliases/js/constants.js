@@ -1,5 +1,5 @@
 // Aliases version number
-const VERSION_NUMBER = "1.0.0";
+const VERSION_NUMBER = "1.0.1";
 
 // rules based on "Codenames" game
 const NUM_COLUMNS = 5;

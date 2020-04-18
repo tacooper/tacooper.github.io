@@ -3,13 +3,8 @@
 }
 
 #blue-team-input, #red-team-input {
-    margin-left: 10px;
     text-align: center;
-    min-width: 40px;
-}
-
-.team-input-row > * {
-    padding: 0px;
+    width: 40px;
 }
 
 #start-game-span {

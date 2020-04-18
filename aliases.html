@@ -57,36 +57,24 @@
                 <tbody id="alias-table">
             </table>
 
-            <!-- display remaining aliases for each team and controls for player/spymaster mode -->
-            <div class="d-flex p-3">
-                <div class="row">
-                    <div class="col-3">
-                        <div class="row team-input-row">
-                            <div class="col-6 my-auto">
-                                <button type="button" class="btn btn-blue-team btn-no-click text-light"
-                                    id="blue-turn-button" disabled="">Blue Team:</button>
-                            </div>
-                            <div class="col-2">
-                                <input type="text" class="form-control bg-dark text-light" id="blue-team-input"
-                                    disabled="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row team-input-row">
-                            <div class="col-6 my-auto">
-                                <button type="button" class="btn btn-no-click text-light"
-                                    id="red-turn-button" disabled="">Red Team:</button>
-                            </div>
-                            <div class="col-2">
-                                <input type="text" class="form-control bg-dark text-light" id="red-team-input"
-                                    disabled="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-light" id="end-turn-button">End Turn</button>
-                    </div>
+            <!-- display remaining aliases for each team and controls for ending current turn -->
+            <div class="d-flex">
+                <div class="my-auto">
+                    <button type="button" class="btn btn-blue-team btn-no-click text-light" id="blue-turn-button"
+                        disabled="">Blue Team:</button>
+                </div>
+                <div class="p-3">
+                    <input type="text" class="form-control bg-dark text-light" id="blue-team-input" disabled="">
+                </div>
+                <div class="my-auto">
+                    <button type="button" class="btn btn-no-click text-light" id="red-turn-button"
+                        disabled="">Red Team:</button>
+                </div>
+                <div class="p-3">
+                    <input type="text" class="form-control bg-dark text-light" id="red-team-input" disabled="">
+                </div>
+                <div class="p-3">
+                    <button type="button" class="btn btn-light" id="end-turn-button">End Turn</button>
                 </div>
             </div>
 

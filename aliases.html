@@ -39,7 +39,7 @@
                 <div class="p-3 my-auto">
                     <span class="text-light">Enter Game ID:</span>
                 </div>
-                <div class="p-3 flex-grow-1">
+                <div class="p-3">
                     <input type="text" class="form-control bg-dark text-light" id="game-id-input">
                 </div>
                 <div class="p-3">
@@ -53,9 +53,11 @@
             </div>
 
             <!-- table of aliases generated from game ID -->
-            <table class="table table-borderless">
-                <tbody id="alias-table">
-            </table>
+            <div class="d-flex flex-wrap justify-content-center">
+                <table class="table table-borderless">
+                    <tbody id="alias-table">
+                </table>
+            </div>
 
             <!-- display remaining aliases for each team and controls for ending current turn -->
             <div class="d-flex flex-wrap justify-content-center">

@@ -12,11 +12,6 @@
     padding: 0px;
 }
 
-.game-id-input-row > * {
-    padding: 0px;
-    padding-right: 20px;
-}
-
 #start-game-span {
     font-size: 150%;
     padding-left: 50px;

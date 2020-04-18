@@ -1,5 +1,4 @@
 .alias-button {
-    /* use fixed widths to avoid revealing length of alias text */
     width: 150px;
 }
 

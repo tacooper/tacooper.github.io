@@ -1,8 +1,3 @@
-body {
-    /* set same color as "bg-dark" class */
-    background: #343a40;
-}
-
 .card-header {
     cursor: pointer;
 }
@@ -35,14 +30,4 @@ body {
 
 #end-game-button {
     font-size: 400%;
-}
-
-#version-span {
-    display: flex;
-    justify-content: center;
-}
-
-footer > hr {
-    /* set same color as "text-light" class */
-    background: #f8f9fa;
 }

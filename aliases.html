@@ -35,7 +35,7 @@
     <body class="bg-dark">
         <div class="container">
             <!-- controls for generating aliases from game ID -->
-            <div class="d-flex">
+            <div class="d-flex flex-wrap justify-content-center">
                 <div class="p-3 my-auto">
                     <span class="text-light">Enter Game ID:</span>
                 </div>
@@ -48,8 +48,8 @@
             </div>
 
             <!-- message for start of first game -->
-            <div class="d-flex justify-content-center p-5" id="start-game-span">
-                <span class="text-light">Read the instructions below to start your first game of Aliases...</span>
+            <div class="d-flex justify-content-center" id="start-game-span">
+                <span class="text-light p-5">Read the instructions below to start your first game of Aliases...</span>
             </div>
 
             <!-- table of aliases generated from game ID -->
@@ -58,7 +58,7 @@
             </table>
 
             <!-- display remaining aliases for each team and controls for ending current turn -->
-            <div class="d-flex">
+            <div class="d-flex flex-wrap justify-content-center">
                 <div class="my-auto">
                     <button type="button" class="btn btn-blue-team btn-no-click text-light" id="blue-turn-button"
                         disabled="">Blue Team:</button>
@@ -79,7 +79,7 @@
             </div>
 
             <!-- controls for selecting player/spymaster mode -->
-            <div class="d-flex">
+            <div class="d-flex flex-wrap justify-content-center">
                 <div class="p-3 my-auto">
                     <span class="text-light">Select Mode:</span>
                 </div>
@@ -90,7 +90,7 @@
             </div>
 
             <!-- message for end of every game -->
-            <div class="p-4">
+            <div class="d-flex justify-content-center p-4">
                 <button type="button" class="btn btn-no-click" id="end-game-button" disabled=""></button>
             </div>
 
@@ -145,7 +145,7 @@
     </body>
     <footer>
         <hr class="bg-light">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex flex-wrap justify-content-center">
             <div class="p-3">
                 <span class="text-light" id="version-span">
             </div>

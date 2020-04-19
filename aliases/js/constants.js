@@ -16,3 +16,7 @@ const Team = {
     RED: 2,
     ASSASSIN: 3,
 };
+
+// minimum pixel widths of page required to fit entire table of alias buttons
+const MIN_PAGE_WIDTH_100 = NUM_COLUMNS * (150 + 2 * 12);
+const MIN_PAGE_WIDTH_80 = 0.8 * MIN_PAGE_WIDTH_100;

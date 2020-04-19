@@ -1,5 +1,8 @@
 // run when page is ready
 $(function () {
+    // initialize scaling for generated table of aliases
+    scaleAliasTable();
+
     // display version number
     var $versionSpan = $("#version-span");
     $versionSpan.text("Version: " + VERSION_NUMBER);
@@ -71,6 +74,20 @@ $(function () {
     $redTurnButton.data("team", Team.RED);
     $redTurnButton.data("revealed", true);
 });
+
+var scaleAliasTable = function() {
+    var pageWidth = $(window).width();
+
+    // apply style for scaling table of aliases depending on page width
+    var $aliasTable = $("#alias-table");
+    if (pageWidth < MIN_PAGE_WIDTH_80) {
+        $aliasTable.css("transform", "scale(0.5)");
+    } else if (pageWidth < MIN_PAGE_WIDTH_100) {
+        $aliasTable.css("transform", "scale(0.8)");
+    } else {
+        $aliasTable.css("transform", "");
+    }
+}
 
 var onClickGenerateButton = function() {
     // get game ID from input

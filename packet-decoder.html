@@ -24,26 +24,30 @@
     <body class="bg-dark">
         <div class="container">
             <!-- controls for specifying packet schema -->
+            <div class="d-flex flex-wrap justify-content-center p-3">
+                <span class="text-light">Enter Packet Schema:</span>
+            </div>
             <div class="d-flex flex-wrap justify-content-center">
-                <div class="p-3 my-auto">
-                    <span class="text-light">Enter Packet Schema:</span>
-                </div>
-                <div class="p-3">
+                <!-- wrap in extra div to limit width of input -->
+                <div>
                     <input type="text" class="form-control bg-dark text-light" id="packet-schema-input">
                 </div>
             </div>
 
             <!-- controls for specifying raw packet -->
+            <div class="d-flex flex-wrap justify-content-center p-3">
+                <span class="text-light">Enter Raw Packet:</span>
+            </div>
             <div class="d-flex flex-wrap justify-content-center">
-                <div class="p-3 my-auto">
-                    <span class="text-light">Enter Raw Packet:</span>
-                </div>
-                <div class="p-3">
+                <!-- wrap in extra div to limit width of input -->
+                <div>
                     <input type="text" class="form-control bg-dark text-light" id="raw-packet-input">
                 </div>
-                <div class="p-3">
-                    <button type="button" class="btn btn-warning" id="decode-button">Decode</button>
-                </div>
+            </div>
+
+            <!-- controls for decoding raw packet -->
+            <div class="d-flex flex-wrap justify-content-center p-3">
+                <button type="button" class="btn btn-warning" id="decode-button">Decode</button>
             </div>
 
             <!-- message for operational status -->

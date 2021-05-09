@@ -13,11 +13,15 @@ $(function () {
 });
 
 var decodeRawPacket = function() {
+    // get packet schema from input
+    var $packetSchemaInput = $("#packet-schema-input");
+    var packetSchema = $packetSchemaInput.val();
+
     // get raw packet from input
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();
 
-    // TODO: handle decoding raw packet into schema sub-fields
+    // TODO: handle decoding raw packet into sub-fields according to packet schema
     updateStatusMessage("Error: Failed to parse raw packet!");
 }
 

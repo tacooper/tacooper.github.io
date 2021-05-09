@@ -23,6 +23,16 @@
     </head>
     <body class="bg-dark">
         <div class="container">
+            <!-- controls for specifying packet schema -->
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="p-3 my-auto">
+                    <span class="text-light">Enter Packet Schema:</span>
+                </div>
+                <div class="p-3">
+                    <input type="text" class="form-control bg-dark text-light" id="packet-schema-input">
+                </div>
+            </div>
+
             <!-- controls for specifying raw packet -->
             <div class="d-flex flex-wrap justify-content-center">
                 <div class="p-3 my-auto">
@@ -39,7 +49,7 @@
             <!-- message for operational status -->
             <div class="d-flex justify-content-center">
                 <span class="text-light p-3" id="status-message-span">
-                    Specify schema sub-fields and raw packet to decode...
+                    Specify packet schema and raw packet to decode...
                 </span>
             </div>
         </div>

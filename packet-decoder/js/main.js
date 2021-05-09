@@ -18,4 +18,10 @@ var decodeRawPacket = function() {
     var rawPacket = $rawPacketInput.val();
 
     // TODO: handle decoding raw packet into schema sub-fields
+    updateStatusMessage("Error: Failed to parse raw packet!");
+}
+
+var updateStatusMessage = function(message) {
+    var $statusMessageSpan = $("#status-message-span");
+    $statusMessageSpan.text(message);
 }

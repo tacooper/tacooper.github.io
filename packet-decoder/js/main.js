@@ -22,6 +22,11 @@ var decodeRawPacket = function() {
 }
 
 var updateStatusMessage = function(message) {
+    // generate current timestamp
+    var date = new Date();
+    var time = date.toLocaleTimeString("it-IT");
+
+    // display timestamp and status message
     var $statusMessageSpan = $("#status-message-span");
-    $statusMessageSpan.text(message);
+    $statusMessageSpan.text("[" + time + "] " + message);
 }

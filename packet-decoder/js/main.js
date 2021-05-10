@@ -21,6 +21,10 @@ $(function () {
 });
 
 var decodeRawPacket = function() {
+    // clear any previously decoded packet
+    var $decodedPacketSpan = $("#decoded-packet-span");
+    $decodedPacketSpan.empty();
+
     // get packet schema from input
     var $packetSchemaInput = $("#packet-schema-input");
     var packetSchema = $packetSchemaInput.val();
@@ -49,6 +53,12 @@ var decodeRawPacket = function() {
     }
 
     // TODO: handle decoding raw packet into sub-fields according to packet schema
+    var decodedPacket = "TODO";
+
+    // display decoded packet below successful status message
+    $decodedPacketSpan.text(decodedPacket);
+
+    return "Successfully decoded packet:";
 }
 
 var updateStatusMessage = function(message) {

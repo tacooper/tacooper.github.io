@@ -28,7 +28,7 @@ var decodeRawPacket = function() {
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();
 
-    // sanitize raw packet for hexidecimal bytes only
+    // sanitize raw packet for hexadecimal bytes only
     rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
     $rawPacketInput.val(rawPacket);
 

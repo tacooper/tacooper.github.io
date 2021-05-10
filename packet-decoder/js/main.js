@@ -8,7 +8,12 @@ $(function () {
     var $decodeButton = $("#decode-button");
     $decodeButton.click(function() {
         // decode raw packet according to packet schema
-        var message = decodeRawPacket();
+        var message;
+        try {
+            message = decodeRawPacket();
+        } catch (error) {
+            message = "Error: caught unexpected exception \"" + error + "\".";
+        }
 
         // display resulting status message
         updateStatusMessage(message);
@@ -35,12 +40,12 @@ var decodeRawPacket = function() {
     rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
     $rawPacketInput.val(rawPacket);
 
-    // check for empty inputs
+    // check for error due to any empty input
     if (packetSchema == "") {
-        return "Error: Failed to parse empty packet schema!";
+        return "Error: Failed to parse empty packet schema.";
     }
     if (rawPacket == "") {
-        return "Error: Failed to parse empty raw packet!";
+        return "Error: Failed to parse empty raw packet.";
     }
 
     // TODO: handle decoding raw packet into sub-fields according to packet schema

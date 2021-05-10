@@ -52,8 +52,12 @@ var decodeRawPacket = function() {
         return "Error: Failed to parse empty raw packet.";
     }
 
+    // converted hexadecimal bytes into binary string
+    var decimalValue = parseInt(rawPacket, 16);
+    var binaryValue = decimalValue.toString(2);
+
     // TODO: handle decoding raw packet into sub-fields according to packet schema
-    var decodedPacket = "TODO";
+    var decodedPacket = binaryValue;
 
     // display decoded packet below successful status message
     $decodedPacketSpan.text(decodedPacket);

@@ -56,8 +56,26 @@ var decodeRawPacket = function() {
     var decimalValue = parseInt(rawPacket, 16);
     var binaryValue = decimalValue.toString(2);
 
-    // TODO: handle decoding raw packet into sub-fields according to packet schema
+    // separate and convert sub-fields in packet schema
+    var schemaSubfields = packetSchema.split(',');
+    var schemaSubfields = schemaSubfields.map(function(subfield) {
+        return parseInt(subfield, 10);
+    });
+
     var decodedPacket = binaryValue;
+    var position = 0;
+    for (var index = 0; index < schemaSubfields.length; ++index) {
+        // increment position for each sub-field length
+        position += schemaSubfields[index];
+
+        // insert separator at position after each sub-field
+        decodedPacket = decodedPacket.substring(0, position) + SUBFIELD_SEPARATOR + decodedPacket.substring(position);
+
+        // increment position for each separator length
+        position += SUBFIELD_SEPARATOR.length;
+    }
+
+    // TODO: handle decoding sub-fields into hexadecimal format
 
     // display decoded packet below successful status message
     $decodedPacketSpan.text(decodedPacket);

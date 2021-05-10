@@ -28,6 +28,10 @@ var decodeRawPacket = function() {
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();
 
+    // sanitize raw packet for hexidecimal bytes only
+    rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
+    $rawPacketInput.val(rawPacket);
+
     // TODO: handle decoding raw packet into sub-fields according to packet schema
     updateStatusMessage("Error: Failed to parse raw packet!");
 }

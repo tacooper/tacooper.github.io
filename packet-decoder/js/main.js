@@ -17,6 +17,13 @@ var decodeRawPacket = function() {
     var $packetSchemaInput = $("#packet-schema-input");
     var packetSchema = $packetSchemaInput.val();
 
+    // sanitize packet schema for comma-separated decimal numbers only
+    packetSchema = packetSchema.replace(/[^0-9,]/g, '');
+    packetSchema = packetSchema.replace(/,+/g, ',');  // remove double comma sets
+    packetSchema = packetSchema.replace(/^,/, '');  // remove leading comma
+    packetSchema = packetSchema.replace(/,$/, '');  // remove trailing comma
+    $packetSchemaInput.val(packetSchema);
+
     // get raw packet from input
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();

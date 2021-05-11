@@ -106,8 +106,8 @@ var decodeRawPacket = function() {
     }
 
     // display decoded packet values below successful status message
-    $decodedPacketBinarySpan.text("[bin] " + binaryValue);
-    $decodedPacketHexSpan.text("[hex] " + hexValue);
+    $decodedPacketBinarySpan.text("(bin:) " + binaryValue);
+    $decodedPacketHexSpan.text("(hex:) " + hexValue);
 
     return "Successfully decoded packet into bit-fields:";
 }

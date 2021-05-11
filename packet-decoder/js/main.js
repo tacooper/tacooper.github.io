@@ -77,12 +77,32 @@ var decodeRawPacket = function() {
         position += SUBFIELD_SEPARATOR.length;
     }
 
-    // TODO: handle decoding sub-fields into hexadecimal format
-    var hexValue = "TODO";
+    // re-separate binary value into sub-fields
+    var binarySubfields = binaryValue.split(SUBFIELD_SEPARATOR);
+    var hexSubfields = binarySubfields.map(function(subfield) {
+        // skip empty sub-field value
+        if (subfield == "") {
+            return "";
+        }
+
+        // convert each sub-field value from binary to hex
+        var value = parseInt(subfield, 2);
+        return value.toString(16);
+    });
+
+    // combine hex values according to packet schema
+    var hexValue = "";
+    for (var index = 0; index < hexSubfields.length; ++index) {
+        // insert separator before each sub-field (excluding the first)
+        if (index > 0) {
+            hexValue += SUBFIELD_SEPARATOR;
+        }
+        hexValue += hexSubfields[index];
+    }
 
     // display decoded packet values below successful status message
-    $decodedPacketBinarySpan.text(binaryValue);
-    $decodedPacketHexSpan.text(hexValue);
+    $decodedPacketBinarySpan.text("[bin] " + binaryValue);
+    $decodedPacketHexSpan.text("[hex] " + hexValue);
 
     return "Successfully decoded packet:";
 }

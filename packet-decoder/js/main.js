@@ -42,8 +42,9 @@ var decodeRawPacket = function() {
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();
 
-    // sanitize raw packet for hexadecimal bytes only
+    // sanitize raw packet for lowercase hexadecimal bytes only
     rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
+    rawPacket = rawPacket.toLowerCase();
     $rawPacketInput.val(rawPacket);
 
     // check for error due to any empty input
@@ -97,6 +98,7 @@ var decodeRawPacket = function() {
         if (index > 0) {
             hexValue += SUBFIELD_SEPARATOR;
         }
+
         hexValue += hexSubfields[index];
     }
 

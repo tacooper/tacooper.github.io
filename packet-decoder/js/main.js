@@ -4,6 +4,9 @@ $(function () {
     var $versionSpan = $("#version-span");
     $versionSpan.text("Version: " + VERSION_NUMBER);
 
+    // initialize total bits in packet schema
+    updateSchemaTotal(0);
+
     // configure callback for clicking decode button
     var $decodeButton = $("#decode-button");
     $decodeButton.click(function() {
@@ -106,7 +109,13 @@ var decodeRawPacket = function() {
     $decodedPacketBinarySpan.text("[bin] " + binaryValue);
     $decodedPacketHexSpan.text("[hex] " + hexValue);
 
-    return "Successfully decoded packet:";
+    return "Successfully decoded packet into bit-fields:";
+}
+
+var updateSchemaTotal = function(total) {
+    // display total bits in packet schema
+    var $schemaTotalSpan = $("#packet-schema-total-span");
+    $schemaTotalSpan.text("(Total bits: " + total + ")");
 }
 
 var updateStatusMessage = function(message) {

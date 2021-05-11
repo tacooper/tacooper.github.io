@@ -21,9 +21,11 @@ $(function () {
 });
 
 var decodeRawPacket = function() {
-    // clear any previously decoded packet
-    var $decodedPacketSpan = $("#decoded-packet-span");
-    $decodedPacketSpan.empty();
+    // clear any previously decoded packet values
+    var $decodedPacketBinarySpan = $("#decoded-packet-binary-span");
+    $decodedPacketBinarySpan.empty();
+    var $decodedPacketHexSpan = $("#decoded-packet-hex-span");
+    $decodedPacketHexSpan.empty();
 
     // get packet schema from input
     var $packetSchemaInput = $("#packet-schema-input");
@@ -52,33 +54,35 @@ var decodeRawPacket = function() {
         return "Error: Failed to parse empty raw packet.";
     }
 
-    // converted hexadecimal bytes into binary string
-    var decimalValue = parseInt(rawPacket, 16);
-    var binaryValue = decimalValue.toString(2);
-
     // separate and convert sub-fields in packet schema
     var schemaSubfields = packetSchema.split(',');
     var schemaSubfields = schemaSubfields.map(function(subfield) {
         return parseInt(subfield, 10);
     });
 
-    var decodedPacket = binaryValue;
+    // converted hexadecimal bytes into binary string
+    var decimalValue = parseInt(rawPacket, 16);
+    var binaryValue = decimalValue.toString(2);
+
+    // decode binary value according to packet schema
     var position = 0;
     for (var index = 0; index < schemaSubfields.length; ++index) {
         // increment position for each sub-field length
         position += schemaSubfields[index];
 
         // insert separator at position after each sub-field
-        decodedPacket = decodedPacket.substring(0, position) + SUBFIELD_SEPARATOR + decodedPacket.substring(position);
+        binaryValue = binaryValue.substring(0, position) + SUBFIELD_SEPARATOR + binaryValue.substring(position);
 
         // increment position for each separator length
         position += SUBFIELD_SEPARATOR.length;
     }
 
     // TODO: handle decoding sub-fields into hexadecimal format
+    var hexValue = "TODO";
 
-    // display decoded packet below successful status message
-    $decodedPacketSpan.text(decodedPacket);
+    // display decoded packet values below successful status message
+    $decodedPacketBinarySpan.text(binaryValue);
+    $decodedPacketHexSpan.text(hexValue);
 
     return "Successfully decoded packet:";
 }

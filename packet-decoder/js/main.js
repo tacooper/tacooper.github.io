@@ -4,9 +4,6 @@ $(function () {
     var $versionSpan = $("#version-span");
     $versionSpan.text("Version: " + VERSION_NUMBER);
 
-    // initialize total bits in packet schema
-    updateSchemaTotal(0);
-
     // configure callback for clicking decode button
     var $decodeButton = $("#decode-button");
     $decodeButton.click(function() {
@@ -21,6 +18,34 @@ $(function () {
         // display resulting status message
         updateStatusMessage(message);
     });
+
+    // configure callback for changing packet schema input value
+    var $packetSchemaInput = $("#packet-schema-input");
+    $packetSchemaInput.change(function() {
+        // get packet schema from input and update with sanitized value
+        var packetSchema = sanitizePacketSchema($(this));
+        $packetSchemaInput.val(packetSchema);
+
+        // skip summing total bits for empty input
+        var totalBits = 0;
+        if (packetSchema != "") {
+            // separate and convert sub-fields in packet schema
+            var schemaSubfields = packetSchema.split(',');
+            schemaSubfields = schemaSubfields.map(function(subfield) {
+                return parseInt(subfield, 10);
+            });
+
+            // sum all bit sizes in array of sub-fields
+            var reducer = (accumulator, value) => accumulator + value;
+            totalBits = schemaSubfields.reduce(reducer);
+        }
+
+        // update total bits in packet schema
+        updateSchemaTotalBits(totalBits);
+    });
+
+    // initialize total bits in packet schema
+    $packetSchemaInput.change();
 });
 
 var decodeRawPacket = function() {
@@ -30,16 +55,9 @@ var decodeRawPacket = function() {
     var $decodedPacketHexSpan = $("#decoded-packet-hex-span");
     $decodedPacketHexSpan.empty();
 
-    // get packet schema from input
+    // get pre-sanitized packet schema from input
     var $packetSchemaInput = $("#packet-schema-input");
     var packetSchema = $packetSchemaInput.val();
-
-    // sanitize packet schema for comma-separated decimal numbers only
-    packetSchema = packetSchema.replace(/[^0-9,]/g, '');
-    packetSchema = packetSchema.replace(/,+/g, ',');  // remove double comma sets
-    packetSchema = packetSchema.replace(/^,/, '');  // remove leading comma
-    packetSchema = packetSchema.replace(/,$/, '');  // remove trailing comma
-    $packetSchemaInput.val(packetSchema);
 
     // get raw packet from input
     var $rawPacketInput = $("#raw-packet-input");
@@ -60,7 +78,7 @@ var decodeRawPacket = function() {
 
     // separate and convert sub-fields in packet schema
     var schemaSubfields = packetSchema.split(',');
-    var schemaSubfields = schemaSubfields.map(function(subfield) {
+    schemaSubfields = schemaSubfields.map(function(subfield) {
         return parseInt(subfield, 10);
     });
 
@@ -112,7 +130,19 @@ var decodeRawPacket = function() {
     return "Successfully decoded packet into bit-fields:";
 }
 
-var updateSchemaTotal = function(total) {
+var sanitizePacketSchema = function($packetSchemaInput) {
+    var packetSchema = $packetSchemaInput.val();
+
+    // sanitize packet schema for comma-separated decimal numbers only
+    packetSchema = packetSchema.replace(/[^0-9,]/g, '');
+    packetSchema = packetSchema.replace(/,+/g, ',');  // remove double comma sets
+    packetSchema = packetSchema.replace(/^,/, '');  // remove leading comma
+    packetSchema = packetSchema.replace(/,$/, '');  // remove trailing comma
+
+    return packetSchema;
+}
+
+var updateSchemaTotalBits = function(total) {
     // display total bits in packet schema
     var $schemaTotalSpan = $("#packet-schema-total-span");
     $schemaTotalSpan.text("(Total bits: " + total + ")");

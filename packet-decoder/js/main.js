@@ -22,29 +22,14 @@ $(function () {
     // configure callback for changing packet schema input value
     var $packetSchemaInput = $("#packet-schema-input");
     $packetSchemaInput.change(function() {
-        // get packet schema from input and update with sanitized value
-        var packetSchema = sanitizePacketSchema($(this));
-        $packetSchemaInput.val(packetSchema);
+        // determine total bits in sanitized packet schema
+        var totalBits = updatePacketSchemaInput($(this));
 
-        // skip summing total bits for empty input
-        var totalBits = 0;
-        if (packetSchema != "") {
-            // separate and convert sub-fields in packet schema
-            var schemaSubfields = packetSchema.split(',');
-            schemaSubfields = schemaSubfields.map(function(subfield) {
-                return parseInt(subfield, 10);
-            });
-
-            // sum all bit sizes in array of sub-fields
-            var reducer = (accumulator, value) => accumulator + value;
-            totalBits = schemaSubfields.reduce(reducer);
-        }
-
-        // update total bits in packet schema
+        // update total bits for packet schema
         updateSchemaTotalBits(totalBits);
     });
 
-    // initialize total bits in packet schema
+    // initialize total bits in sanitized packet schema
     $packetSchemaInput.change();
 });
 
@@ -130,16 +115,31 @@ var decodeRawPacket = function() {
     return "Successfully decoded packet into bit-fields:";
 }
 
-var sanitizePacketSchema = function($packetSchemaInput) {
-    var packetSchema = $packetSchemaInput.val();
-
+var updatePacketSchemaInput = function($packetSchemaInput) {
     // sanitize packet schema for comma-separated decimal numbers only
+    var packetSchema = $packetSchemaInput.val();
     packetSchema = packetSchema.replace(/[^0-9,]/g, '');
     packetSchema = packetSchema.replace(/,+/g, ',');  // remove double comma sets
     packetSchema = packetSchema.replace(/^,/, '');  // remove leading comma
     packetSchema = packetSchema.replace(/,$/, '');  // remove trailing comma
+    $packetSchemaInput.val(packetSchema);
 
-    return packetSchema;
+    // skip summing total bits for empty input
+    if (packetSchema == "") {
+        return 0;
+    }
+
+    // separate and convert sub-fields in packet schema
+    var schemaSubfields = packetSchema.split(',');
+    schemaSubfields = schemaSubfields.map(function(subfield) {
+        return parseInt(subfield, 10);
+    });
+
+    // sum all bit sizes in array of sub-fields
+    var reducer = (accumulator, value) => accumulator + value;
+    var totalBits = schemaSubfields.reduce(reducer);
+
+    return totalBits;
 }
 
 var updateSchemaTotalBits = function(total) {

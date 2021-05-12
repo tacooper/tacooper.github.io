@@ -127,7 +127,9 @@ var updatePacketSchemaInput = function($packetSchemaInput) {
     // sanitize packet schema for comma-separated decimal numbers only
     var packetSchema = $packetSchemaInput.val();
     packetSchema = packetSchema.replace(/[^0-9,]/g, '');
-    packetSchema = packetSchema.replace(/,+/g, ',');  // remove double comma sets
+    packetSchema = packetSchema.replace(/^0+/, '');  // remove leading zeros
+    packetSchema = packetSchema.replace(/,0+/g, ',');  // replace zeros following comma with single comma
+    packetSchema = packetSchema.replace(/,+/g, ',');  // replace repeating commas with single comma
     packetSchema = packetSchema.replace(/^,/, '');  // remove leading comma
     packetSchema = packetSchema.replace(/,$/, '');  // remove trailing comma
     $packetSchemaInput.val(packetSchema);

@@ -29,8 +29,21 @@ $(function () {
         updateSchemaTotalBits(totalBits);
     });
 
-    // initialize total bits in sanitized packet schema
+    // initialize sanitized packet schema and total bits
     $packetSchemaInput.change();
+
+    // configure callback for changing raw packet input value
+    var $rawPacketInput = $("#raw-packet-input");
+    $rawPacketInput.change(function() {
+        // sanitize raw packet for lowercase hexadecimal bytes only
+        var rawPacket = $(this).val();
+        rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
+        rawPacket = rawPacket.toLowerCase();
+        $(this).val(rawPacket);
+    });
+
+    // initialize sanitized raw packet
+    $rawPacketInput.change();
 });
 
 var decodeRawPacket = function() {
@@ -44,14 +57,9 @@ var decodeRawPacket = function() {
     var $packetSchemaInput = $("#packet-schema-input");
     var packetSchema = $packetSchemaInput.val();
 
-    // get raw packet from input
+    // get pre-sanitized raw packet from input
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();
-
-    // sanitize raw packet for lowercase hexadecimal bytes only
-    rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
-    rawPacket = rawPacket.toLowerCase();
-    $rawPacketInput.val(rawPacket);
 
     // check for error due to any empty input
     if (packetSchema == "") {

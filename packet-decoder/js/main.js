@@ -39,6 +39,10 @@ $(function () {
         var rawPacket = $(this).val();
         rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
         rawPacket = rawPacket.toLowerCase();
+        if (rawPacket == "") {
+            // allow empty raw packet
+            rawPacket = "0";
+        }
         $(this).val(rawPacket);
     });
 
@@ -60,11 +64,6 @@ var decodeRawPacket = function() {
     // get pre-sanitized raw packet from input
     var $rawPacketInput = $("#raw-packet-input");
     var rawPacket = $rawPacketInput.val();
-
-    // check for error due to any empty input
-    if (rawPacket == "") {
-        return "Error: Failed to parse empty raw packet.";
-    }
 
     // separate and convert sub-fields in packet schema
     var schemaSubfields = packetSchema.split(',');
@@ -115,11 +114,15 @@ var decodeRawPacket = function() {
             hexValue += SUBFIELD_SEPARATOR;
         }
 
+        // skip padding for empty sub-field value
+        if (hexSubfields[index] == "") {
+            continue;
+        }
+
         // insert padding to align separators with binary sub-fields
         var paddedLen = binarySubfields[index].length;
         hexValue += hexSubfields[index].padStart(paddedLen, ' ');
     }
-    hexValue = hexValue.trimEnd();
 
     // display decoded packet values below successful status message
     $decodedPacketBinarySpan.text("(bin:) " + binaryValue);

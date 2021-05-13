@@ -62,9 +62,6 @@ var decodeRawPacket = function() {
     var rawPacket = $rawPacketInput.val();
 
     // check for error due to any empty input
-    if (packetSchema == "") {
-        return "Error: Failed to parse empty packet schema.";
-    }
     if (rawPacket == "") {
         return "Error: Failed to parse empty raw packet.";
     }
@@ -74,6 +71,11 @@ var decodeRawPacket = function() {
     schemaSubfields = schemaSubfields.map(function(subfield) {
         return parseInt(subfield, 10);
     });
+
+    // clear sub-fields for empty packet schema
+    if (schemaSubfields[0] == 0) {
+        schemaSubfields = [];
+    }
 
     // converted hexadecimal bytes into binary string
     var decimalValue = parseInt(rawPacket, 16);
@@ -117,6 +119,7 @@ var decodeRawPacket = function() {
         var paddedLen = binarySubfields[index].length;
         hexValue += hexSubfields[index].padStart(paddedLen, ' ');
     }
+    hexValue = hexValue.trimEnd();
 
     // display decoded packet values below successful status message
     $decodedPacketBinarySpan.text("(bin:) " + binaryValue);
@@ -134,12 +137,11 @@ var updatePacketSchemaInput = function($packetSchemaInput) {
     packetSchema = packetSchema.replace(/,+/g, ',');  // replace repeating commas with single comma
     packetSchema = packetSchema.replace(/^,/, '');  // remove leading comma
     packetSchema = packetSchema.replace(/,$/, '');  // remove trailing comma
-    $packetSchemaInput.val(packetSchema);
-
-    // skip summing total bits for empty input
     if (packetSchema == "") {
-        return 0;
+        // allow empty packet schema
+        packetSchema = "0";
     }
+    $packetSchemaInput.val(packetSchema);
 
     // separate and convert sub-fields in packet schema
     var schemaSubfields = packetSchema.split(',');

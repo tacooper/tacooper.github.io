@@ -2,3 +2,7 @@
     font-family: monospace;
     font-size: 120%;
 }
+
+.show-spacing {
+    white-space: pre;
+}

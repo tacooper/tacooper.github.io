@@ -113,7 +113,9 @@ var decodeRawPacket = function() {
             hexValue += SUBFIELD_SEPARATOR;
         }
 
-        hexValue += hexSubfields[index];
+        // insert padding to align separators with binary sub-fields
+        var paddedLen = binarySubfields[index].length;
+        hexValue += hexSubfields[index].padStart(paddedLen, ' ');
     }
 
     // display decoded packet values below successful status message

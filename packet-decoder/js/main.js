@@ -76,12 +76,17 @@ var decodeRawPacket = function() {
         schemaSubfields = [];
     }
 
+    // count leading zeros to add extra padding for binary value
+    var matchedZeros = rawPacket.match(/^0+/);
+    var numLeadZeros = matchedZeros ? matchedZeros[0].length : 0;
+
     // converted hexadecimal bytes into binary string
     var decimalValue = parseInt(rawPacket, 16);
     var binaryValue = decimalValue.toString(2);
 
     // insert padding to align binary value with hex value (4 bits per hex character)
     var paddedLen = Math.ceil(binaryValue.length / 4) * 4;
+    paddedLen += (4 * numLeadZeros);
     binaryValue = binaryValue.padStart(paddedLen, '0');
 
     // decode binary value according to packet schema

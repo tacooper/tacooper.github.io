@@ -80,6 +80,10 @@ var decodeRawPacket = function() {
     var decimalValue = parseInt(rawPacket, 16);
     var binaryValue = decimalValue.toString(2);
 
+    // insert padding to align binary value with hex value (4 bits per hex character)
+    var paddedLen = Math.ceil(binaryValue.length / 4) * 4;
+    binaryValue = binaryValue.padStart(paddedLen, '0');
+
     // decode binary value according to packet schema
     var position = 0;
     for (var index = 0; index < schemaSubfields.length; ++index) {
@@ -120,7 +124,7 @@ var decodeRawPacket = function() {
         }
 
         // insert padding to align separators with binary sub-fields
-        var paddedLen = binarySubfields[index].length;
+        paddedLen = binarySubfields[index].length;
         hexValue += hexSubfields[index].padStart(paddedLen, ' ');
     }
 

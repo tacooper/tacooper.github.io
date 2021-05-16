@@ -80,8 +80,8 @@ var decodeRawPacket = function() {
     var matchedZeros = rawPacket.match(/^0+/);
     var numLeadZeros = matchedZeros ? matchedZeros[0].length : 0;
 
-    // converted hexadecimal bytes into binary string
-    var decimalValue = parseInt(rawPacket, 16);
+    // converted hexadecimal bytes into binary string (without max size limit)
+    var decimalValue = BigInt("0x" + rawPacket);
     var binaryValue = decimalValue.toString(2);
 
     // insert padding to align binary value with hex value (4 bits per hex character)

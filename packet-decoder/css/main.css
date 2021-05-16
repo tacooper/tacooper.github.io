@@ -3,6 +3,7 @@
     font-size: 120%;
 }
 
-.show-spacing {
-    white-space: pre;
+.display-result {
+    /* show spacing and wrap into multiple lines */
+    white-space: pre-wrap;
 }

@@ -1,9 +1,6 @@
-#decoded-packet-binary-span, #decoded-packet-hex-span {
+.display-result {
     font-family: monospace;
     font-size: 120%;
-}
-
-.display-result {
     /* preserve white-space sequences and include white-space when wrapping across lines */
     white-space: break-spaces;
 }

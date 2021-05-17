@@ -52,8 +52,8 @@ $(function () {
 
 var decodeRawPacket = function() {
     // clear any previously decoded packet values
-    var $decodedPacketBinarySpan = $("#decoded-packet-binary-span");
-    $decodedPacketBinarySpan.empty();
+    var $decodedPacketBinSpan = $("#decoded-packet-bin-span");
+    $decodedPacketBinSpan.empty();
     var $decodedPacketHexSpan = $("#decoded-packet-hex-span");
     $decodedPacketHexSpan.empty();
 
@@ -81,13 +81,13 @@ var decodeRawPacket = function() {
     var numLeadZeros = matchedZeros ? matchedZeros[0].length : 0;
 
     // converted hexadecimal bytes into binary string (without max size limit)
-    var decimalValue = BigInt("0x" + rawPacket);
-    var binaryValue = decimalValue.toString(2);
+    var decValue = BigInt("0x" + rawPacket);
+    var binValue = decValue.toString(2);
 
     // insert padding to align binary value with hex value (4 bits per hex character)
-    var paddedLen = Math.ceil(binaryValue.length / 4) * 4;
+    var paddedLen = Math.ceil(binValue.length / 4) * 4;
     paddedLen += (4 * numLeadZeros);
-    binaryValue = binaryValue.padStart(paddedLen, '0');
+    binValue = binValue.padStart(paddedLen, '0');
 
     // decode binary value according to packet schema
     var position = 0;
@@ -96,15 +96,15 @@ var decodeRawPacket = function() {
         position += schemaSubfields[index];
 
         // insert separator at position after each sub-field
-        binaryValue = binaryValue.substring(0, position) + SUBFIELD_SEPARATOR + binaryValue.substring(position);
+        binValue = binValue.substring(0, position) + SUBFIELD_SEPARATOR + binValue.substring(position);
 
         // increment position for each separator length
         position += SUBFIELD_SEPARATOR.length;
     }
 
     // re-separate binary value into sub-fields
-    var binarySubfields = binaryValue.split(SUBFIELD_SEPARATOR);
-    var hexSubfields = binarySubfields.map(function(subfield) {
+    var binSubfields = binValue.split(SUBFIELD_SEPARATOR);
+    var hexSubfields = binSubfields.map(function(subfield) {
         // skip empty sub-field value
         if (subfield == "") {
             return "";
@@ -129,13 +129,13 @@ var decodeRawPacket = function() {
         }
 
         // insert padding to align separators with binary sub-fields
-        paddedLen = binarySubfields[index].length;
+        paddedLen = binSubfields[index].length;
         hexValue += hexSubfields[index].padStart(paddedLen, ' ');
     }
 
     // display decoded packet values below successful status message
-    $decodedPacketBinarySpan.text("(bin:) " + binaryValue);
-    $decodedPacketHexSpan.text("(hex:) " + hexValue);
+    $decodedPacketBinSpan.text("(Bin:) " + binValue);
+    $decodedPacketHexSpan.text("(Hex:) " + hexValue);
 
     return "Successfully decoded packet into bit-fields:";
 }

@@ -2,18 +2,6 @@ var disableButton = function($button, disable) {
     $button.prop("disabled", disable);
 }
 
-var selectButton = function($button, select) {
-    if (select) {
-        // select this button
-        $button.removeClass("btn-light");
-        $button.addClass("btn-primary");
-    } else {
-        // deselect this button
-        $button.removeClass("btn-primary");
-        $button.addClass("btn-light");
-    }
-}
-
 var resetButton = function($button) {
     // remove all existing button and text colors
     $button.removeClass("btn-light");

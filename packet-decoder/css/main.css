@@ -4,6 +4,6 @@
 }
 
 .display-result {
-    /* show spacing and wrap into multiple lines */
-    white-space: pre-wrap;
+    /* preserve white-space sequences and include white-space when wrapping across lines */
+    white-space: break-spaces;
 }

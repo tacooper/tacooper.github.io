@@ -69,27 +69,6 @@ $(function () {
     $rawPacketInput.change();
 });
 
-var updateRawPacketInput = function($rawPacketInput) {
-    // determine if hex or binary format is selected
-    var $hexFormatButton = $("#hex-format-button");
-    var hexFormat = $hexFormatButton.hasClass("btn-primary");
-    if (hexFormat) {
-        var regexp = /[^0-9A-Fa-f]/g;
-    } else {
-        var regexp = /[^01]/g;
-    }
-
-    // sanitize raw packet based on regular expression for hex or binary format
-    var rawPacket = $rawPacketInput.val();
-    rawPacket = rawPacket.replace(regexp, '');
-    rawPacket = rawPacket.toLowerCase();
-    if (rawPacket == "") {
-        // allow empty raw packet
-        rawPacket = "0";
-    }
-    $rawPacketInput.val(rawPacket);
-}
-
 var decodeRawPacket = function() {
     // clear any previously decoded packet values
     var $decodedPacketBinSpan = $("#decoded-packet-bin-span");
@@ -220,6 +199,27 @@ var updateSchemaTotalBits = function(total) {
     // display total bits in packet schema
     var $schemaTotalSpan = $("#packet-schema-total-span");
     $schemaTotalSpan.text("(Total bits: " + total + ")");
+}
+
+var updateRawPacketInput = function($rawPacketInput) {
+    // determine if hex or binary format is selected
+    var $hexFormatButton = $("#hex-format-button");
+    var hexFormat = $hexFormatButton.hasClass("btn-primary");
+    if (hexFormat) {
+        var regexp = /[^0-9A-Fa-f]/g;
+    } else {
+        var regexp = /[^01]/g;
+    }
+
+    // sanitize raw packet based on regular expression for hex or binary format
+    var rawPacket = $rawPacketInput.val();
+    rawPacket = rawPacket.replace(regexp, '');
+    rawPacket = rawPacket.toLowerCase();
+    if (rawPacket == "") {
+        // allow empty raw packet
+        rawPacket = "0";
+    }
+    $rawPacketInput.val(rawPacket);
 }
 
 var updateStatusMessage = function(message) {

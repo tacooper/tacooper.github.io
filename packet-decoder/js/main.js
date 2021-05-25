@@ -4,6 +4,26 @@ $(function () {
     var $versionSpan = $("#version-span");
     $versionSpan.text("Version: " + VERSION_NUMBER);
 
+    // configure callback for clicking hexadecimal format button
+    var $hexFormatButton = $("#hex-format-button");
+    $hexFormatButton.click(function() {
+        // deselect other format button
+        selectButton($binFormatButton, false);
+
+        // select this button
+        selectButton($(this), true);
+    });
+
+    // configure callback for clicking binary format button
+    var $binFormatButton = $("#bin-format-button");
+    $binFormatButton.click(function() {
+        // deselect other format button
+        selectButton($hexFormatButton, false);
+
+        // select this button
+        selectButton($(this), true);
+    });
+
     // configure callback for clicking decode button
     var $decodeButton = $("#decode-button");
     $decodeButton.click(function() {

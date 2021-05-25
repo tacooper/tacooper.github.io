@@ -23,6 +23,7 @@
         <!-- JavaScript project files -->
         <script src="js/main.js"></script>
         <script src="js/constants.js"></script>
+        <script src="../common/buttons.js"></script>
     </head>
     <body class="bg-dark">
         <div class="container">
@@ -44,7 +45,9 @@
 
             <!-- controls for specifying raw packet -->
             <div class="d-flex flex-wrap justify-content-center p-3">
-                <span class="text-light">Enter raw packet, formatted as hexadecimal nibbles in big-endian order:</span>
+                <span class="text-light">
+                    Enter raw packet, using specified hexadecimal or binary format in big-endian order:
+                </span>
             </div>
             <div class="d-flex flex-wrap justify-content-center">
                 <!-- wrap in extra div to limit width of input -->
@@ -53,9 +56,15 @@
                 </div>
             </div>
 
-            <!-- controls for decoding raw packet -->
-            <div class="d-flex flex-wrap justify-content-center p-3">
-                <button type="button" class="btn btn-warning" id="decode-button">Decode</button>
+            <!-- controls for selecting format and decoding raw packet -->
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="p-3 btn-group">
+                    <button type="button" class="btn btn-primary" id="hex-format-button">Hex</button>
+                    <button type="button" class="btn btn-light" id="bin-format-button">Bin</button>
+                </div>
+                <div class="pt-3 pr-3">
+                    <button type="button" class="btn btn-warning" id="decode-button">Decode</button>
+                </div>
             </div>
         </div>
         <hr class="bg-light">

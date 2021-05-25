@@ -4,7 +4,7 @@ $(function () {
     var $versionSpan = $("#version-span");
     $versionSpan.text("Version: " + VERSION_NUMBER);
 
-    // configure callback for clicking hexadecimal format button
+    // configure callback for clicking hex format button
     var $hexFormatButton = $("#hex-format-button");
     $hexFormatButton.click(function() {
         // deselect other format button
@@ -55,7 +55,7 @@ $(function () {
     // configure callback for changing raw packet input value
     var $rawPacketInput = $("#raw-packet-input");
     $rawPacketInput.change(function() {
-        // sanitize raw packet for lowercase hexadecimal bytes only
+        // sanitize raw packet for lowercase hex bytes only
         var rawPacket = $(this).val();
         rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
         rawPacket = rawPacket.toLowerCase();
@@ -100,9 +100,17 @@ var decodeRawPacket = function() {
     var matchedZeros = rawPacket.match(/^0+/);
     var numLeadZeros = matchedZeros ? matchedZeros[0].length : 0;
 
-    // converted hexadecimal bytes into binary string (without max size limit)
-    var decValue = BigInt("0x" + rawPacket);
-    var binValue = decValue.toString(2);
+    // determine if hex or binary format is selected
+    var $hexFormatButton = $("#hex-format-button");
+    var hexFormat = $hexFormatButton.hasClass("btn-primary");
+    if (hexFormat) {
+        // convert hex bytes into binary string (without max size limit)
+        var decValue = BigInt("0x" + rawPacket);
+        var binValue = decValue.toString(2);
+    } else {
+        // get binary string from raw packet
+        var binValue = rawPacket;
+    }
 
     // insert padding to align binary value with hex value (4 bits per hex character)
     var paddedLen = Math.ceil(binValue.length / 4) * 4;

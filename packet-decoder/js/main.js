@@ -12,6 +12,9 @@ $(function () {
 
         // select this button
         selectButton($(this), true);
+
+        // force sanitizing raw packet for hex format
+        $rawPacketInput.change();
     });
 
     // configure callback for clicking binary format button
@@ -22,6 +25,9 @@ $(function () {
 
         // select this button
         selectButton($(this), true);
+
+        // force sanitizing raw packet for binary format
+        $rawPacketInput.change();
     });
 
     // configure callback for clicking decode button

@@ -55,20 +55,34 @@ $(function () {
     // configure callback for changing raw packet input value
     var $rawPacketInput = $("#raw-packet-input");
     $rawPacketInput.change(function() {
-        // sanitize raw packet for lowercase hex bytes only
-        var rawPacket = $(this).val();
-        rawPacket = rawPacket.replace(/[^0-9A-Fa-f]/g, '');
-        rawPacket = rawPacket.toLowerCase();
-        if (rawPacket == "") {
-            // allow empty raw packet
-            rawPacket = "0";
-        }
-        $(this).val(rawPacket);
+        // sanitize raw packet based on selected hex or binary format
+        updateRawPacketInput($(this));
     });
 
     // initialize sanitized raw packet
     $rawPacketInput.change();
 });
+
+var updateRawPacketInput = function($rawPacketInput) {
+    // determine if hex or binary format is selected
+    var $hexFormatButton = $("#hex-format-button");
+    var hexFormat = $hexFormatButton.hasClass("btn-primary");
+    if (hexFormat) {
+        var regexp = /[^0-9A-Fa-f]/g;
+    } else {
+        var regexp = /[^01]/g;
+    }
+
+    // sanitize raw packet based on regular expression for hex or binary format
+    var rawPacket = $rawPacketInput.val();
+    rawPacket = rawPacket.replace(regexp, '');
+    rawPacket = rawPacket.toLowerCase();
+    if (rawPacket == "") {
+        // allow empty raw packet
+        rawPacket = "0";
+    }
+    $rawPacketInput.val(rawPacket);
+}
 
 var decodeRawPacket = function() {
     // clear any previously decoded packet values

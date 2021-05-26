@@ -106,15 +106,20 @@ var decodeRawPacket = function() {
         // convert hex bytes into binary string (without max size limit)
         var decValue = BigInt("0x" + rawPacket);
         var binValue = decValue.toString(2);
+
+        // discount extra padding for leading zero at the LSb
+        if (binValue == "0") {
+            --numLeadZeros;
+        }
+
+        // insert padding to align binary value with hex value (4 bits per hex character)
+        var paddedLen = Math.ceil(binValue.length / 4) * 4;
+        paddedLen += (4 * numLeadZeros);
+        binValue = binValue.padStart(paddedLen, '0');
     } else {
         // get binary string from raw packet
         var binValue = rawPacket;
     }
-
-    // insert padding to align binary value with hex value (4 bits per hex character)
-    var paddedLen = Math.ceil(binValue.length / 4) * 4;
-    paddedLen += (4 * numLeadZeros);
-    binValue = binValue.padStart(paddedLen, '0');
 
     // decode binary value according to packet schema
     var position = 0;

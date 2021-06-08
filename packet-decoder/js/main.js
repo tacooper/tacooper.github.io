@@ -162,8 +162,9 @@ var decodeRawPacket = function() {
         }
 
         // insert padding to align separators with binary sub-fields
+        // (use no-break space character to align wrapping across new lines)
         paddedLen = binSubfields[index].length;
-        hexValue += hexSubfields[index].padStart(paddedLen, ' ');
+        hexValue += hexSubfields[index].padStart(paddedLen, '\u00A0');
     }
 
     // add separator at start of binary and hex values

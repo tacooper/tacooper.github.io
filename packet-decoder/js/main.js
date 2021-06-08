@@ -182,7 +182,7 @@ var decodeRawPacket = function() {
     $decodedPacketBinSpan.text("(Bin:) " + binValue);
     $decodedPacketHexSpan.text("(Hex:) " + hexValue);
 
-    return "Successfully decoded packet into bit-fields:";
+    return "Successfully decoded packet into bit-fields separated by []:";
 }
 
 var updatePacketSchemaInput = function($packetSchemaInput) {
@@ -247,5 +247,5 @@ var updateStatusMessage = function(message) {
 
     // display timestamp and status message
     var $statusMessageSpan = $("#status-message-span");
-    $statusMessageSpan.text("[" + time + "] " + message);
+    $statusMessageSpan.text("(" + time + ") " + message);
 }

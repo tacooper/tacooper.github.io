@@ -127,15 +127,16 @@ var decodeRawPacket = function() {
         // increment position for each sub-field length
         position += schemaSubfields[index];
 
-        // insert separator at position after each sub-field
-        binValue = binValue.substring(0, position) + SUBFIELD_SEPARATOR + binValue.substring(position);
+        // insert separators at position after each sub-field
+        binValue = binValue.substring(0, position) + SUBFIELD_END_SEPARATOR + SUBFIELD_START_SEPARATOR +
+            binValue.substring(position);
 
-        // increment position for each separator length
-        position += SUBFIELD_SEPARATOR.length;
+        // increment position for separators' lengths
+        position += SUBFIELD_END_SEPARATOR.length + SUBFIELD_START_SEPARATOR.length;
     }
 
     // re-separate binary value into sub-fields
-    var binSubfields = binValue.split(SUBFIELD_SEPARATOR);
+    var binSubfields = binValue.split(SUBFIELD_END_SEPARATOR + SUBFIELD_START_SEPARATOR);
     var hexSubfields = binSubfields.map(function(subfield) {
         // skip empty sub-field value
         if (subfield == "") {
@@ -152,7 +153,7 @@ var decodeRawPacket = function() {
     for (var index = 0; index < hexSubfields.length; ++index) {
         // insert separator before each sub-field (excluding the first)
         if (index > 0) {
-            hexValue += SUBFIELD_SEPARATOR;
+            hexValue += SUBFIELD_END_SEPARATOR + SUBFIELD_START_SEPARATOR;
         }
 
         // skip padding for empty sub-field value
@@ -163,6 +164,18 @@ var decodeRawPacket = function() {
         // insert padding to align separators with binary sub-fields
         paddedLen = binSubfields[index].length;
         hexValue += hexSubfields[index].padStart(paddedLen, ' ');
+    }
+
+    // add separator at start of binary and hex values
+    binValue = SUBFIELD_START_SEPARATOR + binValue;
+    hexValue = SUBFIELD_START_SEPARATOR + hexValue;
+
+    // remove any extra separator at end of binary and hex values
+    if (binValue.endsWith(SUBFIELD_START_SEPARATOR)) {
+        binValue = binValue.substring(0, binValue.length - SUBFIELD_START_SEPARATOR.length);
+    }
+    if (hexValue.endsWith(SUBFIELD_START_SEPARATOR)) {
+        hexValue = hexValue.substring(0, hexValue.length - SUBFIELD_START_SEPARATOR.length);
     }
 
     // display decoded packet values below successful status message

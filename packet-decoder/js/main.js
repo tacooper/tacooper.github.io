@@ -183,7 +183,7 @@ var decodeRawPacket = function() {
     $decodedPacketBinSpan.text("(Bin:) " + binValue);
     $decodedPacketHexSpan.text("(Hex:) " + hexValue);
 
-    return "Successfully decoded packet into bit-fields separated by []:";
+    return "Successfully decoded packet into bit-fields separated by [ ]:";
 }
 
 var updatePacketSchemaInput = function($packetSchemaInput) {

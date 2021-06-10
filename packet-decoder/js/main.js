@@ -55,9 +55,6 @@ $(function () {
         updateSchemaTotalBits(totalBits);
     });
 
-    // initialize sanitized packet schema and total bits
-    $packetSchemaInput.change();
-
     // configure callback for changing raw packet input value
     var $rawPacketInput = $("#raw-packet-input");
     $rawPacketInput.change(function() {
@@ -65,7 +62,17 @@ $(function () {
         updateRawPacketInput($(this));
     });
 
-    // initialize sanitized raw packet
+    // parse values from optional parameters in URL query string
+    var urlParams = window.location.search.substring(1).split('&');
+    var packetSchemaInputValue = parseUrlParam(urlParams, URL_PARAM_PACKET_SCHEMA);
+    var rawPacketInputValue = parseUrlParam(urlParams, URL_PARAM_RAW_PACKET);
+
+    // populate inputs with parsed values
+    $packetSchemaInput.val(packetSchemaInputValue);
+    $rawPacketInput.val(rawPacketInputValue);
+
+    // sanitize inputs for packet schema, total bits, and raw packet values
+    $packetSchemaInput.change();
     $rawPacketInput.change();
 });
 
@@ -249,4 +256,25 @@ var updateStatusMessage = function(message) {
     // display timestamp and status message
     var $statusMessageSpan = $("#status-message-span");
     $statusMessageSpan.text("(" + time + ") " + message);
+}
+
+var parseUrlParam = function(urlParams, targetParam) {
+    var paramValue = null;
+
+    for (var index = 0; index < urlParams.length; ++index) {
+        // separate each URL parameter into key and value pair
+        var param = urlParams[index].split('=');
+
+        // check for target URL parameter key
+        if (param[0] == targetParam) {
+            // decode URL parameter value if it exists
+            if (param[1]) {
+                paramValue = decodeURIComponent(param[1]);
+            }
+
+            break;
+        }
+    }
+
+    return paramValue;
 }

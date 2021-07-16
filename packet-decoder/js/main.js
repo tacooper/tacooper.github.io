@@ -64,16 +64,25 @@ $(function () {
 
     // parse values from optional parameters in URL query string
     var urlParams = window.location.search.substring(1).split('&');
+    var formatInputValue = parseUrlParam(urlParams, URL_PARAM_FORMAT);
     var packetSchemaInputValue = parseUrlParam(urlParams, URL_PARAM_PACKET_SCHEMA);
     var rawPacketInputValue = parseUrlParam(urlParams, URL_PARAM_RAW_PACKET);
 
     // populate inputs with parsed values
     $packetSchemaInput.val(packetSchemaInputValue);
     $rawPacketInput.val(rawPacketInputValue);
+    if (formatInputValue.toLowerCase() == "hex") {
+        $hexFormatButton.click();
+    } else if (formatInputValue.toLowerCase() == "bin") {
+        $binFormatButton.click();
+    } else {
+        // sanitize input for raw packet value
+        // (already included when populating any format button)
+        $rawPacketInput.change();
+    }
 
-    // sanitize inputs for packet schema, total bits, and raw packet values
+    // sanitize inputs for packet schema and total bits values
     $packetSchemaInput.change();
-    $rawPacketInput.change();
 });
 
 var decodeRawPacket = function() {
@@ -259,7 +268,7 @@ var updateStatusMessage = function(message) {
 }
 
 var parseUrlParam = function(urlParams, targetParam) {
-    var paramValue = null;
+    var paramValue = "";
 
     for (var index = 0; index < urlParams.length; ++index) {
         // separate each URL parameter into key and value pair

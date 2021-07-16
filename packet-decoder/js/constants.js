@@ -9,3 +9,7 @@ const SUBFIELD_END_SEPARATOR = " ]";
 const URL_PARAM_FORMAT = "format";
 const URL_PARAM_PACKET_SCHEMA = "packet_schema";
 const URL_PARAM_RAW_PACKET = "raw_packet";
+
+// options for format URL parameter value
+const OPTION_FORMAT_BIN = "bin";
+const OPTION_FORMAT_HEX = "hex";

@@ -71,9 +71,9 @@ $(function () {
     // populate inputs with parsed values
     $packetSchemaInput.val(packetSchemaInputValue);
     $rawPacketInput.val(rawPacketInputValue);
-    if (formatInputValue.toLowerCase() == "hex") {
+    if (formatInputValue.toLowerCase() == OPTION_FORMAT_HEX) {
         $hexFormatButton.click();
-    } else if (formatInputValue.toLowerCase() == "bin") {
+    } else if (formatInputValue.toLowerCase() == OPTION_FORMAT_BIN) {
         $binFormatButton.click();
     } else {
         // sanitize input for raw packet value
@@ -86,11 +86,13 @@ $(function () {
 });
 
 var decodeRawPacket = function() {
-    // clear any previously decoded packet values
+    // clear any previously populated values
     var $decodedPacketBinSpan = $("#decoded-packet-bin-span");
     $decodedPacketBinSpan.empty();
     var $decodedPacketHexSpan = $("#decoded-packet-hex-span");
     $decodedPacketHexSpan.empty();
+    var $generatedUrlSpan = $("#generated-url-span");
+    $generatedUrlSpan.empty();
 
     // get pre-sanitized packet schema from input
     var $packetSchemaInput = $("#packet-schema-input");
@@ -195,9 +197,18 @@ var decodeRawPacket = function() {
         hexValue = hexValue.substring(0, hexValue.length - SUBFIELD_START_SEPARATOR.length);
     }
 
-    // display decoded packet values below successful status message
+    // build link with URL params for decoded packet
+    var formatText = OPTION_FORMAT_BIN;
+    if (hexFormat) {
+        formatText = OPTION_FORMAT_HEX;
+    }
+    generatedUrl = "https://tacooper.github.io/packet-decoder.html?" + URL_PARAM_PACKET_SCHEMA + "=" + packetSchema +
+        "&" + URL_PARAM_RAW_PACKET + "=" + rawPacket + "&" + URL_PARAM_FORMAT + "=" + formatText;
+
+    // display decoded packet and generated URL values below successful status message
     $decodedPacketBinSpan.text("(Bin:) " + binValue);
     $decodedPacketHexSpan.text("(Hex:) " + hexValue);
+    $generatedUrlSpan.text("Link for decoded packet: " + generatedUrl);
 
     return "Successfully decoded packet into bit-fields separated by [ ]:";
 }

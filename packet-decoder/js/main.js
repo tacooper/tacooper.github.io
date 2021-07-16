@@ -197,10 +197,11 @@ var decodeRawPacket = function() {
         hexValue = hexValue.substring(0, hexValue.length - SUBFIELD_START_SEPARATOR.length);
     }
 
-    // build link with URL params for decoded packet
-    var formatText = OPTION_FORMAT_BIN;
+    // build copyable link with URL params for decoded packet
     if (hexFormat) {
-        formatText = OPTION_FORMAT_HEX;
+        var formatText = OPTION_FORMAT_HEX;
+    } else {
+        var formatText = OPTION_FORMAT_BIN;
     }
     generatedUrl = "https://tacooper.github.io/packet-decoder.html?" + URL_PARAM_PACKET_SCHEMA + "=" + packetSchema +
         "&" + URL_PARAM_RAW_PACKET + "=" + rawPacket + "&" + URL_PARAM_FORMAT + "=" + formatText;
@@ -208,7 +209,7 @@ var decodeRawPacket = function() {
     // display decoded packet and generated URL values below successful status message
     $decodedPacketBinSpan.text("(Bin:) " + binValue);
     $decodedPacketHexSpan.text("(Hex:) " + hexValue);
-    $generatedUrlSpan.text("Link for decoded packet: " + generatedUrl);
+    $generatedUrlSpan.html("<a href='" + generatedUrl + "'>Copy link for this decoded packet</a>");
 
     return "Successfully decoded packet into bit-fields separated by [ ]:";
 }
